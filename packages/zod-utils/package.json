@@ -1,0 +1,10 @@
+{
+  "name": "@repo/zod-utils",
+  "main": "index.ts",
+  "types": "index.ts",
+  "scripts": {},
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": ""
+}

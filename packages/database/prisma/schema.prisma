@@ -14,25 +14,26 @@ generator client {
 model User {
   id       String  @id @default(cuid())
   name     String?
-  email    String? @unique
-  password String?
+  email    String @unique
+  password String
   role     Role    @default(USER)
 }
 
 model Member {
   id         String  @id @default(cuid())
-  cnic       String? @unique
-  name       String?
+  cnic       String @unique
+  name       String
   profilePic String?
   cnicFront  String?
   cnicBack   String?
   fatherName String?
-  phone      String?
+  phone      String
   address    String?
-  email      String
+  city       String?
+  email      String?
   role       Role    @default(MEMBER)
 
-  @@index([cnic])
+  @@index([cnic,phone])
 }
 
 enum Role {

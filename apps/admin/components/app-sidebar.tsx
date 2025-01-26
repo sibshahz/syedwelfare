@@ -32,11 +32,11 @@ const data = {
       items: [
         {
           title: "Add Member",
-          url: "/dashboard/add-member",
+          url: "/dashboard/members/add",
         },
         {
           title: "Members List",
-          url: "/dashboard/members-list",
+          url: "/dashboard/members/list",
         }
       ],
     },

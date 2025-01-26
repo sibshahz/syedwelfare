@@ -1,0 +1,6 @@
+{
+  "editor.formatOnSave": true,
+  "editor.formatOnPaste": true,
+  "prettier.experimentalTernaries": true,
+  "vs-code-prettier-eslint.prettierLast": true
+}

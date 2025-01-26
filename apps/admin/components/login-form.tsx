@@ -45,7 +45,7 @@ export function LoginForm({
                     Forgot your password?
                   </a> */}
                 </div>
-                <Input id="password" type="password" required />
+                <Input id="password" type="password" required  placeholder="********" />
               </div>
               <Button type="submit" className="w-full">
                 Login
