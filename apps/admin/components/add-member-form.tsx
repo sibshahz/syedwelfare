@@ -14,12 +14,18 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import { createMember } from "@/lib/api/member";
 
 export function MemberForm() {
   const form = useForm<Member>({
     resolver: zodResolver(MemberSchema),
     defaultValues: {
       name: "",
+      cnic: "",
+      phone: "",
+      cnicBack: "",
+      cnicFront: "",
+      profilePic: "",
       address: "",
       city: "",
       role: "MEMBER",
@@ -39,8 +45,11 @@ export function MemberForm() {
   };
 }
 
- function onSubmit(values: Member) {
+async function onSubmit(values: Member) {
 console.log("Form values: ", values)
+
+const result=await createMember(values)
+console.log("RESULT: ", result)
 form.reset(); // Reset the form after successful submission
 
   // const formData = new FormData();
@@ -90,70 +99,7 @@ form.reset(); // Reset the form after successful submission
         onSubmit={form.handleSubmit(onSubmit)} // Attach the handler here
         className="space-y-8"
       >
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-          <FormField
-  control={form.control}
-  name="profilePic"
-  render={({ field }) => (
-    <FormItem>
-      <FormLabel>Profile Picture</FormLabel>
-      <FormControl>
-        
-      <Input 
-      disabled={false}
-      type="file" accept="image/*" capture
- onChange={handleFileChange(field.name, form.setValue)}
-      // {...field}
-      />
 
-      </FormControl>
-      <FormMessage />
-    </FormItem>
-  )}
-/>
-
-          <FormField
-  control={form.control}
-  name="cnicFront"
-  render={({ field }) => (
-    <FormItem>
-      <FormLabel>Front CNIC</FormLabel>
-      <FormControl>
-        
-      <Input 
-      disabled={false}
-      type="file" accept="image/*" capture
-      onChange={handleFileChange(field.name, form.setValue)}
-      // {...field}
-      />
-
-      </FormControl>
-      <FormMessage />
-    </FormItem>
-  )}
-/>
-
-          <FormField
-  control={form.control}
-  name="cnicBack"
-  render={({ field }) => (
-    <FormItem>
-      <FormLabel>Back CNIC</FormLabel>
-      <FormControl>
-        
-      <Input 
-      disabled={false}
-      type="file" accept="image/*" capture
-      onChange={handleFileChange(field.name, form.setValue)}
-      // {...field}
-      />
-
-      </FormControl>
-      <FormMessage />
-    </FormItem>
-  )}
-/>
-        </div>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         <FormField
           control={form.control}
@@ -281,6 +227,70 @@ form.reset(); // Reset the form after successful submission
   )}
 />
 </div>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+          <FormField
+  control={form.control}
+  name="profilePic"
+  render={({ field }) => (
+    <FormItem>
+      <FormLabel>Profile Picture</FormLabel>
+      <FormControl>
+        
+      <Input 
+      disabled={false}
+      type="file" accept="image/*"
+ onChange={handleFileChange(field.name, form.setValue)}
+      // {...field}
+      />
+
+      </FormControl>
+      <FormMessage />
+    </FormItem>
+  )}
+/>
+
+          <FormField
+  control={form.control}
+  name="cnicFront"
+  render={({ field }) => (
+    <FormItem>
+      <FormLabel>CNIC front picture</FormLabel>
+      <FormControl>
+        
+      <Input 
+      disabled={false}
+      type="file" accept="image/*"
+      onChange={handleFileChange(field.name, form.setValue)}
+      // {...field}
+      />
+
+      </FormControl>
+      <FormMessage />
+    </FormItem>
+  )}
+/>
+
+          <FormField
+  control={form.control}
+  name="cnicBack"
+  render={({ field }) => (
+    <FormItem>
+      <FormLabel>CNIC back picture</FormLabel>
+      <FormControl>
+        
+      <Input 
+      disabled={false}
+      type="file" accept="image/*"
+      onChange={handleFileChange(field.name, form.setValue)}
+      // {...field}
+      />
+
+      </FormControl>
+      <FormMessage />
+    </FormItem>
+  )}
+/>
+        </div>
         <Button type="submit">Submit</Button> {/* Leave type as submit */}
       </form>
     </Form>

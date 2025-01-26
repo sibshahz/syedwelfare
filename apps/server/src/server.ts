@@ -11,13 +11,14 @@ export const createServer = (): Express => {
     .disable("x-powered-by")
     .use(morgan("dev"))
     .use(urlencoded({ extended: true }))
-    .use(json())
+    .use(json({ limit: "10mb" }))
     .use(
       cors({
         origin: process.env.APP_URL || "http://localhost:3000",
         credentials: true,
       })
-    ).use('/v1', api)
+    )
+    .use("/v1", api)
     .get("/message/:name", (req: Request, res: Response) => {
       res.json({ message: `hello world ${req.params.name}` });
     })
