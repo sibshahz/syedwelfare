@@ -53,3 +53,12 @@ export async function uploadCloudImage(file: any) {
     return e;
   }
 }
+
+export async function deleteCloudImage(publicId: string) {
+  try {
+    // return deleteResult;
+  } catch (e) {
+    console.log(e);
+    return e;
+  }
+}
