@@ -8,7 +8,8 @@ export default function Home() {
         <h1 className="text-slate-950 text-4xl ">Syed Welfare Organization</h1>
         <p>A welfare organization for the better of general public of Haripur district.</p>
         </div>
-        <Link href="/dashboard" className="text-blue-900 hover:text-blue-950">Sign in</Link>
+        <Link href="/dashboard" className="text-blue-900 hover:text-blue-950">Dashboard</Link>
+        <Link href="/login" className="text-blue-900 hover:text-blue-950">Login</Link>
       </main>
       <footer className="row-start-3 flex gap-6 flex-wrap items-center justify-center">
         

@@ -13,6 +13,30 @@ export const UserSchema = z.object({
 // Export the inferred type from the schema
 export type User = z.infer<typeof UserSchema>;
 
+export const signupSchema = z
+  .object({
+    email: z.string().email({ message: "Invalid email address" }),
+    password: z
+      .string()
+      .min(8, { message: "Password must be at least 8 characters long" }),
+    confirmPassword: z.string(),
+  })
+  .refine((data) => data.password === data.confirmPassword, {
+    message: "Passwords do not match",
+    path: ["confirmPassword"],
+  });
+
+export type SignupValues = z.infer<typeof signupSchema>;
+
+export const loginSchema = z.object({
+  email: z.string().email({ message: "Invalid email address" }),
+  password: z
+    .string()
+    .min(8, { message: "Password must be at least 8 characters long" }),
+});
+
+export type LoginValues = z.infer<typeof loginSchema>;
+
 export const MemberSchema = z.object({
   id: z.string().optional(),
   cnic: z //done
