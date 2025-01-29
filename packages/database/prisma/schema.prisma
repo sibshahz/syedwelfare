@@ -36,6 +36,12 @@ model Member {
   @@index([cnic,phone])
 }
 
+model MemberMedia {
+  id             String @id 
+  profilePicId   String?
+  cnicFrontId    String?
+  cnicBackId     String?
+}
 enum Role {
   ADMIN
   USER

@@ -71,10 +71,12 @@ export const authenticate = (
     if (user) {
       next();
     } else {
+      res.clearCookie("token");
       res.status(403).send("Unauthorized");
     }
     // next();
   } catch (err) {
+    res.clearCookie("token");
     res.status(403).send("Invalid token");
   }
 };

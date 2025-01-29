@@ -1,6 +1,7 @@
 import express from "express";
 import membersRouter from "@/routes/members/members.router";
 import authRouter from "./auth/auth.router";
+import { authenticate } from "./auth/auth.controller";
 const api = express.Router();
 
 // Middleware to check for x-user-id except for /hooks route

@@ -4,7 +4,7 @@ import { Member } from "@repo/zod-utils";
 export const getAllMembers = async () => {
   try {
     const response = await axios_default.get(`members`);
-    return response;
+    return response.data.message;
   } catch (error) {
     console.error("Failed to fetch resources:", error);
     return error;

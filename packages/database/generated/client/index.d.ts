@@ -23,6 +23,11 @@ export type User = $Result.DefaultSelection<Prisma.$UserPayload>
  * 
  */
 export type Member = $Result.DefaultSelection<Prisma.$MemberPayload>
+/**
+ * Model MemberMedia
+ * 
+ */
+export type MemberMedia = $Result.DefaultSelection<Prisma.$MemberMediaPayload>
 
 /**
  * Enums
@@ -186,6 +191,16 @@ export class PrismaClient<
     * ```
     */
   get member(): Prisma.MemberDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.memberMedia`: Exposes CRUD operations for the **MemberMedia** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more MemberMedias
+    * const memberMedias = await prisma.memberMedia.findMany()
+    * ```
+    */
+  get memberMedia(): Prisma.MemberMediaDelegate<ExtArgs, ClientOptions>;
 }
 
 export namespace Prisma {
@@ -627,7 +642,8 @@ export namespace Prisma {
 
   export const ModelName: {
     User: 'User',
-    Member: 'Member'
+    Member: 'Member',
+    MemberMedia: 'MemberMedia'
   };
 
   export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -643,7 +659,7 @@ export namespace Prisma {
 
   export type TypeMap<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, ClientOptions = {}> = {
     meta: {
-      modelProps: "user" | "member"
+      modelProps: "user" | "member" | "memberMedia"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -795,6 +811,80 @@ export namespace Prisma {
           }
         }
       }
+      MemberMedia: {
+        payload: Prisma.$MemberMediaPayload<ExtArgs>
+        fields: Prisma.MemberMediaFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.MemberMediaFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MemberMediaPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.MemberMediaFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MemberMediaPayload>
+          }
+          findFirst: {
+            args: Prisma.MemberMediaFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MemberMediaPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.MemberMediaFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MemberMediaPayload>
+          }
+          findMany: {
+            args: Prisma.MemberMediaFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MemberMediaPayload>[]
+          }
+          create: {
+            args: Prisma.MemberMediaCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MemberMediaPayload>
+          }
+          createMany: {
+            args: Prisma.MemberMediaCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.MemberMediaCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MemberMediaPayload>[]
+          }
+          delete: {
+            args: Prisma.MemberMediaDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MemberMediaPayload>
+          }
+          update: {
+            args: Prisma.MemberMediaUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MemberMediaPayload>
+          }
+          deleteMany: {
+            args: Prisma.MemberMediaDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.MemberMediaUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.MemberMediaUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MemberMediaPayload>[]
+          }
+          upsert: {
+            args: Prisma.MemberMediaUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MemberMediaPayload>
+          }
+          aggregate: {
+            args: Prisma.MemberMediaAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateMemberMedia>
+          }
+          groupBy: {
+            args: Prisma.MemberMediaGroupByArgs<ExtArgs>
+            result: $Utils.Optional<MemberMediaGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.MemberMediaCountArgs<ExtArgs>
+            result: $Utils.Optional<MemberMediaCountAggregateOutputType> | number
+          }
+        }
+      }
     }
   } & {
     other: {
@@ -881,6 +971,7 @@ export namespace Prisma {
   export type GlobalOmitConfig = {
     user?: UserOmit
     member?: MemberOmit
+    memberMedia?: MemberMediaOmit
   }
 
   /* Types for Logging */
@@ -3033,6 +3124,976 @@ export namespace Prisma {
 
 
   /**
+   * Model MemberMedia
+   */
+
+  export type AggregateMemberMedia = {
+    _count: MemberMediaCountAggregateOutputType | null
+    _min: MemberMediaMinAggregateOutputType | null
+    _max: MemberMediaMaxAggregateOutputType | null
+  }
+
+  export type MemberMediaMinAggregateOutputType = {
+    id: string | null
+    profilePicId: string | null
+    cnicFrontId: string | null
+    cnicBackId: string | null
+  }
+
+  export type MemberMediaMaxAggregateOutputType = {
+    id: string | null
+    profilePicId: string | null
+    cnicFrontId: string | null
+    cnicBackId: string | null
+  }
+
+  export type MemberMediaCountAggregateOutputType = {
+    id: number
+    profilePicId: number
+    cnicFrontId: number
+    cnicBackId: number
+    _all: number
+  }
+
+
+  export type MemberMediaMinAggregateInputType = {
+    id?: true
+    profilePicId?: true
+    cnicFrontId?: true
+    cnicBackId?: true
+  }
+
+  export type MemberMediaMaxAggregateInputType = {
+    id?: true
+    profilePicId?: true
+    cnicFrontId?: true
+    cnicBackId?: true
+  }
+
+  export type MemberMediaCountAggregateInputType = {
+    id?: true
+    profilePicId?: true
+    cnicFrontId?: true
+    cnicBackId?: true
+    _all?: true
+  }
+
+  export type MemberMediaAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which MemberMedia to aggregate.
+     */
+    where?: MemberMediaWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of MemberMedias to fetch.
+     */
+    orderBy?: MemberMediaOrderByWithRelationInput | MemberMediaOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: MemberMediaWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` MemberMedias from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` MemberMedias.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned MemberMedias
+    **/
+    _count?: true | MemberMediaCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: MemberMediaMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: MemberMediaMaxAggregateInputType
+  }
+
+  export type GetMemberMediaAggregateType<T extends MemberMediaAggregateArgs> = {
+        [P in keyof T & keyof AggregateMemberMedia]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateMemberMedia[P]>
+      : GetScalarType<T[P], AggregateMemberMedia[P]>
+  }
+
+
+
+
+  export type MemberMediaGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: MemberMediaWhereInput
+    orderBy?: MemberMediaOrderByWithAggregationInput | MemberMediaOrderByWithAggregationInput[]
+    by: MemberMediaScalarFieldEnum[] | MemberMediaScalarFieldEnum
+    having?: MemberMediaScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: MemberMediaCountAggregateInputType | true
+    _min?: MemberMediaMinAggregateInputType
+    _max?: MemberMediaMaxAggregateInputType
+  }
+
+  export type MemberMediaGroupByOutputType = {
+    id: string
+    profilePicId: string | null
+    cnicFrontId: string | null
+    cnicBackId: string | null
+    _count: MemberMediaCountAggregateOutputType | null
+    _min: MemberMediaMinAggregateOutputType | null
+    _max: MemberMediaMaxAggregateOutputType | null
+  }
+
+  type GetMemberMediaGroupByPayload<T extends MemberMediaGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<MemberMediaGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof MemberMediaGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], MemberMediaGroupByOutputType[P]>
+            : GetScalarType<T[P], MemberMediaGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type MemberMediaSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    profilePicId?: boolean
+    cnicFrontId?: boolean
+    cnicBackId?: boolean
+  }, ExtArgs["result"]["memberMedia"]>
+
+  export type MemberMediaSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    profilePicId?: boolean
+    cnicFrontId?: boolean
+    cnicBackId?: boolean
+  }, ExtArgs["result"]["memberMedia"]>
+
+  export type MemberMediaSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    profilePicId?: boolean
+    cnicFrontId?: boolean
+    cnicBackId?: boolean
+  }, ExtArgs["result"]["memberMedia"]>
+
+  export type MemberMediaSelectScalar = {
+    id?: boolean
+    profilePicId?: boolean
+    cnicFrontId?: boolean
+    cnicBackId?: boolean
+  }
+
+  export type MemberMediaOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "profilePicId" | "cnicFrontId" | "cnicBackId", ExtArgs["result"]["memberMedia"]>
+
+  export type $MemberMediaPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "MemberMedia"
+    objects: {}
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      profilePicId: string | null
+      cnicFrontId: string | null
+      cnicBackId: string | null
+    }, ExtArgs["result"]["memberMedia"]>
+    composites: {}
+  }
+
+  type MemberMediaGetPayload<S extends boolean | null | undefined | MemberMediaDefaultArgs> = $Result.GetResult<Prisma.$MemberMediaPayload, S>
+
+  type MemberMediaCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<MemberMediaFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: MemberMediaCountAggregateInputType | true
+    }
+
+  export interface MemberMediaDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, ClientOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['MemberMedia'], meta: { name: 'MemberMedia' } }
+    /**
+     * Find zero or one MemberMedia that matches the filter.
+     * @param {MemberMediaFindUniqueArgs} args - Arguments to find a MemberMedia
+     * @example
+     * // Get one MemberMedia
+     * const memberMedia = await prisma.memberMedia.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends MemberMediaFindUniqueArgs>(args: SelectSubset<T, MemberMediaFindUniqueArgs<ExtArgs>>): Prisma__MemberMediaClient<$Result.GetResult<Prisma.$MemberMediaPayload<ExtArgs>, T, "findUnique", ClientOptions> | null, null, ExtArgs, ClientOptions>
+
+    /**
+     * Find one MemberMedia that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {MemberMediaFindUniqueOrThrowArgs} args - Arguments to find a MemberMedia
+     * @example
+     * // Get one MemberMedia
+     * const memberMedia = await prisma.memberMedia.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends MemberMediaFindUniqueOrThrowArgs>(args: SelectSubset<T, MemberMediaFindUniqueOrThrowArgs<ExtArgs>>): Prisma__MemberMediaClient<$Result.GetResult<Prisma.$MemberMediaPayload<ExtArgs>, T, "findUniqueOrThrow", ClientOptions>, never, ExtArgs, ClientOptions>
+
+    /**
+     * Find the first MemberMedia that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MemberMediaFindFirstArgs} args - Arguments to find a MemberMedia
+     * @example
+     * // Get one MemberMedia
+     * const memberMedia = await prisma.memberMedia.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends MemberMediaFindFirstArgs>(args?: SelectSubset<T, MemberMediaFindFirstArgs<ExtArgs>>): Prisma__MemberMediaClient<$Result.GetResult<Prisma.$MemberMediaPayload<ExtArgs>, T, "findFirst", ClientOptions> | null, null, ExtArgs, ClientOptions>
+
+    /**
+     * Find the first MemberMedia that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MemberMediaFindFirstOrThrowArgs} args - Arguments to find a MemberMedia
+     * @example
+     * // Get one MemberMedia
+     * const memberMedia = await prisma.memberMedia.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends MemberMediaFindFirstOrThrowArgs>(args?: SelectSubset<T, MemberMediaFindFirstOrThrowArgs<ExtArgs>>): Prisma__MemberMediaClient<$Result.GetResult<Prisma.$MemberMediaPayload<ExtArgs>, T, "findFirstOrThrow", ClientOptions>, never, ExtArgs, ClientOptions>
+
+    /**
+     * Find zero or more MemberMedias that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MemberMediaFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all MemberMedias
+     * const memberMedias = await prisma.memberMedia.findMany()
+     * 
+     * // Get first 10 MemberMedias
+     * const memberMedias = await prisma.memberMedia.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const memberMediaWithIdOnly = await prisma.memberMedia.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends MemberMediaFindManyArgs>(args?: SelectSubset<T, MemberMediaFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MemberMediaPayload<ExtArgs>, T, "findMany", ClientOptions>>
+
+    /**
+     * Create a MemberMedia.
+     * @param {MemberMediaCreateArgs} args - Arguments to create a MemberMedia.
+     * @example
+     * // Create one MemberMedia
+     * const MemberMedia = await prisma.memberMedia.create({
+     *   data: {
+     *     // ... data to create a MemberMedia
+     *   }
+     * })
+     * 
+     */
+    create<T extends MemberMediaCreateArgs>(args: SelectSubset<T, MemberMediaCreateArgs<ExtArgs>>): Prisma__MemberMediaClient<$Result.GetResult<Prisma.$MemberMediaPayload<ExtArgs>, T, "create", ClientOptions>, never, ExtArgs, ClientOptions>
+
+    /**
+     * Create many MemberMedias.
+     * @param {MemberMediaCreateManyArgs} args - Arguments to create many MemberMedias.
+     * @example
+     * // Create many MemberMedias
+     * const memberMedia = await prisma.memberMedia.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends MemberMediaCreateManyArgs>(args?: SelectSubset<T, MemberMediaCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many MemberMedias and returns the data saved in the database.
+     * @param {MemberMediaCreateManyAndReturnArgs} args - Arguments to create many MemberMedias.
+     * @example
+     * // Create many MemberMedias
+     * const memberMedia = await prisma.memberMedia.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many MemberMedias and only return the `id`
+     * const memberMediaWithIdOnly = await prisma.memberMedia.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends MemberMediaCreateManyAndReturnArgs>(args?: SelectSubset<T, MemberMediaCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MemberMediaPayload<ExtArgs>, T, "createManyAndReturn", ClientOptions>>
+
+    /**
+     * Delete a MemberMedia.
+     * @param {MemberMediaDeleteArgs} args - Arguments to delete one MemberMedia.
+     * @example
+     * // Delete one MemberMedia
+     * const MemberMedia = await prisma.memberMedia.delete({
+     *   where: {
+     *     // ... filter to delete one MemberMedia
+     *   }
+     * })
+     * 
+     */
+    delete<T extends MemberMediaDeleteArgs>(args: SelectSubset<T, MemberMediaDeleteArgs<ExtArgs>>): Prisma__MemberMediaClient<$Result.GetResult<Prisma.$MemberMediaPayload<ExtArgs>, T, "delete", ClientOptions>, never, ExtArgs, ClientOptions>
+
+    /**
+     * Update one MemberMedia.
+     * @param {MemberMediaUpdateArgs} args - Arguments to update one MemberMedia.
+     * @example
+     * // Update one MemberMedia
+     * const memberMedia = await prisma.memberMedia.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends MemberMediaUpdateArgs>(args: SelectSubset<T, MemberMediaUpdateArgs<ExtArgs>>): Prisma__MemberMediaClient<$Result.GetResult<Prisma.$MemberMediaPayload<ExtArgs>, T, "update", ClientOptions>, never, ExtArgs, ClientOptions>
+
+    /**
+     * Delete zero or more MemberMedias.
+     * @param {MemberMediaDeleteManyArgs} args - Arguments to filter MemberMedias to delete.
+     * @example
+     * // Delete a few MemberMedias
+     * const { count } = await prisma.memberMedia.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends MemberMediaDeleteManyArgs>(args?: SelectSubset<T, MemberMediaDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more MemberMedias.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MemberMediaUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many MemberMedias
+     * const memberMedia = await prisma.memberMedia.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends MemberMediaUpdateManyArgs>(args: SelectSubset<T, MemberMediaUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more MemberMedias and returns the data updated in the database.
+     * @param {MemberMediaUpdateManyAndReturnArgs} args - Arguments to update many MemberMedias.
+     * @example
+     * // Update many MemberMedias
+     * const memberMedia = await prisma.memberMedia.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more MemberMedias and only return the `id`
+     * const memberMediaWithIdOnly = await prisma.memberMedia.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends MemberMediaUpdateManyAndReturnArgs>(args: SelectSubset<T, MemberMediaUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MemberMediaPayload<ExtArgs>, T, "updateManyAndReturn", ClientOptions>>
+
+    /**
+     * Create or update one MemberMedia.
+     * @param {MemberMediaUpsertArgs} args - Arguments to update or create a MemberMedia.
+     * @example
+     * // Update or create a MemberMedia
+     * const memberMedia = await prisma.memberMedia.upsert({
+     *   create: {
+     *     // ... data to create a MemberMedia
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the MemberMedia we want to update
+     *   }
+     * })
+     */
+    upsert<T extends MemberMediaUpsertArgs>(args: SelectSubset<T, MemberMediaUpsertArgs<ExtArgs>>): Prisma__MemberMediaClient<$Result.GetResult<Prisma.$MemberMediaPayload<ExtArgs>, T, "upsert", ClientOptions>, never, ExtArgs, ClientOptions>
+
+
+    /**
+     * Count the number of MemberMedias.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MemberMediaCountArgs} args - Arguments to filter MemberMedias to count.
+     * @example
+     * // Count the number of MemberMedias
+     * const count = await prisma.memberMedia.count({
+     *   where: {
+     *     // ... the filter for the MemberMedias we want to count
+     *   }
+     * })
+    **/
+    count<T extends MemberMediaCountArgs>(
+      args?: Subset<T, MemberMediaCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], MemberMediaCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a MemberMedia.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MemberMediaAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends MemberMediaAggregateArgs>(args: Subset<T, MemberMediaAggregateArgs>): Prisma.PrismaPromise<GetMemberMediaAggregateType<T>>
+
+    /**
+     * Group by MemberMedia.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MemberMediaGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends MemberMediaGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: MemberMediaGroupByArgs['orderBy'] }
+        : { orderBy?: MemberMediaGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, MemberMediaGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetMemberMediaGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the MemberMedia model
+   */
+  readonly fields: MemberMediaFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for MemberMedia.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__MemberMediaClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, ClientOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the MemberMedia model
+   */ 
+  interface MemberMediaFieldRefs {
+    readonly id: FieldRef<"MemberMedia", 'String'>
+    readonly profilePicId: FieldRef<"MemberMedia", 'String'>
+    readonly cnicFrontId: FieldRef<"MemberMedia", 'String'>
+    readonly cnicBackId: FieldRef<"MemberMedia", 'String'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * MemberMedia findUnique
+   */
+  export type MemberMediaFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MemberMedia
+     */
+    select?: MemberMediaSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MemberMedia
+     */
+    omit?: MemberMediaOmit<ExtArgs> | null
+    /**
+     * Filter, which MemberMedia to fetch.
+     */
+    where: MemberMediaWhereUniqueInput
+  }
+
+  /**
+   * MemberMedia findUniqueOrThrow
+   */
+  export type MemberMediaFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MemberMedia
+     */
+    select?: MemberMediaSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MemberMedia
+     */
+    omit?: MemberMediaOmit<ExtArgs> | null
+    /**
+     * Filter, which MemberMedia to fetch.
+     */
+    where: MemberMediaWhereUniqueInput
+  }
+
+  /**
+   * MemberMedia findFirst
+   */
+  export type MemberMediaFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MemberMedia
+     */
+    select?: MemberMediaSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MemberMedia
+     */
+    omit?: MemberMediaOmit<ExtArgs> | null
+    /**
+     * Filter, which MemberMedia to fetch.
+     */
+    where?: MemberMediaWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of MemberMedias to fetch.
+     */
+    orderBy?: MemberMediaOrderByWithRelationInput | MemberMediaOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for MemberMedias.
+     */
+    cursor?: MemberMediaWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` MemberMedias from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` MemberMedias.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of MemberMedias.
+     */
+    distinct?: MemberMediaScalarFieldEnum | MemberMediaScalarFieldEnum[]
+  }
+
+  /**
+   * MemberMedia findFirstOrThrow
+   */
+  export type MemberMediaFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MemberMedia
+     */
+    select?: MemberMediaSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MemberMedia
+     */
+    omit?: MemberMediaOmit<ExtArgs> | null
+    /**
+     * Filter, which MemberMedia to fetch.
+     */
+    where?: MemberMediaWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of MemberMedias to fetch.
+     */
+    orderBy?: MemberMediaOrderByWithRelationInput | MemberMediaOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for MemberMedias.
+     */
+    cursor?: MemberMediaWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` MemberMedias from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` MemberMedias.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of MemberMedias.
+     */
+    distinct?: MemberMediaScalarFieldEnum | MemberMediaScalarFieldEnum[]
+  }
+
+  /**
+   * MemberMedia findMany
+   */
+  export type MemberMediaFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MemberMedia
+     */
+    select?: MemberMediaSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MemberMedia
+     */
+    omit?: MemberMediaOmit<ExtArgs> | null
+    /**
+     * Filter, which MemberMedias to fetch.
+     */
+    where?: MemberMediaWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of MemberMedias to fetch.
+     */
+    orderBy?: MemberMediaOrderByWithRelationInput | MemberMediaOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing MemberMedias.
+     */
+    cursor?: MemberMediaWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` MemberMedias from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` MemberMedias.
+     */
+    skip?: number
+    distinct?: MemberMediaScalarFieldEnum | MemberMediaScalarFieldEnum[]
+  }
+
+  /**
+   * MemberMedia create
+   */
+  export type MemberMediaCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MemberMedia
+     */
+    select?: MemberMediaSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MemberMedia
+     */
+    omit?: MemberMediaOmit<ExtArgs> | null
+    /**
+     * The data needed to create a MemberMedia.
+     */
+    data: XOR<MemberMediaCreateInput, MemberMediaUncheckedCreateInput>
+  }
+
+  /**
+   * MemberMedia createMany
+   */
+  export type MemberMediaCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many MemberMedias.
+     */
+    data: MemberMediaCreateManyInput | MemberMediaCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * MemberMedia createManyAndReturn
+   */
+  export type MemberMediaCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MemberMedia
+     */
+    select?: MemberMediaSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the MemberMedia
+     */
+    omit?: MemberMediaOmit<ExtArgs> | null
+    /**
+     * The data used to create many MemberMedias.
+     */
+    data: MemberMediaCreateManyInput | MemberMediaCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * MemberMedia update
+   */
+  export type MemberMediaUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MemberMedia
+     */
+    select?: MemberMediaSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MemberMedia
+     */
+    omit?: MemberMediaOmit<ExtArgs> | null
+    /**
+     * The data needed to update a MemberMedia.
+     */
+    data: XOR<MemberMediaUpdateInput, MemberMediaUncheckedUpdateInput>
+    /**
+     * Choose, which MemberMedia to update.
+     */
+    where: MemberMediaWhereUniqueInput
+  }
+
+  /**
+   * MemberMedia updateMany
+   */
+  export type MemberMediaUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update MemberMedias.
+     */
+    data: XOR<MemberMediaUpdateManyMutationInput, MemberMediaUncheckedUpdateManyInput>
+    /**
+     * Filter which MemberMedias to update
+     */
+    where?: MemberMediaWhereInput
+  }
+
+  /**
+   * MemberMedia updateManyAndReturn
+   */
+  export type MemberMediaUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MemberMedia
+     */
+    select?: MemberMediaSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the MemberMedia
+     */
+    omit?: MemberMediaOmit<ExtArgs> | null
+    /**
+     * The data used to update MemberMedias.
+     */
+    data: XOR<MemberMediaUpdateManyMutationInput, MemberMediaUncheckedUpdateManyInput>
+    /**
+     * Filter which MemberMedias to update
+     */
+    where?: MemberMediaWhereInput
+  }
+
+  /**
+   * MemberMedia upsert
+   */
+  export type MemberMediaUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MemberMedia
+     */
+    select?: MemberMediaSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MemberMedia
+     */
+    omit?: MemberMediaOmit<ExtArgs> | null
+    /**
+     * The filter to search for the MemberMedia to update in case it exists.
+     */
+    where: MemberMediaWhereUniqueInput
+    /**
+     * In case the MemberMedia found by the `where` argument doesn't exist, create a new MemberMedia with this data.
+     */
+    create: XOR<MemberMediaCreateInput, MemberMediaUncheckedCreateInput>
+    /**
+     * In case the MemberMedia was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<MemberMediaUpdateInput, MemberMediaUncheckedUpdateInput>
+  }
+
+  /**
+   * MemberMedia delete
+   */
+  export type MemberMediaDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MemberMedia
+     */
+    select?: MemberMediaSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MemberMedia
+     */
+    omit?: MemberMediaOmit<ExtArgs> | null
+    /**
+     * Filter which MemberMedia to delete.
+     */
+    where: MemberMediaWhereUniqueInput
+  }
+
+  /**
+   * MemberMedia deleteMany
+   */
+  export type MemberMediaDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which MemberMedias to delete
+     */
+    where?: MemberMediaWhereInput
+  }
+
+  /**
+   * MemberMedia without action
+   */
+  export type MemberMediaDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MemberMedia
+     */
+    select?: MemberMediaSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MemberMedia
+     */
+    omit?: MemberMediaOmit<ExtArgs> | null
+  }
+
+
+  /**
    * Enums
    */
 
@@ -3073,6 +4134,16 @@ export namespace Prisma {
   };
 
   export type MemberScalarFieldEnum = (typeof MemberScalarFieldEnum)[keyof typeof MemberScalarFieldEnum]
+
+
+  export const MemberMediaScalarFieldEnum: {
+    id: 'id',
+    profilePicId: 'profilePicId',
+    cnicFrontId: 'cnicFrontId',
+    cnicBackId: 'cnicBackId'
+  };
+
+  export type MemberMediaScalarFieldEnum = (typeof MemberMediaScalarFieldEnum)[keyof typeof MemberMediaScalarFieldEnum]
 
 
   export const SortOrder: {
@@ -3288,6 +4359,53 @@ export namespace Prisma {
     role?: EnumRoleWithAggregatesFilter<"Member"> | $Enums.Role
   }
 
+  export type MemberMediaWhereInput = {
+    AND?: MemberMediaWhereInput | MemberMediaWhereInput[]
+    OR?: MemberMediaWhereInput[]
+    NOT?: MemberMediaWhereInput | MemberMediaWhereInput[]
+    id?: StringFilter<"MemberMedia"> | string
+    profilePicId?: StringNullableFilter<"MemberMedia"> | string | null
+    cnicFrontId?: StringNullableFilter<"MemberMedia"> | string | null
+    cnicBackId?: StringNullableFilter<"MemberMedia"> | string | null
+  }
+
+  export type MemberMediaOrderByWithRelationInput = {
+    id?: SortOrder
+    profilePicId?: SortOrderInput | SortOrder
+    cnicFrontId?: SortOrderInput | SortOrder
+    cnicBackId?: SortOrderInput | SortOrder
+  }
+
+  export type MemberMediaWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: MemberMediaWhereInput | MemberMediaWhereInput[]
+    OR?: MemberMediaWhereInput[]
+    NOT?: MemberMediaWhereInput | MemberMediaWhereInput[]
+    profilePicId?: StringNullableFilter<"MemberMedia"> | string | null
+    cnicFrontId?: StringNullableFilter<"MemberMedia"> | string | null
+    cnicBackId?: StringNullableFilter<"MemberMedia"> | string | null
+  }, "id">
+
+  export type MemberMediaOrderByWithAggregationInput = {
+    id?: SortOrder
+    profilePicId?: SortOrderInput | SortOrder
+    cnicFrontId?: SortOrderInput | SortOrder
+    cnicBackId?: SortOrderInput | SortOrder
+    _count?: MemberMediaCountOrderByAggregateInput
+    _max?: MemberMediaMaxOrderByAggregateInput
+    _min?: MemberMediaMinOrderByAggregateInput
+  }
+
+  export type MemberMediaScalarWhereWithAggregatesInput = {
+    AND?: MemberMediaScalarWhereWithAggregatesInput | MemberMediaScalarWhereWithAggregatesInput[]
+    OR?: MemberMediaScalarWhereWithAggregatesInput[]
+    NOT?: MemberMediaScalarWhereWithAggregatesInput | MemberMediaScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"MemberMedia"> | string
+    profilePicId?: StringNullableWithAggregatesFilter<"MemberMedia"> | string | null
+    cnicFrontId?: StringNullableWithAggregatesFilter<"MemberMedia"> | string | null
+    cnicBackId?: StringNullableWithAggregatesFilter<"MemberMedia"> | string | null
+  }
+
   export type UserCreateInput = {
     id?: string
     name?: string | null
@@ -3449,6 +4567,55 @@ export namespace Prisma {
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
   }
 
+  export type MemberMediaCreateInput = {
+    id: string
+    profilePicId?: string | null
+    cnicFrontId?: string | null
+    cnicBackId?: string | null
+  }
+
+  export type MemberMediaUncheckedCreateInput = {
+    id: string
+    profilePicId?: string | null
+    cnicFrontId?: string | null
+    cnicBackId?: string | null
+  }
+
+  export type MemberMediaUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    profilePicId?: NullableStringFieldUpdateOperationsInput | string | null
+    cnicFrontId?: NullableStringFieldUpdateOperationsInput | string | null
+    cnicBackId?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type MemberMediaUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    profilePicId?: NullableStringFieldUpdateOperationsInput | string | null
+    cnicFrontId?: NullableStringFieldUpdateOperationsInput | string | null
+    cnicBackId?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type MemberMediaCreateManyInput = {
+    id: string
+    profilePicId?: string | null
+    cnicFrontId?: string | null
+    cnicBackId?: string | null
+  }
+
+  export type MemberMediaUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    profilePicId?: NullableStringFieldUpdateOperationsInput | string | null
+    cnicFrontId?: NullableStringFieldUpdateOperationsInput | string | null
+    cnicBackId?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type MemberMediaUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    profilePicId?: NullableStringFieldUpdateOperationsInput | string | null
+    cnicFrontId?: NullableStringFieldUpdateOperationsInput | string | null
+    cnicBackId?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
   export type StringFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel>
     in?: string[] | ListStringFieldRefInput<$PrismaModel>
@@ -3604,6 +4771,27 @@ export namespace Prisma {
     city?: SortOrder
     email?: SortOrder
     role?: SortOrder
+  }
+
+  export type MemberMediaCountOrderByAggregateInput = {
+    id?: SortOrder
+    profilePicId?: SortOrder
+    cnicFrontId?: SortOrder
+    cnicBackId?: SortOrder
+  }
+
+  export type MemberMediaMaxOrderByAggregateInput = {
+    id?: SortOrder
+    profilePicId?: SortOrder
+    cnicFrontId?: SortOrder
+    cnicBackId?: SortOrder
+  }
+
+  export type MemberMediaMinOrderByAggregateInput = {
+    id?: SortOrder
+    profilePicId?: SortOrder
+    cnicFrontId?: SortOrder
+    cnicBackId?: SortOrder
   }
 
   export type StringFieldUpdateOperationsInput = {

@@ -9,7 +9,8 @@ export const httpGetMembersList = async (
   next: NextFunction
 ) => {
   try {
-    res.json({ message: "hello get list world" });
+    const members = await prisma.member.findMany();
+    res.json({ message: members });
   } catch (error) {
     next(error);
   }
@@ -50,12 +51,15 @@ export const httpPostMember: RequestHandler = async (req, res, next) => {
 
   const profilePicURL = (await uploadCloudImage(req.body.data.profilePic)) as {
     url: string;
+    id: string;
   };
   const cnicFrontURL = (await uploadCloudImage(req.body.data.cnicFront)) as {
     url: string;
+    id: string;
   };
   const cnicBackURL = (await uploadCloudImage(req.body.data.cnicBack)) as {
     url: string;
+    id: string;
   };
   const data = {
     cnic: req.body.data?.cnic || "N/A",
@@ -72,6 +76,14 @@ export const httpPostMember: RequestHandler = async (req, res, next) => {
   };
   try {
     const result = await prisma.member.create({ data });
+    const media = await prisma.memberMedia.create({
+      data: {
+        id: result.id,
+        profilePicId: profilePicURL.id,
+        cnicFrontId: cnicFrontURL.id,
+        cnicBackId: cnicBackURL.id,
+      },
+    });
     res.json({ message: result }); // This returns a Response but does not conflict with void if the function returns after
   } catch (error) {
     next(error); // Properly pass the error to the next middleware
