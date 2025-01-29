@@ -1,10 +1,10 @@
-import { getMembers } from '@/app/actions/members'
+import { getAllMembers } from '@/app/actions/members'
 import MembersTable, { MembersTableProps } from '@/components/members-table'
 import React from 'react'
 
 
 const ListMemberPage =async () => {
-  const members = await getMembers() as MembersTableProps
+  const members = await getAllMembers() as MembersTableProps
   return (
     <div>
       <h1>Members</h1>

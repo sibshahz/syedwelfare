@@ -1,5 +1,5 @@
 import type * as React from "react"
-import { ChevronRight } from "lucide-react"
+import { Bolt, ChevronRight, CirclePlus, Logs } from "lucide-react"
 
 import { SearchForm } from "@/components/search-form"
 import { VersionSwitcher } from "@/components/version-switcher"
@@ -33,10 +33,12 @@ const data = {
         {
           title: "Add Member",
           url: "/dashboard/members/add",
+          icon: <CirclePlus />,
         },
         {
           title: "Members List",
           url: "/dashboard/members/list",
+          icon: <Logs />,
         }
       ],
     },
@@ -62,6 +64,7 @@ const data = {
         {
           title: "User Settings",
           url: "/user-settings",
+          icon: <Bolt />
         }
       ],
     }
@@ -104,7 +107,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
                     {item.items.map((item) => (
                       <SidebarMenuItem key={item.title}>
                         <SidebarMenuButton asChild isActive={item.isActive}>
-                          <a href={item.url}>{item.title}</a>
+                          <a href={item.url}>{item.icon}{item.title}</a>
                         </SidebarMenuButton>
                       </SidebarMenuItem>
                     ))}

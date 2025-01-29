@@ -1,6 +1,51 @@
-import { getAllMembers } from "@/lib/api/member";
+import { Member } from "@repo/zod-utils";
+import axios_default from "@/lib/api/axios-core";
+export const getAllMembers = async () => {
+  try {
+    const response = await axios_default.get(`members`);
+    return response.data.message;
+  } catch (error) {
+    console.error("Failed to fetch resources:", error);
+    return error;
+  }
+};
 
-export async function getMembers() {
-  const members = await getAllMembers();
-  return members;
-}
+export const getMemberById = async (id: string) => {
+  try {
+    const response = await axios_default.get(`members/${id}`);
+    return response;
+  } catch (error) {
+    console.error("Failed to fetch resources:", error);
+    return error;
+  }
+};
+
+export const createMember = async (data: Member) => {
+  try {
+    const response = await axios_default.post(`members`, { data });
+    return response;
+  } catch (error) {
+    console.error("Failed to fetch resources:", error);
+    return error;
+  }
+};
+
+export const updateMember = async (id: string, data: Member) => {
+  try {
+    const response = await axios_default.put(`members/${id}`, data);
+    return response;
+  } catch (error) {
+    console.error("Failed to fetch resources:", error);
+    return error;
+  }
+};
+
+export const deleteMember = async (id: string) => {
+  try {
+    const response = await axios_default.delete(`members/${id}`);
+    return response;
+  } catch (error) {
+    console.error("Failed to fetch resources:", error);
+    return error;
+  }
+};

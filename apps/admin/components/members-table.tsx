@@ -1,15 +1,13 @@
 import {
   Table,
   TableBody,
-  TableCell,
   TableHead,
   TableHeader,
   TableRow,
 } from "@/components/ui/table"
 import { Member } from "@repo/zod-utils"
 import React from 'react'
-import { Button } from "./ui/button";
-import { Pencil, Trash2 } from "lucide-react";
+import MembersTableItem from "./members-table-item";
 
 export interface MembersTableProps extends Member {
   members: Member[];
@@ -30,21 +28,11 @@ const MembersTable: React.FC<MembersTableProps> = ({ members }) => {
     </TableRow>
   </TableHeader>
   <TableBody>
-    {members.map((member, index) => (
-      <TableRow key={index}>
-        <TableCell>{member.cnic}</TableCell>
-        <TableCell>{member.name}</TableCell>
-        <TableCell>{member.fatherName}</TableCell>
-        <TableCell>{member.phone}</TableCell>
-        <TableCell className="max-w-28 truncate">{member.address}</TableCell>
-        <TableCell>{member.city}</TableCell>
-        <TableCell>{member.email}</TableCell>
-        <TableCell className="flex space-x-2">
-          <Button variant={"outline"}><Pencil /></Button>
-          <Button variant={"destructive"}><Trash2 /></Button>
-        </TableCell>
-      </TableRow>
-    ))}
+    {members.map((member, index) => {
+      return(
+      <MembersTableItem key={index} member={member} />
+      )
+})}
   </TableBody>
 </Table>
 

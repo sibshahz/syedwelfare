@@ -64,9 +64,9 @@ export const httpPostMember: RequestHandler = async (req, res, next) => {
   const data = {
     cnic: req.body.data?.cnic || "N/A",
     name: req.body.data?.name || "Unknown",
-    profilePic: profilePicURL.url || "default-profile-pic-url",
-    cnicFront: cnicFrontURL.url || "default-cnic-front-url",
-    cnicBack: cnicBackURL.url || "default-cnic-back-url",
+    profilePic: profilePicURL.url || "",
+    cnicFront: cnicFrontURL.url || "",
+    cnicBack: cnicBackURL.url || "",
     fatherName: req.body.data?.fatherName || null,
     phone: req.body.data?.phone || "Unknown",
     address: req.body.data?.address || "",
@@ -107,8 +107,19 @@ export const httpDeleteMember = async (
   res: Response,
   next: NextFunction
 ) => {
+  const id = req.params.memberid;
   try {
-    res.json({ message: "hello delete member world" });
+    const result = await prisma.member.delete({
+      where: {
+        id: id,
+      },
+    });
+    const media = await prisma.memberMedia.delete({
+      where: {
+        id: id,
+      },
+    });
+    return res.status(201).json({ message: "Member deleted." });
   } catch (error) {
     next(error);
   }
