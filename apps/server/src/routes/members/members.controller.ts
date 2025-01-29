@@ -34,7 +34,13 @@ export const httpGetMember = async (
   next: NextFunction
 ) => {
   try {
-    res.json({ message: "hello get single world" });
+    const memberId = req.params.memberid;
+    const member = await prisma.member.findUnique({
+      where: {
+        id: memberId,
+      },
+    });
+    res.json({ message: member });
   } catch (error) {
     next(error);
   }
@@ -90,23 +96,33 @@ export const httpPostMember: RequestHandler = async (req, res, next) => {
   }
 };
 
-export const httpUpdateMember = async (
-  req: Request,
-  res: Response,
-  next: NextFunction
-) => {
+export const httpUpdateMember = async (req: Request, res: Response) => {
+  const id = req.params.memberid;
+  const { cnic, fatherName, name, phone, address, city, email } = req.body;
   try {
-    res.json({ message: "hello update member world" });
+    const updatedData = await prisma.member.update({
+      where: {
+        id: id,
+      },
+      data: {
+        cnic: cnic || "",
+        fatherName: fatherName || "",
+        name: name || "",
+        phone: phone || "",
+        address: address || "",
+        city: city || "",
+        email: email || "",
+      },
+    });
+    res.status(202).json({ message: updatedData });
   } catch (error) {
-    next(error);
+    res
+      .status(400)
+      .json({ message: "Failed to update member." + error.message });
   }
 };
 
-export const httpDeleteMember = async (
-  req: Request,
-  res: Response,
-  next: NextFunction
-) => {
+export const httpDeleteMember = async (req: Request, res: Response) => {
   const id = req.params.memberid;
   try {
     const result = await prisma.member.delete({
@@ -121,6 +137,7 @@ export const httpDeleteMember = async (
     });
     return res.status(201).json({ message: "Member deleted." });
   } catch (error) {
-    next(error);
+    return res.status(400).json({ message: "Failed to delete member." });
+    // next(error);
   }
 };

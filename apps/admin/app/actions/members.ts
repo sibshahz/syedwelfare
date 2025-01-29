@@ -13,7 +13,7 @@ export const getAllMembers = async () => {
 export const getMemberById = async (id: string) => {
   try {
     const response = await axios_default.get(`members/${id}`);
-    return response;
+    return response.data.message;
   } catch (error) {
     console.error("Failed to fetch resources:", error);
     return error;
@@ -33,7 +33,7 @@ export const createMember = async (data: Member) => {
 export const updateMember = async (id: string, data: Member) => {
   try {
     const response = await axios_default.put(`members/${id}`, data);
-    return response;
+    return response.data;
   } catch (error) {
     console.error("Failed to fetch resources:", error);
     return error;

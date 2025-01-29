@@ -18,8 +18,9 @@ import {
 import { deleteMember } from '@/app/actions/members'
 import { useRouter } from 'next/navigation'
 import Image from 'next/image'
+import Link from 'next/link'
 
-const DeleteDialog=({id}: string)=>{
+const DeleteDialog:React.FC<{id: string}>=({id}: {id: string})=>{
   const router = useRouter()
   const deleteItem =async (id:string)=> {
     await deleteMember(id);
@@ -82,11 +83,13 @@ const MembersTableItem: React.FC<MembersTableItemProps> = ({ member }) => {
         <TableCell className="max-w-28 truncate">{address}</TableCell>
         <TableCell>{city}</TableCell>
         <TableCell className="flex space-x-2 items-center">
+          <Link href={`/dashboard/members/edit/${id}`}>
           <Button variant={"outline"}><Pencil /></Button>
+          </Link>
           {/* <Button variant={"destructive"}
           onClick={() => setShow(true)}
           ><Trash2 /></Button> */}
-          <DeleteDialog id={id} />
+          <DeleteDialog id={id as string} />
         </TableCell>
       </TableRow>
       </>

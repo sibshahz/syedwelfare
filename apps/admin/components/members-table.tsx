@@ -18,6 +18,7 @@ const MembersTable: React.FC<MembersTableProps> = ({ members }) => {
     <Table>
   <TableHeader>
     <TableRow>
+      <TableHead className="w-[100px]">Profile pic</TableHead>
       <TableHead className="w-[100px]">CNIC</TableHead>
       <TableHead>Name</TableHead>
       <TableHead>Father name</TableHead>
