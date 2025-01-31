@@ -176,24 +176,6 @@ form.reset(); // Reset the form after successful submission
 
 <FormField
   control={form.control}
-  name="email"
-  render={({ field }) => (
-    <FormItem>
-      <FormLabel>Email <span className="text-xs text-gray-700">(Optional)</span></FormLabel>
-      <FormControl>
-        <Input
-          type="email" // Use text to handle string inputs
-          placeholder="Enter email here"
-          {...field}
-        />
-      </FormControl>
-      <FormMessage />
-    </FormItem>
-  )}
-/>
-
-<FormField
-  control={form.control}
   name="address"
   render={({ field }) => (
     <FormItem>

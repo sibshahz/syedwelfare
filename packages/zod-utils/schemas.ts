@@ -49,11 +49,72 @@ export const MemberSchema = z.object({
   fatherName: z.string().optional(), //done
   phone: z //done
     .string()
-    .regex(/^\d{11}$/, { message: "Phone number must be exactly 11 digits" }),
+    .regex(/^\d{11}$/, { message: "Phone number must be exactly 11 digits" }).optional(),
   address: z.string().optional(), //done
   city: z.string().optional(),
-  email: z.string().optional(), //done
   role: z.enum(["MEMBER"]).optional(),
 });
 
 export type Member = z.infer<typeof MemberSchema>;
+
+
+export const DonorSchema = z.object({
+  id: z.string().optional(),
+  cnic: z //done
+    .string()
+    .regex(/^\d{13}$/, { message: "CNIC must be exactly 13 digits" }),
+  name: z.string().optional(), //done
+  fatherName: z.string().optional(), //done
+  profilePic: z.string().optional(),
+  cnicFront: z.string().optional(),
+  cnicBack: z.string().optional(),
+  phone: z //done
+    .string()
+    .regex(/^\d{11}$/, { message: "Phone number must be exactly 11 digits" }).optional()?,
+  address: z.string().optional(), //done
+  city: z.string().optional(),
+  email: z.string().email({message: "Please enter a valid email."}).optional(),
+  role: z.enum(["DONOR"]).optional(),
+});
+
+export type Donor = z.infer<typeof DonorSchema>;
+
+export const DonationSchema = z.object({
+  id: z.string().optional(),
+  donorId: z.string(),
+  amount: z.number(),
+  createdAt: z.date().optional(),
+  updatedAt: z.date().optional(),
+});
+
+export type Donation = z.infer<typeof DonationSchema>;
+
+export const MemberPaymentSchema = z.object({
+  id: z.string().optional(),
+  memberId: z.string(),
+  amount: z.number(),
+  createdAt: z.date().optional(),
+  updatedAt: z.date().optional(),
+});
+
+export type MemberPayment = z.infer<typeof MemberPaymentSchema>;
+
+export const MemberMediaSchema = z.object({
+  id: z.string().optional(),
+  memberId: z.string(),
+  profilePic: z.string().optional(),
+  cnicFront: z.string().optional(),
+  cnicBack: z.string().optional(),
+});
+
+export type MemberMedia = z.infer<typeof MemberMediaSchema>;
+
+export const DonorMediaSchema = z.object({
+  id: z.string().optional(),
+  donorId: z.string(),
+  profilePic: z.string().optional(),
+  cnicFront: z.string().optional(),
+  cnicBack: z.string().optional(),
+});
+
+export type DonorMedia = z.infer<typeof DonorMediaSchema>;

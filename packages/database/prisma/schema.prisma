@@ -11,6 +11,13 @@ generator client {
   output   = "../generated/client"
 }
 
+
+enum Role {
+  ADMIN
+  USER
+  DONOR
+  MEMBER
+}
 model User {
   id       String  @id @default(cuid())
   name     String?
@@ -19,31 +26,82 @@ model User {
   role     Role    @default(USER)
 }
 
-model Member {
+model Donor {
   id         String  @id @default(cuid())
-  cnic       String @unique
+  cnic       String? @unique
   name       String
-  profilePic String?
-  cnicFront  String?
-  cnicBack   String?
+  password   String?
   fatherName String?
-  phone      String
+  phone      String?
   address    String?
   city       String?
   email      String?
-  role       Role    @default(MEMBER)
+
+  role       Role    @default(DONOR)
+  
+  donations  Donation[]
+  media      DonorMedia[]
 
   @@index([cnic,phone])
 }
 
-model MemberMedia {
-  id             String @id 
-  profilePicId   String?
-  cnicFrontId    String?
-  cnicBackId     String?
+model DonorMedia {
+  id           String @id 
+  profilePic   String?
+  cnicFront    String?
+  cnicBack     String?
+  donorId      String
+
+  donor        Donor @relation(fields: [donorId], references: [id], onDelete: Cascade)
+
+  @@index([donorId])
 }
-enum Role {
-  ADMIN
-  USER
-  MEMBER
+model Donation {
+  id        String  @id @default(cuid())
+  donorId   String
+  amount    Float
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  donor     Donor   @relation(fields: [donorId], references: [id], onDelete: Cascade)
+
+  @@index([donorId])
+}
+
+model Member {
+  id         String  @id @default(cuid())
+  cnic       String @unique
+  name       String
+  fatherName String?
+  phone      String?
+  address    String?
+  city       String?
+  deleted    Boolean @default(false)
+
+  role       Role    @default(MEMBER)
+  media      MemberMedia[]
+  payments   MemberPayments[]
+
+  @@index([cnic,phone])
+}
+
+model MemberPayments {
+  id        String  @id @default(cuid())
+  memberId  String
+  amount    Float
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  member    Member  @relation(fields: [memberId], references: [id], onDelete: Cascade)
+
+  @@index([memberId])
+}
+model MemberMedia {
+  id           String @id 
+  profilePic   String?
+  cnicFront    String?
+  cnicBack     String?
+  memberId     String
+  member       Member @relation(fields: [memberId], references: [id], onDelete: Cascade)
+
+  @@index([memberId])
 }

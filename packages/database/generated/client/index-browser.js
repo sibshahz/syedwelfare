@@ -125,13 +125,11 @@ exports.Prisma.UserScalarFieldEnum = {
   role: 'role'
 };
 
-exports.Prisma.MemberScalarFieldEnum = {
+exports.Prisma.DonorScalarFieldEnum = {
   id: 'id',
   cnic: 'cnic',
   name: 'name',
-  profilePic: 'profilePic',
-  cnicFront: 'cnicFront',
-  cnicBack: 'cnicBack',
+  password: 'password',
   fatherName: 'fatherName',
   phone: 'phone',
   address: 'address',
@@ -140,11 +138,48 @@ exports.Prisma.MemberScalarFieldEnum = {
   role: 'role'
 };
 
+exports.Prisma.DonorMediaScalarFieldEnum = {
+  id: 'id',
+  profilePic: 'profilePic',
+  cnicFront: 'cnicFront',
+  cnicBack: 'cnicBack',
+  donorId: 'donorId'
+};
+
+exports.Prisma.DonationScalarFieldEnum = {
+  id: 'id',
+  donorId: 'donorId',
+  amount: 'amount',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.MemberScalarFieldEnum = {
+  id: 'id',
+  cnic: 'cnic',
+  name: 'name',
+  fatherName: 'fatherName',
+  phone: 'phone',
+  address: 'address',
+  city: 'city',
+  deleted: 'deleted',
+  role: 'role'
+};
+
+exports.Prisma.MemberPaymentsScalarFieldEnum = {
+  id: 'id',
+  memberId: 'memberId',
+  amount: 'amount',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
 exports.Prisma.MemberMediaScalarFieldEnum = {
   id: 'id',
-  profilePicId: 'profilePicId',
-  cnicFrontId: 'cnicFrontId',
-  cnicBackId: 'cnicBackId'
+  profilePic: 'profilePic',
+  cnicFront: 'cnicFront',
+  cnicBack: 'cnicBack',
+  memberId: 'memberId'
 };
 
 exports.Prisma.SortOrder = {
@@ -164,12 +199,17 @@ exports.Prisma.NullsOrder = {
 exports.Role = exports.$Enums.Role = {
   ADMIN: 'ADMIN',
   USER: 'USER',
+  DONOR: 'DONOR',
   MEMBER: 'MEMBER'
 };
 
 exports.Prisma.ModelName = {
   User: 'User',
+  Donor: 'Donor',
+  DonorMedia: 'DonorMedia',
+  Donation: 'Donation',
   Member: 'Member',
+  MemberPayments: 'MemberPayments',
   MemberMedia: 'MemberMedia'
 };
 
