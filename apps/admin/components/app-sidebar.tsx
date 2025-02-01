@@ -1,8 +1,6 @@
 import type * as React from "react"
-import { Bolt, ChevronRight, CirclePlus, Logs } from "lucide-react"
+import { Bolt, ChevronRight, CirclePlus, HandCoins, Logs, ShieldPlus } from "lucide-react"
 
-import { SearchForm } from "@/components/search-form"
-import { VersionSwitcher } from "@/components/version-switcher"
 import {
   Collapsible,
   CollapsibleContent,
@@ -42,21 +40,22 @@ const data = {
         }
       ],
     },
-    // {
-    //   title: "Team",
-    //   url: "#",
-    //   items: [
-    //     {
-    //       title: "Team List",
-    //       url: "#",
-    //     },
-    //     {
-    //       title: "Add Team Member",
-    //       url: "#",
-    //       isActive: true,
-    //     }
-    //   ],
-    // },
+    {
+      title: "Donors",
+      url: "#",
+      items: [
+        {
+          title: "Add Donor",
+          url: "#",
+          icon: <ShieldPlus />
+        },
+        {
+          title: "Donors List",
+          url: "#",
+          icon: <HandCoins />
+        }
+      ],
+    },
     {
       title: "Settings",
       url: "#",
@@ -106,7 +105,9 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
                   <SidebarMenu>
                     {item.items.map((item) => (
                       <SidebarMenuItem key={item.title}>
-                        <SidebarMenuButton asChild isActive={item.isActive}>
+                        <SidebarMenuButton asChild 
+                        // isActive={item.isActive}
+                        >
                           <a href={item.url}>{item.icon}{item.title}</a>
                         </SidebarMenuButton>
                       </SidebarMenuItem>

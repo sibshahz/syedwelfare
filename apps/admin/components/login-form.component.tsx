@@ -16,6 +16,7 @@ import { useAuth, User } from "./auth-provider"
 export function LoginForm({ className, ...props }: React.ComponentPropsWithoutRef<"div">) {
   const [isLoading, setIsLoading] = useState(false)
   const {setUser} = useAuth();
+  const [errorMessage, setErrorMessage] = useState<string | null>(null)
 
   const form = useForm<LoginValues>({
     resolver: zodResolver(loginSchema),
@@ -33,6 +34,8 @@ export function LoginForm({ className, ...props }: React.ComponentPropsWithoutRe
       console.error("Failed to signin:", result)
       setUser(null);
       setIsLoading(false)
+      const errorResponse:any = result;
+      setErrorMessage(errorResponse?.response?.data?.error || "An error occurred");
       return
     } else if (result && typeof result === 'object' && 'data' in result) {
       setUser((result as { data: User }).data);
@@ -86,6 +89,13 @@ export function LoginForm({ className, ...props }: React.ComponentPropsWithoutRe
               </Button>
             </form>
           </Form>
+          {
+            errorMessage && (
+              <div className="mt-4 text-red-500 text-sm">
+                {errorMessage}
+              </div>
+            )
+          }
           <div className="mt-4 text-center text-sm">
             Don&apos;t have an account?{" "}
             <a href="/signup" className="underline underline-offset-4">

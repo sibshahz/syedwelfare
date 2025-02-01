@@ -15,6 +15,7 @@ import { useAuth, User } from "./auth-provider"
 
 export function SignupForm({ className, ...props }: React.ComponentPropsWithoutRef<"div">) {
   const [isLoading, setIsLoading] = useState(false)
+  const [errorMessage, setErrorMessage] = useState<string | null>(null)
    const { setUser } = useAuth();
 
   const form = useForm<SignupValues>({
@@ -33,7 +34,9 @@ export function SignupForm({ className, ...props }: React.ComponentPropsWithoutR
     if (result instanceof Error) {
       console.error("Failed to signup:", result)
       setUser(null);
-      setIsLoading(false)
+      setIsLoading(false);
+      const errorResponse:any = result;
+      setErrorMessage(errorResponse?.response?.data?.error || "An error occurred");
       return
     }else{
       if (typeof result === "object" && result !== null && "data" in result) {
@@ -101,6 +104,9 @@ export function SignupForm({ className, ...props }: React.ComponentPropsWithoutR
               </Button>
             </form>
           </Form>
+          {
+            errorMessage && <div className="text-red-600 text-sm py-4">{errorMessage}</div>
+          }
           <div className="mt-4 text-center text-sm">
             Already have an account?{" "}
             <a href="/signin" className="underline underline-offset-4">

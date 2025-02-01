@@ -22,27 +22,40 @@ export const httpGetMembersPaginated = async (
   next: NextFunction
 ) => {
   try {
-    res.json({ message: "hello paginated world" });
+    const { page, limit } = req.query;
+    const members = await prisma.member.findMany({
+      skip: Number(page) * Number(limit),
+      take: Number(limit),
+    });
+    res.json({ message: members });
   } catch (error) {
     next(error);
   }
 };
 
-export const httpGetMember = async (
-  req: Request,
-  res: Response,
-  next: NextFunction
-) => {
+export const httpGetMember = async (req: Request, res: Response) => {
   try {
-    const memberId = req.params.memberid;
+    const { memberid } = req.params;
     const member = await prisma.member.findUnique({
       where: {
-        id: memberId,
+        id: memberid,
       },
     });
-    res.json({ message: member });
+    if (!member) {
+      return res.status(404).json({ error: "Member not found by id." });
+    }
+    res.status(200).json({ message: member });
   } catch (error) {
-    next(error);
+    res.status(400).json({ error: "Failed to fetch member." });
+  }
+};
+
+export const httpGetTotalMembers = async (req: Request, res: Response) => {
+  try {
+    const members = await prisma.member.count();
+    res.status(200).json({ message: members });
+  } catch (error) {
+    res.status(400).json({ error: "Failed to fetch total members." });
   }
 };
 
@@ -50,34 +63,21 @@ export const httpPostMember: RequestHandler = async (req, res, next) => {
   const resultSchema = MemberSchema.safeParse(req.body.data);
   if (!resultSchema.success) {
     res.status(400).json({
-      message: resultSchema.error.errors, // Adjusted for better error detail
+      error: resultSchema.error.errors, // Adjusted for better error detail
     });
     return; // Ensure the function returns void here
   }
 
-  const profilePicURL = (await uploadCloudImage(req.body.data.profilePic)) as {
-    url: string;
-    id: string;
-  };
-  const cnicFrontURL = (await uploadCloudImage(req.body.data.cnicFront)) as {
-    url: string;
-    id: string;
-  };
-  const cnicBackURL = (await uploadCloudImage(req.body.data.cnicBack)) as {
-    url: string;
-    id: string;
-  };
   const data = {
     cnic: req.body.data?.cnic || "N/A",
     name: req.body.data?.name || "Unknown",
-    profilePic: profilePicURL.url || "",
-    cnicFront: cnicFrontURL.url || "",
-    cnicBack: cnicBackURL.url || "",
+    // profilePic: profilePicURL.url || "",
+    // cnicFront: cnicFrontURL.url || "",
+    // cnicBack: cnicBackURL.url || "",
     fatherName: req.body.data?.fatherName || null,
     phone: req.body.data?.phone || "Unknown",
     address: req.body.data?.address || "",
     city: req.body.data?.city || "",
-    email: req.body.data?.email || null,
     role: req.body.data?.role || "MEMBER",
   };
   try {
@@ -85,17 +85,41 @@ export const httpPostMember: RequestHandler = async (req, res, next) => {
     const media = await prisma.memberMedia.create({
       data: {
         id: result.id,
-        profilePicId: profilePicURL.id,
-        cnicFrontId: cnicFrontURL.id,
-        cnicBackId: cnicBackURL.id,
+        memberId: result.id,
+        profilePic: (req.body.data?.profilePic as string) || "",
+        cnicFront: (req.body.data?.cnicFront as string) || "",
+        cnicBack: (req.body.data?.cnicBack as string) || "",
       },
     });
+    if (Number(req.body.data?.amount) > 0) {
+      const payment = await prisma.memberPayments.create({
+        data: {
+          amount: Number(req.body.data?.amount),
+          memberId: result.id,
+        },
+      });
+    }
     res.json({ message: result }); // This returns a Response but does not conflict with void if the function returns after
   } catch (error) {
     next(error); // Properly pass the error to the next middleware
   }
 };
 
+export const httpPayMember = async (req: Request, res: Response) => {
+  const { memberid } = req.params;
+  const { amount } = req.body;
+  try {
+    const result = await prisma.memberPayments.create({
+      data: {
+        amount: amount,
+        memberId: memberid as string,
+      },
+    });
+    res.status(201).json({ message: result });
+  } catch (error) {
+    res.status(400).json({ message: "Failed to pay member." });
+  }
+};
 export const httpUpdateMember = async (req: Request, res: Response) => {
   const id = req.params.memberid;
   const { cnic, fatherName, name, phone, address, city, email } = req.body;
@@ -111,28 +135,26 @@ export const httpUpdateMember = async (req: Request, res: Response) => {
         phone: phone || "",
         address: address || "",
         city: city || "",
-        email: email || "",
       },
     });
     res.status(202).json({ message: updatedData });
   } catch (error) {
-    res
-      .status(400)
-      .json({ message: "Failed to update member." + error.message });
+    res.status(400).json({ error: "Failed to update member." });
   }
 };
 
 export const httpDeleteMember = async (req: Request, res: Response) => {
-  const id = req.params.memberid;
+  const { memberid } = req.params;
+
   try {
     const result = await prisma.member.delete({
       where: {
-        id: id,
+        id: memberid,
       },
     });
     const media = await prisma.memberMedia.delete({
       where: {
-        id: id,
+        id: memberid,
       },
     });
     return res.status(201).json({ message: "Member deleted." });

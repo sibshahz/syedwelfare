@@ -46,17 +46,17 @@ export const MemberSchema = z.object({
   profilePic: z.string().optional(),
   cnicFront: z.string().optional(),
   cnicBack: z.string().optional(),
+  amount: z.number().optional(),
   fatherName: z.string().optional(), //done
   phone: z //done
     .string()
-    .regex(/^\d{11}$/, { message: "Phone number must be exactly 11 digits" }).optional(),
+    .optional(),
   address: z.string().optional(), //done
   city: z.string().optional(),
   role: z.enum(["MEMBER"]).optional(),
 });
 
 export type Member = z.infer<typeof MemberSchema>;
-
 
 export const DonorSchema = z.object({
   id: z.string().optional(),
@@ -70,10 +70,14 @@ export const DonorSchema = z.object({
   cnicBack: z.string().optional(),
   phone: z //done
     .string()
-    .regex(/^\d{11}$/, { message: "Phone number must be exactly 11 digits" }).optional()?,
+    .regex(/^\d{11}$/, { message: "Phone number must be exactly 11 digits" })
+    .optional(),
   address: z.string().optional(), //done
   city: z.string().optional(),
-  email: z.string().email({message: "Please enter a valid email."}).optional(),
+  email: z
+    .string()
+    .email({ message: "Please enter a valid email." })
+    .optional(),
   role: z.enum(["DONOR"]).optional(),
 });
 

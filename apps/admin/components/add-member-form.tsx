@@ -26,6 +26,7 @@ export function MemberForm() {
       cnicBack: "",
       cnicFront: "",
       profilePic: "",
+      amount: 0,
       address: "",
       city: "",
       role: "MEMBER",
@@ -173,24 +174,25 @@ form.reset(); // Reset the form after successful submission
     </FormItem>
   )}
 />
-
 <FormField
   control={form.control}
-  name="address"
+  name="amount"
   render={({ field }) => (
     <FormItem>
-      <FormLabel>Address </FormLabel>
+      <FormLabel>Amount </FormLabel>
       <FormControl>
-        <Textarea
-        className="resize-none"
-          placeholder="Enter address details"
+        <Input
+          type="number"
+          placeholder="Enter amount"
           {...field}
+          onChange={(e) => field.onChange(parseInt(e.target.value, 10))}
         />
       </FormControl>
       <FormMessage />
     </FormItem>
   )}
 />
+
 <FormField
   control={form.control}
   name="city"
@@ -201,6 +203,23 @@ form.reset(); // Reset the form after successful submission
         <Input
           type="text" // Use text to handle string inputs
           placeholder="Enter city name here"
+          {...field}
+        />
+      </FormControl>
+      <FormMessage />
+    </FormItem>
+  )}
+/>
+<FormField
+  control={form.control}
+  name="address"
+  render={({ field }) => (
+    <FormItem>
+      <FormLabel>Address </FormLabel>
+      <FormControl>
+        <Textarea
+        className="resize-none"
+          placeholder="Enter address details"
           {...field}
         />
       </FormControl>
