@@ -3,33 +3,29 @@ import { prisma } from "@repo/database";
 import { MemberSchema, z } from "@repo/zod-utils";
 import { uploadCloudImage } from "@/services/cloudinary";
 
-export const httpGetMembersList = async (
-  req: Request,
-  res: Response,
-  next: NextFunction
-) => {
+export const httpGetMembersList = async (req: Request, res: Response) => {
   try {
     const members = await prisma.member.findMany();
-    res.json({ message: members });
+    return res.json({ message: members });
   } catch (error) {
-    next(error);
+    return res.status(400).json({ error: "Failed to fetch members." });
+    // next(error);
   }
 };
 
-export const httpGetMembersPaginated = async (
-  req: Request,
-  res: Response,
-  next: NextFunction
-) => {
+export const httpGetMembersPaginated = async (req: Request, res: Response) => {
   try {
     const { page, limit } = req.query;
     const members = await prisma.member.findMany({
       skip: Number(page) * Number(limit),
       take: Number(limit),
     });
-    res.json({ message: members });
+    return res.json({ message: members });
   } catch (error) {
-    next(error);
+    // next(error);
+    return res
+      .status(400)
+      .json({ error: "Failed to fetch members paginated." });
   }
 };
 
@@ -42,31 +38,31 @@ export const httpGetMember = async (req: Request, res: Response) => {
       },
     });
     if (!member) {
-      res.status(404).json({ error: "Member not found by id." });
+      return res.status(404).json({ error: "Member not found by id." });
     }
-    res.status(200).json({ message: member });
+    return res.status(200).json({ message: member });
   } catch (error) {
-    res.status(400).json({ error: "Failed to fetch member." });
+    return res.status(400).json({ error: "Failed to fetch member." });
   }
 };
 
 export const httpGetTotalMembers = async (req: Request, res: Response) => {
   try {
     const members = await prisma.member.count();
-    res.status(200).json({ message: members });
-  } catch (error) {
-    res.status(400).json({ errorNew: error.message });
+    return res.status(200).json({ message: members });
+  } catch (error: any) {
+    return res.status(400).json({ error: error.message });
   }
 };
 
-export const httpPostMember: RequestHandler = async (req, res, next) => {
+export const httpPostMember = async (req: Request, res: Response) => {
   const resultSchema = MemberSchema.safeParse(req.body.data);
   if (!resultSchema.success) {
     res.status(400).json({
       error: resultSchema.error.errors, // Adjusted for better error detail
     });
     // return; // Ensure the function returns void here
-    res.status(400).json({ error: "Failed to create member." });
+    return res.status(400).json({ error: "Failed to create member." });
   }
 
   // member already exists cnic
@@ -76,8 +72,9 @@ export const httpPostMember: RequestHandler = async (req, res, next) => {
     },
   });
   if (memberExists) {
-    res.status(400).json({ error: "Member already exists with this CNIC." });
-    return;
+    return res
+      .status(400)
+      .json({ error: "Member already exists with this CNIC." });
   }
 
   const data = {
@@ -113,7 +110,8 @@ export const httpPostMember: RequestHandler = async (req, res, next) => {
     }
     res.json({ message: result }); // This returns a Response but does not conflict with void if the function returns after
   } catch (error) {
-    next(error); // Properly pass the error to the next middleware
+    return res.status(400).json({ error: "Failed to create member." });
+    // next(error); // Properly pass the error to the next middleware
   }
 };
 
@@ -127,9 +125,9 @@ export const httpPayMember = async (req: Request, res: Response) => {
         memberId: memberid as string,
       },
     });
-    res.status(201).json({ message: result });
+    return res.status(201).json({ message: result });
   } catch (error) {
-    res.status(400).json({ message: "Failed to pay member." });
+    return res.status(400).json({ message: "Failed to pay member." });
   }
 };
 export const httpUpdateMember = async (req: Request, res: Response) => {
@@ -149,9 +147,9 @@ export const httpUpdateMember = async (req: Request, res: Response) => {
         city: city || "",
       },
     });
-    res.status(202).json({ message: updatedData });
+    return res.status(202).json({ message: updatedData });
   } catch (error) {
-    res.status(400).json({ error: "Failed to update member." });
+    return res.status(400).json({ error: "Failed to update member." });
   }
 };
 
@@ -169,9 +167,9 @@ export const httpDeleteMember = async (req: Request, res: Response) => {
         id: memberid,
       },
     });
-    res.status(201).json({ message: "Member deleted." });
+    return res.status(201).json({ message: "Member deleted." });
   } catch (error) {
-    res.status(400).json({ message: "Failed to delete member." });
+    return res.status(400).json({ message: "Failed to delete member." });
     // next(error);
   }
 };

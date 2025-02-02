@@ -1,3 +1,4 @@
+"use server";
 // import { Donation } from "@repo/zod-utils";
 import axios_default from "@/lib/api/axios-core";
 export const getAllPayments = async () => {

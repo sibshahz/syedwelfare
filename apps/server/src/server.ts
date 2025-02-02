@@ -1,5 +1,10 @@
 import { json, urlencoded } from "body-parser";
-import express, { type Express, type Request, type Response } from "express";
+import express, {
+  NextFunction,
+  type Express,
+  type Request,
+  type Response,
+} from "express";
 import morgan from "morgan";
 import cors from "cors";
 import api from "@/routes/api";
@@ -7,6 +12,10 @@ import cookieParser from "cookie-parser";
 
 export const createServer = (): Express => {
   const app = express();
+  const allowedOrigins = [
+    "http://localhost:3000",
+    process.env.APP_URL || "http://localhost:3000",
+  ];
 
   app
     .disable("x-powered-by")
@@ -16,12 +25,12 @@ export const createServer = (): Express => {
     .use(cookieParser())
     .use(
       cors({
-        origin: process.env.APP_URL || "http://localhost:3000",
+        origin: allowedOrigins,
         credentials: true,
       })
     )
     .use("/v1", api)
-    .use((error, req, res, next) => {
+    .use((error: any, req: Request, res: Response, next: NextFunction) => {
       console.error("***Error", error);
       res.status(500).send({ error: error.message });
     })

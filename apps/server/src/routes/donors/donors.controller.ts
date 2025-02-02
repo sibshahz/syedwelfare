@@ -3,16 +3,12 @@ import { prisma } from "@repo/database";
 import { DonorSchema, z } from "@repo/zod-utils";
 import { uploadCloudImage } from "@/services/cloudinary";
 
-export const httpGetDonorsList = async (
-  req: Request,
-  res: Response,
-  next: NextFunction
-) => {
+export const httpGetDonorsList = async (req: Request, res: Response) => {
   try {
     const donors = await prisma.donor.findMany();
-    res.json({ message: donors });
+    return res.json({ message: donors });
   } catch (error) {
-    res.json({ error: "Failed to fetch donors." });
+    return res.json({ error: "Failed to fetch donors." });
   }
 };
 
@@ -23,9 +19,9 @@ export const httpGetDonorsPaginated = async (req: Request, res: Response) => {
       skip: Number(page) * Number(limit),
       take: Number(limit),
     });
-    res.json({ message: donors });
+    return res.json({ message: donors });
   } catch (error) {
-    res.json({ error: "Failed to fetch donors paginated." });
+    return res.json({ error: "Failed to fetch donors paginated." });
   }
 };
 
@@ -38,27 +34,27 @@ export const httpGetDonor = async (req: Request, res: Response) => {
       },
     });
     if (!donor) {
-      res.status(404).json({ error: "Donor not found by id." });
+      return res.status(404).json({ error: "Donor not found by id." });
     }
-    res.status(200).json({ message: donor });
+    return res.status(200).json({ message: donor });
   } catch (error) {
-    res.status(400).json({ error: "Failed to fetch member." });
+    return res.status(400).json({ error: "Failed to fetch member." });
   }
 };
 
 export const httpGetTotalDonors = async (req: Request, res: Response) => {
   try {
     const donors = await prisma.donor.count();
-    res.status(200).json({ message: donors });
+    return res.status(200).json({ message: donors });
   } catch (error) {
-    res.status(400).json({ error: "Failed to fetch total members." });
+    return res.status(400).json({ error: "Failed to fetch total members." });
   }
 };
 
-export const httpPostDonor: RequestHandler = async (req, res, next) => {
+export const httpPostDonor = async (req: Request, res: Response) => {
   const resultSchema = DonorSchema.safeParse(req.body.data);
   if (!resultSchema.success) {
-    res.status(400).json({
+    return res.status(400).json({
       error: resultSchema.error.errors, // Adjusted for better error detail
     });
     // return; // Ensure the function returns void here
@@ -69,7 +65,9 @@ export const httpPostDonor: RequestHandler = async (req, res, next) => {
     },
   });
   if (donorExists) {
-    res.status(400).json({ error: "Donor with this cnic already exists." });
+    return res
+      .status(400)
+      .json({ error: "Donor with this cnic already exists." });
   }
   const data = {
     cnic: req.body.data?.cnic || "N/A",
@@ -102,9 +100,9 @@ export const httpPostDonor: RequestHandler = async (req, res, next) => {
         },
       });
     }
-    res.json({ message: result }); // This returns a Response but does not conflict with void if the function returns after
+    return res.json({ message: result }); // This returns a Response but does not conflict with void if the function returns after
   } catch (error) {
-    res.status(400).json({ error: "Failed to create donor." });
+    return res.status(400).json({ error: "Failed to create donor." });
     // next(error); // Properly pass the error to the next middleware
   }
 };
@@ -119,9 +117,9 @@ export const httpPayDonor = async (req: Request, res: Response) => {
         donorId: donorid as string,
       },
     });
-    res.status(201).json({ message: result });
+    return res.status(201).json({ message: result });
   } catch (error) {
-    res.status(400).json({ message: "Failed to add donation." });
+    return res.status(400).json({ message: "Failed to add donation." });
   }
 };
 export const httpUpdateDonor = async (req: Request, res: Response) => {
@@ -141,9 +139,9 @@ export const httpUpdateDonor = async (req: Request, res: Response) => {
         city: city || "",
       },
     });
-    res.status(202).json({ message: updatedData });
+    return res.status(202).json({ message: updatedData });
   } catch (error) {
-    res.status(400).json({ error: "Failed to update donor." });
+    return res.status(400).json({ error: "Failed to update donor." });
   }
 };
 
@@ -161,9 +159,9 @@ export const httpDeleteDonor = async (req: Request, res: Response) => {
         id: donorid,
       },
     });
-    res.status(201).json({ message: "Donor deleted." });
+    return res.status(201).json({ message: "Donor deleted." });
   } catch (error) {
-    res.status(400).json({ message: "Failed to delete donor." });
+    return res.status(400).json({ message: "Failed to delete donor." });
     // next(error);
   }
 };

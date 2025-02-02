@@ -1,8 +1,8 @@
 # Base image for dependencies
-FROM node:18-alpine AS base
+FROM node:23
 
 # Install necessary system dependencies
-RUN apk add --no-cache curl openssl
+# RUN apk add --no-cache curl openssl
 
 # Set working directory
 WORKDIR /app

@@ -1,5 +1,4 @@
 import {
-  express,
   type Request,
   type Response,
   type NextFunction,
@@ -23,7 +22,9 @@ export const httpRegisterUser = async (req: Request, res: Response) => {
     where: { email },
   });
   if (userExists) {
-    res.status(400).send({ error: "User with this email already exists!" });
+    return res
+      .status(400)
+      .send({ error: "User with this email already exists!" });
   }
   const user = await prisma.user.create({
     data: {
@@ -31,12 +32,16 @@ export const httpRegisterUser = async (req: Request, res: Response) => {
       password: hashedPassword,
     },
   });
-  const token = jwt.sign({ email: user.email, role: user.role }, JWT_SECRET, {
-    expiresIn: "1h",
-  });
+  const token = jwt.sign(
+    { email: user.email, role: user.role },
+    JWT_SECRET as string,
+    {
+      expiresIn: "1h",
+    }
+  );
   // res.cookie("token", token, { httpOnly: true });
   res.cookie("token", token, { httpOnly: true, secure: true });
-  res.status(201).send({
+  return res.status(201).send({
     id: user.id,
     name: user.name,
     email: user.email,
@@ -52,9 +57,13 @@ export const httpLoginUser = async (req: Request, res: Response) => {
   if (!user || !(await bcrypt.compare(password, user.password))) {
     return res.status(401).send({ error: "Invalid credentials!" });
   }
-  const token = jwt.sign({ email: user.email, role: user.role }, JWT_SECRET, {
-    expiresIn: "1h",
-  });
+  const token = jwt.sign(
+    { email: user.email, role: user.role },
+    JWT_SECRET as string,
+    {
+      expiresIn: "1h",
+    }
+  );
   res.cookie("token", token, { httpOnly: true, secure: true });
   res
     .status(200)
@@ -73,7 +82,7 @@ export const authenticate = (
   const token = req.cookies.token;
   if (!token) return res.status(401).send({ error: "Unauthorized" });
   try {
-    const user = jwt.verify(token, JWT_SECRET);
+    const user = jwt.verify(token, JWT_SECRET as string);
     // req.user = user;
     if (user) {
       next();

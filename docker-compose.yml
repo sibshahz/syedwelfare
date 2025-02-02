@@ -1,15 +1,17 @@
 services:
   # Database service
-  database:
+  
+  db:
     image: postgres:15
     environment:
-      POSTGRES_DB: ${DB_NAME}
       POSTGRES_USER: ${DB_USER}
       POSTGRES_PASSWORD: ${DB_PASSWORD}
+      POSTGRES_DB: ${DB_NAME}
     ports:
       - "5432:5432"
-    volumes: 
-      - pgdata:/var/lib/postgresql/data
+    restart: always
+    volumes:
+      - pgdata:/var/lib/postgresql/data  # Persistent storage for database
     networks:
       - app-network
 
@@ -18,13 +20,13 @@ services:
     container_name: prisma-migrate
     build:
       context: .
-      dockerfile: ./packages/database/Dockerfile  # Custom Dockerfile if needed
+      dockerfile: ./packages/database/Dockerfile
     depends_on:
-      - database
+      - db
     networks:
       - app-network
     environment:
-      - DATABASE_URL=postgresql://${DB_USER}:${DB_PASSWORD}@database:5432/${DB_NAME}
+      - DATABASE_URL=postgresql://${DB_USER}:${DB_PASSWORD}@db:5432/${DB_NAME}
     command: ["sh", "-c", "npx prisma migrate dev && npx prisma generate"]
 
   # Server service
@@ -34,7 +36,7 @@ services:
       context: .
       dockerfile: ./apps/server/Dockerfile
     depends_on:
-      - database
+      - db
       # - prisma-migrate
     ports:
       - "8080:8080"
@@ -42,17 +44,20 @@ services:
     develop:
       watch:
         - action: sync
-          path: ./apps/server
-          target: /src/server
+          path: ./apps/server/src
+          target: /app/src
           ignore:
             - node_modules/
+            - dist/
+            - .turbo/
+            - coverage/
         - action: rebuild
-          path: package.json
+          path: ./apps/server/package.json
     environment:
       - PORT=${PORT}
       - APP_URL=${APP_URL}
       - JWT_SECRET=${JWT_SECRET}
-      - DATABASE_URL=postgresql://${DB_USER}:${DB_PASSWORD}@localhost:5432/${DB_NAME}
+      - DATABASE_URL=postgresql://${DB_USER}:${DB_PASSWORD}@db:5432/${DB_NAME}
     networks:
       - app-network
     command: ["sh", "-c", "npm run build && node dist/index.js"]
@@ -64,7 +69,7 @@ services:
       context: .
       dockerfile: ./apps/admin/Dockerfile
     depends_on:
-      - database
+      - db
       # - prisma-migrate
     ports:
       - "3000:3000"
