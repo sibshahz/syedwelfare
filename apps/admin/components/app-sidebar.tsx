@@ -46,12 +46,12 @@ const data = {
       items: [
         {
           title: "Add Donor",
-          url: "#",
+          url: "/dashboard/donors/add",
           icon: <ShieldPlus />
         },
         {
           title: "Donors List",
-          url: "#",
+          url: "/dashboard/donors/list",
           icon: <HandCoins />
         }
       ],

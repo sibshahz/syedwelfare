@@ -14,7 +14,8 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { createMember } from "@/lib/api/member";
+// import { createMember } from "@/lib/api/member";
+import { createMember } from "@/app/actions/members";
 
 export function MemberForm() {
   const form = useForm<Member>({

@@ -65,12 +65,12 @@ export const DonorSchema = z.object({
     .regex(/^\d{13}$/, { message: "CNIC must be exactly 13 digits" }),
   name: z.string().optional(), //done
   fatherName: z.string().optional(), //done
+  amount: z.number().optional(),
   profilePic: z.string().optional(),
   cnicFront: z.string().optional(),
   cnicBack: z.string().optional(),
   phone: z //done
     .string()
-    .regex(/^\d{11}$/, { message: "Phone number must be exactly 11 digits" })
     .optional(),
   address: z.string().optional(), //done
   city: z.string().optional(),

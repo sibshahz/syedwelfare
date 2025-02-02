@@ -1,85 +1,76 @@
 import type { Request, Response, NextFunction, RequestHandler } from "express";
 import { prisma } from "@repo/database";
-import { MemberSchema, z } from "@repo/zod-utils";
+import { DonorSchema, z } from "@repo/zod-utils";
 import { uploadCloudImage } from "@/services/cloudinary";
 
-export const httpGetMembersList = async (
+export const httpGetDonorsList = async (
   req: Request,
   res: Response,
   next: NextFunction
 ) => {
   try {
-    const members = await prisma.member.findMany();
-    res.json({ message: members });
+    const donors = await prisma.donor.findMany();
+    res.json({ message: donors });
   } catch (error) {
-    next(error);
+    res.json({ error: "Failed to fetch donors." });
   }
 };
 
-export const httpGetMembersPaginated = async (
-  req: Request,
-  res: Response,
-  next: NextFunction
-) => {
+export const httpGetDonorsPaginated = async (req: Request, res: Response) => {
   try {
     const { page, limit } = req.query;
-    const members = await prisma.member.findMany({
+    const donors = await prisma.donor.findMany({
       skip: Number(page) * Number(limit),
       take: Number(limit),
     });
-    res.json({ message: members });
+    res.json({ message: donors });
   } catch (error) {
-    next(error);
+    res.json({ error: "Failed to fetch donors paginated." });
   }
 };
 
-export const httpGetMember = async (req: Request, res: Response) => {
+export const httpGetDonor = async (req: Request, res: Response) => {
   try {
-    const { memberid } = req.params;
-    const member = await prisma.member.findUnique({
+    const { donorid } = req.params;
+    const donor = await prisma.donor.findUnique({
       where: {
-        id: memberid,
+        id: donorid,
       },
     });
-    if (!member) {
-      res.status(404).json({ error: "Member not found by id." });
+    if (!donor) {
+      res.status(404).json({ error: "Donor not found by id." });
     }
-    res.status(200).json({ message: member });
+    res.status(200).json({ message: donor });
   } catch (error) {
     res.status(400).json({ error: "Failed to fetch member." });
   }
 };
 
-export const httpGetTotalMembers = async (req: Request, res: Response) => {
+export const httpGetTotalDonors = async (req: Request, res: Response) => {
   try {
-    const members = await prisma.member.count();
-    res.status(200).json({ message: members });
+    const donors = await prisma.donor.count();
+    res.status(200).json({ message: donors });
   } catch (error) {
     res.status(400).json({ error: "Failed to fetch total members." });
   }
 };
 
-export const httpPostMember: RequestHandler = async (req, res, next) => {
-  const resultSchema = MemberSchema.safeParse(req.body.data);
+export const httpPostDonor: RequestHandler = async (req, res, next) => {
+  const resultSchema = DonorSchema.safeParse(req.body.data);
   if (!resultSchema.success) {
     res.status(400).json({
       error: resultSchema.error.errors, // Adjusted for better error detail
     });
     // return; // Ensure the function returns void here
-    res.status(400).json({ error: "Failed to create member." });
   }
-
-  // member already exists cnic
-  const memberExists = await prisma.member.findFirst({
+  const donorExists = await prisma.donor.findUnique({
     where: {
       cnic: req.body.data?.cnic,
     },
   });
-  if (memberExists) {
-    res.status(400).json({ error: "Member already exists with this CNIC." });
-    return;
+  if (donorExists) {
+    res.status(400).json({ error: "Donor with this cnic already exists." });
   }
-
   const data = {
     cnic: req.body.data?.cnic || "N/A",
     name: req.body.data?.name || "Unknown",
@@ -93,47 +84,48 @@ export const httpPostMember: RequestHandler = async (req, res, next) => {
     role: req.body.data?.role || "MEMBER",
   };
   try {
-    const result = await prisma.member.create({ data });
-    const media = await prisma.memberMedia.create({
+    const result = await prisma.donor.create({ data });
+    const media = await prisma.donorMedia.create({
       data: {
         id: result.id,
-        memberId: result.id,
+        donorId: result.id,
         profilePic: (req.body.data?.profilePic as string) || "",
         cnicFront: (req.body.data?.cnicFront as string) || "",
         cnicBack: (req.body.data?.cnicBack as string) || "",
       },
     });
     if (Number(req.body.data?.amount) > 0) {
-      const payment = await prisma.memberPayments.create({
+      const payment = await prisma.donation.create({
         data: {
           amount: Number(req.body.data?.amount),
-          memberId: result.id,
+          donorId: result.id,
         },
       });
     }
     res.json({ message: result }); // This returns a Response but does not conflict with void if the function returns after
   } catch (error) {
-    next(error); // Properly pass the error to the next middleware
+    res.status(400).json({ error: "Failed to create donor." });
+    // next(error); // Properly pass the error to the next middleware
   }
 };
 
-export const httpPayMember = async (req: Request, res: Response) => {
-  const { memberid } = req.params;
+export const httpPayDonor = async (req: Request, res: Response) => {
+  const { donorid } = req.params;
   const { amount } = req.body;
   try {
-    const result = await prisma.memberPayments.create({
+    const result = await prisma.donation.create({
       data: {
         amount: amount,
-        memberId: memberid as string,
+        donorId: donorid as string,
       },
     });
     res.status(201).json({ message: result });
   } catch (error) {
-    res.status(400).json({ message: "Failed to pay member." });
+    res.status(400).json({ message: "Failed to add donation." });
   }
 };
-export const httpUpdateMember = async (req: Request, res: Response) => {
-  const id = req.params.memberid;
+export const httpUpdateDonor = async (req: Request, res: Response) => {
+  const id = req.params.donorid;
   const { cnic, fatherName, name, phone, address, city, email } = req.body;
   try {
     const updatedData = await prisma.member.update({
@@ -151,27 +143,27 @@ export const httpUpdateMember = async (req: Request, res: Response) => {
     });
     res.status(202).json({ message: updatedData });
   } catch (error) {
-    res.status(400).json({ error: "Failed to update member." });
+    res.status(400).json({ error: "Failed to update donor." });
   }
 };
 
-export const httpDeleteMember = async (req: Request, res: Response) => {
-  const { memberid } = req.params;
+export const httpDeleteDonor = async (req: Request, res: Response) => {
+  const { donorid } = req.params;
 
   try {
-    const result = await prisma.member.delete({
+    const result = await prisma.donor.delete({
       where: {
-        id: memberid,
+        id: donorid,
       },
     });
     const media = await prisma.memberMedia.delete({
       where: {
-        id: memberid,
+        id: donorid,
       },
     });
-    res.status(201).json({ message: "Member deleted." });
+    res.status(201).json({ message: "Donor deleted." });
   } catch (error) {
-    res.status(400).json({ message: "Failed to delete member." });
+    res.status(400).json({ message: "Failed to delete donor." });
     // next(error);
   }
 };

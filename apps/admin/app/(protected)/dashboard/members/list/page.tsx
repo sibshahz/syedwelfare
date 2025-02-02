@@ -7,7 +7,6 @@ import React from 'react'
 const ListMemberPage =async () => {
   const members = await getAllMembers() as MembersTableProps
   const totalMembers = await getTotalMembers()
-  console.log("***members", totalMembers)
   return (
     <div>
       <h1>Members</h1>

@@ -2,6 +2,7 @@ import express from "express";
 import membersRouter from "@/routes/members/members.router";
 import authRouter from "./auth/auth.router";
 import { authenticate } from "./auth/auth.controller";
+import donorsRouter from "./donors/donors.router";
 const api = express.Router();
 
 // Middleware to check for x-user-id except for /hooks route
@@ -22,5 +23,6 @@ const api = express.Router();
 
 // Route handling
 api.use("/members", membersRouter);
+api.use("/donors", donorsRouter);
 api.use("/auth", authRouter);
 export default api;

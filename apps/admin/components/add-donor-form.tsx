@@ -1,8 +1,9 @@
 "use client";
 
+import React from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
-import { MemberSchema, type Member } from "@repo/zod-utils";
+import {   DonorSchema,  type Donor } from "@repo/zod-utils";
 import { Button } from "@/components/ui/button";
 import {Textarea} from "@/components/ui/textarea";
 import {
@@ -14,41 +15,27 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { updateMember } from "@/app/actions/members";
-import { useEffect } from "react";
-import { useRouter } from "next/navigation";
+// import { createMember } from "@/lib/api/member";
+import { createDonor } from "@/app/actions/donors";
 
-
-export const EditMemberForm: React.FC<{ memberData: Member }> = ({ memberData }) => {
-  const router = useRouter();  
-  const form = useForm<Member>({
-    resolver: zodResolver(MemberSchema),
+export function DonorForm() {
+  const [loading, setLoading] = React.useState(false);
+  const [error, setError] = React.useState(null);
+  const form = useForm<Donor>({
+    resolver: zodResolver(DonorSchema),
     defaultValues: {
-      name: memberData.name,
-      fatherName: memberData.fatherName || "",
-      cnic: memberData.cnic,
-      phone: memberData.phone,
-      cnicBack: memberData.cnicBack || "",
-      cnicFront: memberData.cnicFront || "",
-      profilePic: memberData.profilePic || "",
-      address: memberData.address,
-      city: memberData.city,
-      role: "MEMBER",
+      name: "",
+      cnic: "",
+      phone: "",
+      cnicBack: "",
+      cnicFront: "",
+      profilePic: "",
+      amount: 0,
+      address: "",
+      city: "",
+      role: "DONOR",
     },
   });
-
-  useEffect(() => {
-    form.setValue("name", memberData.name)
-    form.setValue("fatherName", memberData.fatherName)
-    form.setValue("cnic", memberData.cnic)
-    form.setValue("phone", memberData.phone)
-    // form.setValue("cnicBack", memberData.cnicBack)
-    // form.setValue("cnicFront", memberData.cnicFront)
-    // form.setValue("profilePic", memberData.profilePic)
-    form.setValue("address", memberData.address)
-    form.setValue("city", memberData.city)
-
-  },[memberData])
   console.log("Form errors: ", form.formState.errors);
   function handleFileChange(field: any, setValue: any) {
   return async (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -63,14 +50,20 @@ export const EditMemberForm: React.FC<{ memberData: Member }> = ({ memberData })
   };
 }
 
-async function onSubmit(values: Member) {
+async function onSubmit(values: Donor) {
 console.log("Form values: ", values)
+setLoading(true);
+const result=await createDonor(values)
+if(result instanceof Error){
+  const errorResponse:any = result;
+  console.error("Failed to create donor:", result);
+  setError(errorResponse?.response?.data?.error);
+}else{
+  setError(null);
+  form.reset(); // Reset the form after successful submission
 
-const result=await updateMember(memberData.id || "",values)
-console.log("RESULT: ", result)
-
-form.reset(); // Reset the form after successful submission
-router.refresh()
+}
+setLoading(false);
 
   // const formData = new FormData();
 
@@ -194,25 +187,25 @@ router.refresh()
     </FormItem>
   )}
 />
-
-
 <FormField
   control={form.control}
-  name="address"
+  name="amount"
   render={({ field }) => (
     <FormItem>
-      <FormLabel>Address </FormLabel>
+      <FormLabel>Amount Donated</FormLabel>
       <FormControl>
-        <Textarea
-        className="resize-none"
-          placeholder="Enter address details"
+        <Input
+          type="number"
+          placeholder="Enter amount"
           {...field}
+          onChange={(e) => field.onChange(parseInt(e.target.value, 10))}
         />
       </FormControl>
       <FormMessage />
     </FormItem>
   )}
 />
+
 <FormField
   control={form.control}
   name="city"
@@ -230,11 +223,27 @@ router.refresh()
     </FormItem>
   )}
 />
+<FormField
+  control={form.control}
+  name="address"
+  render={({ field }) => (
+    <FormItem>
+      <FormLabel>Address </FormLabel>
+      <FormControl>
+        <Textarea
+        className="resize-none"
+          placeholder="Enter address details"
+          {...field}
+        />
+      </FormControl>
+      <FormMessage />
+    </FormItem>
+  )}
+/>
 </div>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
           <FormField
   control={form.control}
-  
   name="profilePic"
   render={({ field }) => (
     <FormItem>
@@ -242,7 +251,7 @@ router.refresh()
       <FormControl>
         
       <Input 
-      disabled={true}
+      disabled={false}
       type="file" accept="image/*"
  onChange={handleFileChange(field.name, form.setValue)}
       // {...field}
@@ -263,12 +272,11 @@ router.refresh()
       <FormControl>
         
       <Input 
-      disabled={true}
+      disabled={false}
       type="file" accept="image/*"
       onChange={handleFileChange(field.name, form.setValue)}
       // {...field}
       />
-      {/* <Image src={memberData.profilePic} alt={memberData.name} width={200} height={200} className="aspect-square" /> */}
 
       </FormControl>
       <FormMessage />
@@ -285,7 +293,7 @@ router.refresh()
       <FormControl>
         
       <Input 
-      disabled={true}
+      disabled={false}
       type="file" accept="image/*"
       onChange={handleFileChange(field.name, form.setValue)}
       // {...field}
@@ -296,26 +304,13 @@ router.refresh()
     </FormItem>
   )}
 />
-    <div className="col-span-full">
-  <div className="flex flex-row gap-4 flex-wrap">
-    {(memberData.profilePic && memberData.profilePic.length > 0) 
-    && <img src={memberData.profilePic} alt={memberData.name} width={200} height={200} className="aspect-square" />}
-    {
-      (memberData.cnicFront && memberData.cnicFront.length > 0) 
-      && <img src={memberData.cnicFront} alt={memberData.name} width={200} height={200} className="aspect-square" />
-    }
-    {
-      (memberData.cnicBack && memberData.cnicBack.length > 0) 
-      && <img src={memberData.cnicBack} alt={memberData.name} width={200} height={200} className="aspect-square" />
-    }
-  </div>
-</div>
         </div>
-        <Button type="submit">Update</Button> {/* Leave type as submit */}
-        <Button variant={"outline"} onClick={() => router.back()}>Cancel</Button>
+        <Button type="submit">Submit</Button> {/* Leave type as submit */}
       </form>
     </Form>
-
+    {
+      error && <div className="font-medium text-red-600">{error}</div>
+    }
     </>
   );
 }
