@@ -1,8 +1,11 @@
+
 import { getAllMembers, getTotalMembers } from '@/app/actions/members'
 import MembersPagination from '@/components/members-pagination'
 import MembersTable from '@/components/members-table'
 import React from 'react'
 import { Member } from '@repo/zod-utils'
+
+export const dynamic = 'force-dynamic'
 
 const ListMemberPage =async () => {
   const members = await getAllMembers() as Member[]

@@ -18,7 +18,7 @@ import { ReactNode } from 'react';
 
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
     const [user, setUser] = useState<User | null>(null);
-    const [loading, setLoading] = useState(true);
+    // const [loading] = useState(true);
 
     // useEffect(() => {
     //     const fetchUser = async () => {
@@ -40,7 +40,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     // }, []);
 
     return (
-        <AuthContext.Provider value={{ user, setUser, loading }}>
+        <AuthContext.Provider value={{ user, setUser, loading: false }}>
             {children}
         </AuthContext.Provider>
     );

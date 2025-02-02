@@ -1,10 +1,9 @@
 import React from 'react'
 
-type Props = {}
 
-const Logo = (props: Props) => {
+const Logo = () => {
   return (
-    <h1 className='text-wrap text-pretty w-full text-center'>Syed Welfare Organization</h1>
+    <h1 className='text-pretty w-full text-center'>Syed Welfare Organization</h1>
   )
 }
 

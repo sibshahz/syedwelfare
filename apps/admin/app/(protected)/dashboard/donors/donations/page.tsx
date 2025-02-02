@@ -2,6 +2,7 @@ import React from 'react'
 import { getAllDonations } from '@/app/actions/donations'
 import DonationsTable from '@/components/donations-table'
 
+export const dynamic = 'force-dynamic'
 
 const Page =async () => {
   const donations= await getAllDonations()

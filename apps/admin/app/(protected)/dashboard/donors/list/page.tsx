@@ -1,9 +1,11 @@
+
 import { getAllDonor, getTotalDonor } from '@/app/actions/donors'
 import DonorsPagination from '@/components/donors-pagination'
 import DonorsTable from '@/components/donors-table'
 import { Donor } from '@repo/zod-utils'
 import React from 'react'
 
+export const dynamic = 'force-dynamic'
 
 const DonorListPage =async () => {
   const donors = await getAllDonor() as Donor[]

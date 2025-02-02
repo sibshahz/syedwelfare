@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "build": "npx esbuild ./src/index.ts --bundle --platform=node --outfile=dist/index.js",
+    "build": "npx esbuild src/index.ts --bundle --platform=node --outfile=dist/index.js --external:*.html --external:mock-aws-s3 --external:aws-sdk --external:nock --external:bcrypt && cp package.json dist/",
     "start": "node dist/index.js",
     "dev": "ts-node-dev --respawn --transpile-only -r tsconfig-paths/register ./src/index.ts",
     "check-types": "tsc --noEmit",

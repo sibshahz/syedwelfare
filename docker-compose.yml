@@ -1,4 +1,5 @@
 services:
+  # Database service
   database:
     image: postgres:15
     environment:
@@ -11,12 +12,13 @@ services:
       - pgdata:/var/lib/postgresql/data
     networks:
       - app-network
-  
+
+  # Prisma migration and client generation service
   prisma-migrate:
     container_name: prisma-migrate
     build:
       context: .
-      dockerfile: ./packages/database/Dockerfile
+      dockerfile: ./packages/database/Dockerfile  # Custom Dockerfile if needed
     depends_on:
       - database
     networks:
@@ -25,6 +27,7 @@ services:
       - DATABASE_URL=postgresql://${DB_USER}:${DB_PASSWORD}@database:5432/${DB_NAME}
     command: ["sh", "-c", "npx prisma migrate dev && npx prisma generate"]
 
+  # Server service
   server:
     container_name: server
     build:
@@ -32,19 +35,29 @@ services:
       dockerfile: ./apps/server/Dockerfile
     depends_on:
       - database
-      - prisma-migrate
+      # - prisma-migrate
     ports:
       - "8080:8080"
     restart: always
+    develop:
+      watch:
+        - action: sync
+          path: ./apps/server
+          target: /src/server
+          ignore:
+            - node_modules/
+        - action: rebuild
+          path: package.json
     environment:
       - PORT=${PORT}
       - APP_URL=${APP_URL}
       - JWT_SECRET=${JWT_SECRET}
+      - DATABASE_URL=postgresql://${DB_USER}:${DB_PASSWORD}@localhost:5432/${DB_NAME}
     networks:
       - app-network
     command: ["sh", "-c", "npm run build && node dist/index.js"]
 
-
+  # Admin service
   admin:
     container_name: admin
     build:
@@ -52,7 +65,7 @@ services:
       dockerfile: ./apps/admin/Dockerfile
     depends_on:
       - database
-      - prisma-migrate
+      # - prisma-migrate
     ports:
       - "3000:3000"
     restart: always
@@ -61,11 +74,9 @@ services:
     networks:
       - app-network
 
-
 volumes:
-      pgdata:
+  pgdata:
 
 networks:
   app-network:
     driver: bridge
-

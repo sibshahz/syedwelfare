@@ -2,6 +2,7 @@ import { getAllPayments } from '@/app/actions/payments';
 import PaymentsTable from '@/components/payments-table';
 import React from 'react'
 
+export const dynamic = 'force-dynamic'
 
 const Page =async () => {
   const payments= await getAllPayments();

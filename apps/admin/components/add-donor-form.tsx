@@ -19,7 +19,7 @@ import { Input } from "@/components/ui/input";
 import { createDonor } from "@/app/actions/donors";
 
 export function DonorForm() {
-  const [loading, setLoading] = React.useState(false);
+  // const [loading, setLoading] = React.useState(false);
   const [error, setError] = React.useState(null);
   const form = useForm<Donor>({
     resolver: zodResolver(DonorSchema),
@@ -52,7 +52,7 @@ export function DonorForm() {
 
 async function onSubmit(values: Donor) {
 console.log("Form values: ", values)
-setLoading(true);
+// setLoading(true);
 const result=await createDonor(values)
 if(result instanceof Error){
   const errorResponse:any = result;
@@ -63,7 +63,7 @@ if(result instanceof Error){
   form.reset(); // Reset the form after successful submission
 
 }
-setLoading(false);
+// setLoading(false);
 
   // const formData = new FormData();
 

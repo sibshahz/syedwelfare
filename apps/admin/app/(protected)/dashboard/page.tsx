@@ -8,6 +8,7 @@ import {
   CardTitle,
 } from "@/components/ui/card"
 
+export const dynamic = 'force-dynamic'
 
 const DashboardContent = [
   {

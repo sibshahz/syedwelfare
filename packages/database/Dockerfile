@@ -1,16 +1,40 @@
 # Base image
-FROM node:18
+FROM node:18-alpine AS base
+
+# Install necessary dependencies
+RUN apk add --no-cache openssl
+
+# Install Prisma CLI globally
+RUN npm install -g prisma
 
 # Set working directory
 WORKDIR /app
 
-# Copy package files
-COPY packages/database/package*.json ./
+# First copy root package files
+COPY package*.json ./
+COPY packages/database/package*.json ./packages/database/
 
 # Install dependencies
-RUN npm install
+# Use --prefix to install in the correct directory
+RUN npm install --prefix packages/database
 
-# Copy the Prisma schema and any required files
-COPY packages/database ./
+# Copy the entire workspace configuration
+COPY . .
 
-# Prisma generate and migrate commands will be handled by the `prisma-migrate` service
+# Generate Prisma Client
+RUN cd packages/database && \
+    npx prisma generate
+
+# Set up entry point script
+RUN echo '#!/bin/sh\n\
+cd packages/database\n\
+npx prisma migrate deploy\n\
+npx prisma generate\n\
+exec "$@"' > /docker-entrypoint.sh
+
+RUN chmod +x /docker-entrypoint.sh
+
+ENTRYPOINT ["/docker-entrypoint.sh"]
+
+# Default command (can be overridden)
+CMD ["node", "index.js"]

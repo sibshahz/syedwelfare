@@ -55,7 +55,7 @@ export const httpGetTotalMembers = async (req: Request, res: Response) => {
     const members = await prisma.member.count();
     res.status(200).json({ message: members });
   } catch (error) {
-    res.status(400).json({ error: "Failed to fetch total members." });
+    res.status(400).json({ errorNew: error.message });
   }
 };
 

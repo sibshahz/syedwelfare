@@ -24,7 +24,7 @@ RUN npm ci --legacy-peer-deps
 COPY . .
 
 # Production build for Next.js
-WORKDIR /app/apps/web
+WORKDIR /app/apps/admin
 RUN npm run build
 
 # Set environment variable
