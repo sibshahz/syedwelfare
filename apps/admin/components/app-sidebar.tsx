@@ -1,5 +1,5 @@
 import type * as React from "react"
-import { Bolt, ChevronRight, CirclePlus, HandCoins, Logs, ShieldPlus } from "lucide-react"
+import { ArrowDownToDot, ArrowUpFromDot, Bolt, ChevronRight, CirclePlus, HandCoins, Logs, ShieldPlus } from "lucide-react"
 
 import {
   Collapsible,
@@ -25,7 +25,7 @@ const data = {
   versions: ["1.0.1", "1.1.0-alpha", "2.0.0-beta1"],
   navMain: [
     {
-      title: "Members",
+      title: "Beneficiaries",
       url: "#",
       items: [
         {
@@ -37,6 +37,11 @@ const data = {
           title: "Members List",
           url: "/dashboard/members/list",
           icon: <Logs />,
+        },
+                {
+          title: "Payments",
+          url: "/dashboard/members/payments",
+          icon: <ArrowUpFromDot />,
         }
       ],
     },
@@ -53,6 +58,11 @@ const data = {
           title: "Donors List",
           url: "/dashboard/donors/list",
           icon: <HandCoins />
+        },
+                {
+          title: "Donations",
+          url: "/dashboard/donors/donations",
+          icon: <ArrowDownToDot /> 
         }
       ],
     },
