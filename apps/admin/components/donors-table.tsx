@@ -9,7 +9,7 @@ import { Donor } from "@repo/zod-utils"
 import React from 'react'
 import DonorsTableItem from "./donors-table-item";
 
-export interface DonorsTableProps extends Donor {
+export interface DonorsTableProps {
   donors: Donor[];
 }
 

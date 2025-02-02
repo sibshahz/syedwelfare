@@ -3,6 +3,8 @@ import membersRouter from "@/routes/members/members.router";
 import authRouter from "./auth/auth.router";
 import { authenticate } from "./auth/auth.controller";
 import donorsRouter from "./donors/donors.router";
+import donationsRouter from "./donations/donations.router";
+import paymentsRouter from "./payments/payments.router";
 const api = express.Router();
 
 // Middleware to check for x-user-id except for /hooks route
@@ -23,6 +25,8 @@ const api = express.Router();
 
 // Route handling
 api.use("/members", membersRouter);
+api.use("/payments", paymentsRouter);
 api.use("/donors", donorsRouter);
+api.use("/donations", donationsRouter);
 api.use("/auth", authRouter);
 export default api;

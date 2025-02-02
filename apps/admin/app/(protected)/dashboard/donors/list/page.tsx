@@ -11,7 +11,7 @@ const DonorListPage =async () => {
   return (
     <div>
       <h1>Donors</h1>
-      <DonorsTable donors={donors} cnic={''} />
+      <DonorsTable donors={donors} />
       <DonorsPagination totalDonors={totalDonors} />
     </div>
   )

@@ -5,6 +5,7 @@ import { useForm } from "react-hook-form";
 import { MemberSchema, type Member } from "@repo/zod-utils";
 import { Button } from "@/components/ui/button";
 import {Textarea} from "@/components/ui/textarea";
+import Image from 'next/image';
 import {
   Form,
   FormControl,
@@ -20,6 +21,7 @@ import { createMember } from "@/app/actions/members";
 export function MemberForm() {
   const form = useForm<Member>({
     resolver: zodResolver(MemberSchema),
+    
     defaultValues: {
       name: "",
       cnic: "",
@@ -293,6 +295,23 @@ form.reset(); // Reset the form after successful submission
   )}
 />
         </div>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+      {
+  form.getValues("profilePic") && (
+    <Image src={form.getValues("profilePic") as string} alt="Profile" width={128} height={128}  />
+  )
+  }
+  {
+    form.getValues("cnicFront") && (
+    <Image src={form.getValues("cnicFront") as string} alt="CNIC Front" width={128} height={128}  />
+  )
+  }
+    {
+    form.getValues("cnicBack") && (
+    <Image src={form.getValues("cnicBack") as string} alt="CNIC Back" width={128} height={128} />
+  )
+  }
+    </div>
         <Button type="submit">Submit</Button> {/* Leave type as submit */}
       </form>
     </Form>
