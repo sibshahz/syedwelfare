@@ -54,10 +54,10 @@ async function onSubmit(values: Donor) {
 console.log("Form values: ", values)
 // setLoading(true);
 const result=await createDonor(values)
-if(result instanceof Error){
+if(result.error){
   const errorResponse:any = result;
-  console.error("Failed to create donor:", result);
-  setError(errorResponse?.response?.data?.error);
+  console.error("Failed to create donor:", errorResponse.error);
+  setError(result.error);
   
 }else{
   setError(null);

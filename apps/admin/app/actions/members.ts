@@ -33,9 +33,9 @@ export const createMember = async (data: Member) => {
   try {
     const response = await axios_default.post(`members`, { data });
     return response;
-  } catch (error) {
+  } catch (error: any) {
     console.error("Failed to fetch resources:", error);
-    return error;
+    return { error: error.response.data };
   }
 };
 

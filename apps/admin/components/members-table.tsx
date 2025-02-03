@@ -13,31 +13,29 @@ export interface MembersTableProps extends Member {
   members: Member[];
 }
 
-const MembersTable: React.FC<MembersTableProps> = ({ members }) => {
+const MembersTable: React.FC<MembersTableProps> = ({ members = [] }) => {
   return (
     <Table>
-  <TableHeader>
-    <TableRow>
-      <TableHead className="w-[100px]">Profile pic</TableHead>
-      <TableHead className="w-[100px]">CNIC</TableHead>
-      <TableHead>Name</TableHead>
-      <TableHead>Father name</TableHead>
-      <TableHead>Phone</TableHead>
-      <TableHead>Address</TableHead>
-      <TableHead>City</TableHead>
-      <TableHead>Actions</TableHead>
-    </TableRow>
-  </TableHeader>
-  <TableBody>
-    {members.map((member, index) => {
-      return(
-      <MembersTableItem key={index} member={member} />
-      )
-})}
-  </TableBody>
-</Table>
+      <TableHeader>
+        <TableRow>
+          <TableHead className="w-[100px]">Profile pic</TableHead>
+          <TableHead className="w-[100px]">CNIC</TableHead>
+          <TableHead>Name</TableHead>
+          <TableHead>Father name</TableHead>
+          <TableHead>Phone</TableHead>
+          <TableHead>Address</TableHead>
+          <TableHead>City</TableHead>
+          <TableHead>Actions</TableHead>
+        </TableRow>
+      </TableHeader>
+      <TableBody>
+        {members?.map((member, index) => (
+          <MembersTableItem key={index} member={member} />
+        ))}
+      </TableBody>
+    </Table>
+  );
+};
 
-  )
-}
 
 export default MembersTable

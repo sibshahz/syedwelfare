@@ -34,8 +34,8 @@ export const createDonor = async (data: Donor) => {
   try {
     const response = await axios_default.post(`donors`, { data });
     return response;
-  } catch (error) {
-    console.error("Failed to fetch resources:", error);
+  } catch (error: any) {
+    console.error("Failed to fetch resources:", error.response.data);
     return error;
   }
 };
