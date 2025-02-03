@@ -21,6 +21,9 @@ RUN npm install --prefix packages/database
 # Copy the entire workspace configuration
 COPY . .
 
+ARG DATABASE_URL
+ENV DATABASE_URL=$DATABASE_URL
+
 # Generate Prisma Client
 RUN cd packages/database && \
     npx prisma generate

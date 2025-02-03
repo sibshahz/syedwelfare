@@ -22,6 +22,16 @@ RUN npm install
 # Copy the whole codebase
 COPY . .
 
+ARG PORT
+ARG APP_URL
+ARG JWT_SECRET
+ARG DATABASE_URL
+
+ENV PORT=$PORT
+ENV APP_URL=$APP_URL
+ENV JWT_SECRET=$JWT_SECRET
+ENV DATABASE_URL=$DATABASE_URL
+
 # # Generate Prisma client
 WORKDIR /app/packages/database
 RUN npx prisma generate

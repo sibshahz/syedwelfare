@@ -1,54 +1,58 @@
-version: '3.8'
-
 services:
   # Database service
+  
   db:
     image: postgres:15
-    restart: always
     environment:
       POSTGRES_USER: ${DB_USER}
       POSTGRES_PASSWORD: ${DB_PASSWORD}
       POSTGRES_DB: ${DB_NAME}
     ports:
       - "5432:5432"
+    restart: always
     volumes:
-      - pgdata:/var/lib/postgresql/data
+      - pgdata:/var/lib/postgresql/data  # Persistent storage for database
     networks:
       - app-network
 
-  # Prisma migration service (only runs once)
+  # Prisma migration and client generation service
   prisma-migrate:
-    image: sibshahz/syedwelfare-prisma-migrate:latest  # Use a pre-built image
+    container_name: prisma-migrate
     build:
       context: .
       dockerfile: ./packages/database/Dockerfile
-      args:
-        - DATABASE_URL=postgresql://${DB_USER}:${DB_PASSWORD}@db:5432/${DB_NAME}
     depends_on:
       - db
     networks:
       - app-network
     environment:
       - DATABASE_URL=postgresql://${DB_USER}:${DB_PASSWORD}@db:5432/${DB_NAME}
-    command: ["sh", "-c", "npx prisma migrate deploy && npx prisma generate"]
+    command: ["sh", "-c", "npx prisma migrate dev && npx prisma generate"]
 
-  # Backend Server (API)
+  # Server service
   server:
-    image: sibshahz/syedwelfare-server:latest
+    container_name: server
     build:
       context: .
       dockerfile: ./apps/server/Dockerfile
-      args:
-        - PORT=${PORT}
-        - APP_URL=${APP_URL}
-        - JWT_SECRET=${JWT_SECRET}
-        - DATABASE_URL=postgresql://${DB_USER}:${DB_PASSWORD}@db:5432/${DB_NAME}
     depends_on:
       - db
-      - prisma-migrate
+      # - prisma-migrate
     ports:
       - "8080:8080"
     restart: always
+    develop:
+      watch:
+        - action: sync
+          path: ./apps/server/src
+          target: /app/src
+          ignore:
+            - node_modules/
+            - dist/
+            - .turbo/
+            - coverage/
+        - action: rebuild
+          path: ./apps/server/package.json
     environment:
       - PORT=${PORT}
       - APP_URL=${APP_URL}
@@ -58,16 +62,15 @@ services:
       - app-network
     command: ["sh", "-c", "npm run build && node dist/index.js"]
 
-  # Admin Frontend
+  # Admin service
   admin:
-    image: sibshahz/syedwelfare-admin:latest
+    container_name: admin
     build:
       context: .
       dockerfile: ./apps/admin/Dockerfile
-      args:
-        - NEXT_PUBLIC_BASE_URL=${NEXT_PUBLIC_BASE_URL}
     depends_on:
       - db
+      # - prisma-migrate
     ports:
       - "3000:3000"
     restart: always
