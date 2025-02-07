@@ -26,18 +26,22 @@ ENV DATABASE_URL=$DATABASE_URL
 
 # Generate Prisma Client
 RUN cd packages/database && \
+    npx prisma migrate deploy && \
     npx prisma generate
 
 # Set up entry point script
-RUN echo '#!/bin/sh\n\
-cd packages/database\n\
-npx prisma migrate deploy\n\
-npx prisma generate\n\
-exec "$@"' > /docker-entrypoint.sh
+# RUN echo '#!/bin/sh\n\
+# cd packages/database\n\
+# npx prisma migrate deploy\n\
+# npx prisma generate\n\
+# exec "$@"' > /docker-entrypoint.sh
 
-RUN chmod +x /docker-entrypoint.sh
+# # Set up entry point script
+# COPY docker-entrypoint.sh /docker-entrypoint.sh
 
-ENTRYPOINT ["/docker-entrypoint.sh"]
+# RUN chmod +x /docker-entrypoint.sh
+
+# ENTRYPOINT ["/docker-entrypoint.sh"]
 
 # Default command (can be overridden)
 CMD ["node", "index.js"]

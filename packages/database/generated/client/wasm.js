@@ -166,6 +166,30 @@ exports.Prisma.MemberScalarFieldEnum = {
   role: 'role'
 };
 
+exports.Prisma.MemberStatusScalarFieldEnum = {
+  id: 'id',
+  memberId: 'memberId',
+  status: 'status',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.YearlyPaymentScalarFieldEnum = {
+  id: 'id',
+  year: 'year',
+  amount: 'amount',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.YearlyDonationScalarFieldEnum = {
+  id: 'id',
+  year: 'year',
+  amount: 'amount',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
 exports.Prisma.MemberPaymentsScalarFieldEnum = {
   id: 'id',
   memberId: 'memberId',
@@ -203,12 +227,21 @@ exports.Role = exports.$Enums.Role = {
   MEMBER: 'MEMBER'
 };
 
+exports.Status = exports.$Enums.Status = {
+  APPROVED: 'APPROVED',
+  PENDING: 'PENDING',
+  REJECTED: 'REJECTED'
+};
+
 exports.Prisma.ModelName = {
   User: 'User',
   Donor: 'Donor',
   DonorMedia: 'DonorMedia',
   Donation: 'Donation',
   Member: 'Member',
+  MemberStatus: 'MemberStatus',
+  YearlyPayment: 'YearlyPayment',
+  YearlyDonation: 'YearlyDonation',
   MemberPayments: 'MemberPayments',
   MemberMedia: 'MemberMedia'
 };

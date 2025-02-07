@@ -14,17 +14,19 @@
     "lint": "eslint . --max-warnings 0",
     "prebuild": "npm run generate",
     "predev": "npm run generate",
-    "studio": "prisma studio"
+    "studio": "prisma studio",
+    "seed": "ts-node prisma/seed.ts"
   },
   "dependencies": {
     "@prisma/client": "latest"
   },
   "devDependencies": {
-
+    "@types/node": "^22.13.1",
     "prisma": "latest",
     "rimraf": "^5.0.5",
+    "ts-node": "^10.9.2",
     "tsup": "^8.0.2",
     "tsx": "4.19.1",
-    "typescript": "5.5.4"
+    "typescript": "^5.5.4"
   }
 }

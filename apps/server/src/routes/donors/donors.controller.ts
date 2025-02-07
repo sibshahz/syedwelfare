@@ -14,7 +14,7 @@ export const httpGetDonorsList = async (req: Request, res: Response) => {
 
 export const httpGetDonorsPaginated = async (req: Request, res: Response) => {
   try {
-    const { page, limit } = req.query;
+    const { page, limit } = req.params;
     const donors = await prisma.donor.findMany({
       skip: Number(page) * Number(limit),
       take: Number(limit),

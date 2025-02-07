@@ -13,7 +13,7 @@ import {
 const donorsRouter = express.Router();
 
 donorsRouter.get("/", httpGetDonorsList);
-donorsRouter.get("/:page/:limit", httpGetDonorsPaginated);
+donorsRouter.get("/paginated/:page/:limit", httpGetDonorsPaginated);
 donorsRouter.get("/total-donors", httpGetTotalDonors); // Make sure this comes before the :memberid route
 donorsRouter.get("/:donorid", httpGetDonor); // This should come after /total-donors route
 donorsRouter.post("/", httpPostDonor);

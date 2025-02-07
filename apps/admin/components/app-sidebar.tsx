@@ -35,7 +35,7 @@ const data = {
         },
         {
           title: "Members List",
-          url: "/dashboard/members/list",
+          url: "/dashboard/members/list/1",
           icon: <Logs />,
         },
                 {
@@ -56,7 +56,7 @@ const data = {
         },
         {
           title: "Donors List",
-          url: "/dashboard/donors/list",
+          url: "/dashboard/donors/list/1",
           icon: <HandCoins />
         },
                 {

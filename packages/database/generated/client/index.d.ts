@@ -39,6 +39,21 @@ export type Donation = $Result.DefaultSelection<Prisma.$DonationPayload>
  */
 export type Member = $Result.DefaultSelection<Prisma.$MemberPayload>
 /**
+ * Model MemberStatus
+ * 
+ */
+export type MemberStatus = $Result.DefaultSelection<Prisma.$MemberStatusPayload>
+/**
+ * Model YearlyPayment
+ * 
+ */
+export type YearlyPayment = $Result.DefaultSelection<Prisma.$YearlyPaymentPayload>
+/**
+ * Model YearlyDonation
+ * 
+ */
+export type YearlyDonation = $Result.DefaultSelection<Prisma.$YearlyDonationPayload>
+/**
  * Model MemberPayments
  * 
  */
@@ -62,11 +77,24 @@ export namespace $Enums {
 
 export type Role = (typeof Role)[keyof typeof Role]
 
+
+export const Status: {
+  APPROVED: 'APPROVED',
+  PENDING: 'PENDING',
+  REJECTED: 'REJECTED'
+};
+
+export type Status = (typeof Status)[keyof typeof Status]
+
 }
 
 export type Role = $Enums.Role
 
 export const Role: typeof $Enums.Role
+
+export type Status = $Enums.Status
+
+export const Status: typeof $Enums.Status
 
 /**
  * ##  Prisma Client ʲˢ
@@ -242,6 +270,36 @@ export class PrismaClient<
     * ```
     */
   get member(): Prisma.MemberDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.memberStatus`: Exposes CRUD operations for the **MemberStatus** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more MemberStatuses
+    * const memberStatuses = await prisma.memberStatus.findMany()
+    * ```
+    */
+  get memberStatus(): Prisma.MemberStatusDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.yearlyPayment`: Exposes CRUD operations for the **YearlyPayment** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more YearlyPayments
+    * const yearlyPayments = await prisma.yearlyPayment.findMany()
+    * ```
+    */
+  get yearlyPayment(): Prisma.YearlyPaymentDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.yearlyDonation`: Exposes CRUD operations for the **YearlyDonation** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more YearlyDonations
+    * const yearlyDonations = await prisma.yearlyDonation.findMany()
+    * ```
+    */
+  get yearlyDonation(): Prisma.YearlyDonationDelegate<ExtArgs, ClientOptions>;
 
   /**
    * `prisma.memberPayments`: Exposes CRUD operations for the **MemberPayments** model.
@@ -707,6 +765,9 @@ export namespace Prisma {
     DonorMedia: 'DonorMedia',
     Donation: 'Donation',
     Member: 'Member',
+    MemberStatus: 'MemberStatus',
+    YearlyPayment: 'YearlyPayment',
+    YearlyDonation: 'YearlyDonation',
     MemberPayments: 'MemberPayments',
     MemberMedia: 'MemberMedia'
   };
@@ -724,7 +785,7 @@ export namespace Prisma {
 
   export type TypeMap<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, ClientOptions = {}> = {
     meta: {
-      modelProps: "user" | "donor" | "donorMedia" | "donation" | "member" | "memberPayments" | "memberMedia"
+      modelProps: "user" | "donor" | "donorMedia" | "donation" | "member" | "memberStatus" | "yearlyPayment" | "yearlyDonation" | "memberPayments" | "memberMedia"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -1098,6 +1159,228 @@ export namespace Prisma {
           }
         }
       }
+      MemberStatus: {
+        payload: Prisma.$MemberStatusPayload<ExtArgs>
+        fields: Prisma.MemberStatusFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.MemberStatusFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MemberStatusPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.MemberStatusFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MemberStatusPayload>
+          }
+          findFirst: {
+            args: Prisma.MemberStatusFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MemberStatusPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.MemberStatusFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MemberStatusPayload>
+          }
+          findMany: {
+            args: Prisma.MemberStatusFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MemberStatusPayload>[]
+          }
+          create: {
+            args: Prisma.MemberStatusCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MemberStatusPayload>
+          }
+          createMany: {
+            args: Prisma.MemberStatusCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.MemberStatusCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MemberStatusPayload>[]
+          }
+          delete: {
+            args: Prisma.MemberStatusDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MemberStatusPayload>
+          }
+          update: {
+            args: Prisma.MemberStatusUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MemberStatusPayload>
+          }
+          deleteMany: {
+            args: Prisma.MemberStatusDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.MemberStatusUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.MemberStatusUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MemberStatusPayload>[]
+          }
+          upsert: {
+            args: Prisma.MemberStatusUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MemberStatusPayload>
+          }
+          aggregate: {
+            args: Prisma.MemberStatusAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateMemberStatus>
+          }
+          groupBy: {
+            args: Prisma.MemberStatusGroupByArgs<ExtArgs>
+            result: $Utils.Optional<MemberStatusGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.MemberStatusCountArgs<ExtArgs>
+            result: $Utils.Optional<MemberStatusCountAggregateOutputType> | number
+          }
+        }
+      }
+      YearlyPayment: {
+        payload: Prisma.$YearlyPaymentPayload<ExtArgs>
+        fields: Prisma.YearlyPaymentFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.YearlyPaymentFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$YearlyPaymentPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.YearlyPaymentFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$YearlyPaymentPayload>
+          }
+          findFirst: {
+            args: Prisma.YearlyPaymentFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$YearlyPaymentPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.YearlyPaymentFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$YearlyPaymentPayload>
+          }
+          findMany: {
+            args: Prisma.YearlyPaymentFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$YearlyPaymentPayload>[]
+          }
+          create: {
+            args: Prisma.YearlyPaymentCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$YearlyPaymentPayload>
+          }
+          createMany: {
+            args: Prisma.YearlyPaymentCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.YearlyPaymentCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$YearlyPaymentPayload>[]
+          }
+          delete: {
+            args: Prisma.YearlyPaymentDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$YearlyPaymentPayload>
+          }
+          update: {
+            args: Prisma.YearlyPaymentUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$YearlyPaymentPayload>
+          }
+          deleteMany: {
+            args: Prisma.YearlyPaymentDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.YearlyPaymentUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.YearlyPaymentUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$YearlyPaymentPayload>[]
+          }
+          upsert: {
+            args: Prisma.YearlyPaymentUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$YearlyPaymentPayload>
+          }
+          aggregate: {
+            args: Prisma.YearlyPaymentAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateYearlyPayment>
+          }
+          groupBy: {
+            args: Prisma.YearlyPaymentGroupByArgs<ExtArgs>
+            result: $Utils.Optional<YearlyPaymentGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.YearlyPaymentCountArgs<ExtArgs>
+            result: $Utils.Optional<YearlyPaymentCountAggregateOutputType> | number
+          }
+        }
+      }
+      YearlyDonation: {
+        payload: Prisma.$YearlyDonationPayload<ExtArgs>
+        fields: Prisma.YearlyDonationFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.YearlyDonationFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$YearlyDonationPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.YearlyDonationFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$YearlyDonationPayload>
+          }
+          findFirst: {
+            args: Prisma.YearlyDonationFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$YearlyDonationPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.YearlyDonationFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$YearlyDonationPayload>
+          }
+          findMany: {
+            args: Prisma.YearlyDonationFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$YearlyDonationPayload>[]
+          }
+          create: {
+            args: Prisma.YearlyDonationCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$YearlyDonationPayload>
+          }
+          createMany: {
+            args: Prisma.YearlyDonationCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.YearlyDonationCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$YearlyDonationPayload>[]
+          }
+          delete: {
+            args: Prisma.YearlyDonationDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$YearlyDonationPayload>
+          }
+          update: {
+            args: Prisma.YearlyDonationUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$YearlyDonationPayload>
+          }
+          deleteMany: {
+            args: Prisma.YearlyDonationDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.YearlyDonationUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.YearlyDonationUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$YearlyDonationPayload>[]
+          }
+          upsert: {
+            args: Prisma.YearlyDonationUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$YearlyDonationPayload>
+          }
+          aggregate: {
+            args: Prisma.YearlyDonationAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateYearlyDonation>
+          }
+          groupBy: {
+            args: Prisma.YearlyDonationGroupByArgs<ExtArgs>
+            result: $Utils.Optional<YearlyDonationGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.YearlyDonationCountArgs<ExtArgs>
+            result: $Utils.Optional<YearlyDonationCountAggregateOutputType> | number
+          }
+        }
+      }
       MemberPayments: {
         payload: Prisma.$MemberPaymentsPayload<ExtArgs>
         fields: Prisma.MemberPaymentsFieldRefs
@@ -1335,6 +1618,9 @@ export namespace Prisma {
     donorMedia?: DonorMediaOmit
     donation?: DonationOmit
     member?: MemberOmit
+    memberStatus?: MemberStatusOmit
+    yearlyPayment?: YearlyPaymentOmit
+    yearlyDonation?: YearlyDonationOmit
     memberPayments?: MemberPaymentsOmit
     memberMedia?: MemberMediaOmit
   }
@@ -1473,11 +1759,13 @@ export namespace Prisma {
   export type MemberCountOutputType = {
     media: number
     payments: number
+    memberStatus: number
   }
 
   export type MemberCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     media?: boolean | MemberCountOutputTypeCountMediaArgs
     payments?: boolean | MemberCountOutputTypeCountPaymentsArgs
+    memberStatus?: boolean | MemberCountOutputTypeCountMemberStatusArgs
   }
 
   // Custom InputTypes
@@ -1503,6 +1791,13 @@ export namespace Prisma {
    */
   export type MemberCountOutputTypeCountPaymentsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: MemberPaymentsWhereInput
+  }
+
+  /**
+   * MemberCountOutputType without action
+   */
+  export type MemberCountOutputTypeCountMemberStatusArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: MemberStatusWhereInput
   }
 
 
@@ -5968,6 +6263,7 @@ export namespace Prisma {
     role?: boolean
     media?: boolean | Member$mediaArgs<ExtArgs>
     payments?: boolean | Member$paymentsArgs<ExtArgs>
+    memberStatus?: boolean | Member$memberStatusArgs<ExtArgs>
     _count?: boolean | MemberCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["member"]>
 
@@ -6011,6 +6307,7 @@ export namespace Prisma {
   export type MemberInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     media?: boolean | Member$mediaArgs<ExtArgs>
     payments?: boolean | Member$paymentsArgs<ExtArgs>
+    memberStatus?: boolean | Member$memberStatusArgs<ExtArgs>
     _count?: boolean | MemberCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type MemberIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
@@ -6021,6 +6318,7 @@ export namespace Prisma {
     objects: {
       media: Prisma.$MemberMediaPayload<ExtArgs>[]
       payments: Prisma.$MemberPaymentsPayload<ExtArgs>[]
+      memberStatus: Prisma.$MemberStatusPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -6428,6 +6726,7 @@ export namespace Prisma {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     media<T extends Member$mediaArgs<ExtArgs> = {}>(args?: Subset<T, Member$mediaArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MemberMediaPayload<ExtArgs>, T, "findMany", ClientOptions> | Null>
     payments<T extends Member$paymentsArgs<ExtArgs> = {}>(args?: Subset<T, Member$paymentsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MemberPaymentsPayload<ExtArgs>, T, "findMany", ClientOptions> | Null>
+    memberStatus<T extends Member$memberStatusArgs<ExtArgs> = {}>(args?: Subset<T, Member$memberStatusArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MemberStatusPayload<ExtArgs>, T, "findMany", ClientOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -6890,6 +7189,30 @@ export namespace Prisma {
   }
 
   /**
+   * Member.memberStatus
+   */
+  export type Member$memberStatusArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MemberStatus
+     */
+    select?: MemberStatusSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MemberStatus
+     */
+    omit?: MemberStatusOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MemberStatusInclude<ExtArgs> | null
+    where?: MemberStatusWhereInput
+    orderBy?: MemberStatusOrderByWithRelationInput | MemberStatusOrderByWithRelationInput[]
+    cursor?: MemberStatusWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: MemberStatusScalarFieldEnum | MemberStatusScalarFieldEnum[]
+  }
+
+  /**
    * Member without action
    */
   export type MemberDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -6905,6 +7228,3094 @@ export namespace Prisma {
      * Choose, which related nodes to fetch as well
      */
     include?: MemberInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model MemberStatus
+   */
+
+  export type AggregateMemberStatus = {
+    _count: MemberStatusCountAggregateOutputType | null
+    _min: MemberStatusMinAggregateOutputType | null
+    _max: MemberStatusMaxAggregateOutputType | null
+  }
+
+  export type MemberStatusMinAggregateOutputType = {
+    id: string | null
+    memberId: string | null
+    status: $Enums.Status | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type MemberStatusMaxAggregateOutputType = {
+    id: string | null
+    memberId: string | null
+    status: $Enums.Status | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type MemberStatusCountAggregateOutputType = {
+    id: number
+    memberId: number
+    status: number
+    createdAt: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type MemberStatusMinAggregateInputType = {
+    id?: true
+    memberId?: true
+    status?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type MemberStatusMaxAggregateInputType = {
+    id?: true
+    memberId?: true
+    status?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type MemberStatusCountAggregateInputType = {
+    id?: true
+    memberId?: true
+    status?: true
+    createdAt?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type MemberStatusAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which MemberStatus to aggregate.
+     */
+    where?: MemberStatusWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of MemberStatuses to fetch.
+     */
+    orderBy?: MemberStatusOrderByWithRelationInput | MemberStatusOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: MemberStatusWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` MemberStatuses from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` MemberStatuses.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned MemberStatuses
+    **/
+    _count?: true | MemberStatusCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: MemberStatusMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: MemberStatusMaxAggregateInputType
+  }
+
+  export type GetMemberStatusAggregateType<T extends MemberStatusAggregateArgs> = {
+        [P in keyof T & keyof AggregateMemberStatus]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateMemberStatus[P]>
+      : GetScalarType<T[P], AggregateMemberStatus[P]>
+  }
+
+
+
+
+  export type MemberStatusGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: MemberStatusWhereInput
+    orderBy?: MemberStatusOrderByWithAggregationInput | MemberStatusOrderByWithAggregationInput[]
+    by: MemberStatusScalarFieldEnum[] | MemberStatusScalarFieldEnum
+    having?: MemberStatusScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: MemberStatusCountAggregateInputType | true
+    _min?: MemberStatusMinAggregateInputType
+    _max?: MemberStatusMaxAggregateInputType
+  }
+
+  export type MemberStatusGroupByOutputType = {
+    id: string
+    memberId: string
+    status: $Enums.Status
+    createdAt: Date
+    updatedAt: Date
+    _count: MemberStatusCountAggregateOutputType | null
+    _min: MemberStatusMinAggregateOutputType | null
+    _max: MemberStatusMaxAggregateOutputType | null
+  }
+
+  type GetMemberStatusGroupByPayload<T extends MemberStatusGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<MemberStatusGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof MemberStatusGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], MemberStatusGroupByOutputType[P]>
+            : GetScalarType<T[P], MemberStatusGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type MemberStatusSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    memberId?: boolean
+    status?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    member?: boolean | MemberDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["memberStatus"]>
+
+  export type MemberStatusSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    memberId?: boolean
+    status?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    member?: boolean | MemberDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["memberStatus"]>
+
+  export type MemberStatusSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    memberId?: boolean
+    status?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    member?: boolean | MemberDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["memberStatus"]>
+
+  export type MemberStatusSelectScalar = {
+    id?: boolean
+    memberId?: boolean
+    status?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }
+
+  export type MemberStatusOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "memberId" | "status" | "createdAt" | "updatedAt", ExtArgs["result"]["memberStatus"]>
+  export type MemberStatusInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    member?: boolean | MemberDefaultArgs<ExtArgs>
+  }
+  export type MemberStatusIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    member?: boolean | MemberDefaultArgs<ExtArgs>
+  }
+  export type MemberStatusIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    member?: boolean | MemberDefaultArgs<ExtArgs>
+  }
+
+  export type $MemberStatusPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "MemberStatus"
+    objects: {
+      member: Prisma.$MemberPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      memberId: string
+      status: $Enums.Status
+      createdAt: Date
+      updatedAt: Date
+    }, ExtArgs["result"]["memberStatus"]>
+    composites: {}
+  }
+
+  type MemberStatusGetPayload<S extends boolean | null | undefined | MemberStatusDefaultArgs> = $Result.GetResult<Prisma.$MemberStatusPayload, S>
+
+  type MemberStatusCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<MemberStatusFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: MemberStatusCountAggregateInputType | true
+    }
+
+  export interface MemberStatusDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, ClientOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['MemberStatus'], meta: { name: 'MemberStatus' } }
+    /**
+     * Find zero or one MemberStatus that matches the filter.
+     * @param {MemberStatusFindUniqueArgs} args - Arguments to find a MemberStatus
+     * @example
+     * // Get one MemberStatus
+     * const memberStatus = await prisma.memberStatus.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends MemberStatusFindUniqueArgs>(args: SelectSubset<T, MemberStatusFindUniqueArgs<ExtArgs>>): Prisma__MemberStatusClient<$Result.GetResult<Prisma.$MemberStatusPayload<ExtArgs>, T, "findUnique", ClientOptions> | null, null, ExtArgs, ClientOptions>
+
+    /**
+     * Find one MemberStatus that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {MemberStatusFindUniqueOrThrowArgs} args - Arguments to find a MemberStatus
+     * @example
+     * // Get one MemberStatus
+     * const memberStatus = await prisma.memberStatus.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends MemberStatusFindUniqueOrThrowArgs>(args: SelectSubset<T, MemberStatusFindUniqueOrThrowArgs<ExtArgs>>): Prisma__MemberStatusClient<$Result.GetResult<Prisma.$MemberStatusPayload<ExtArgs>, T, "findUniqueOrThrow", ClientOptions>, never, ExtArgs, ClientOptions>
+
+    /**
+     * Find the first MemberStatus that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MemberStatusFindFirstArgs} args - Arguments to find a MemberStatus
+     * @example
+     * // Get one MemberStatus
+     * const memberStatus = await prisma.memberStatus.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends MemberStatusFindFirstArgs>(args?: SelectSubset<T, MemberStatusFindFirstArgs<ExtArgs>>): Prisma__MemberStatusClient<$Result.GetResult<Prisma.$MemberStatusPayload<ExtArgs>, T, "findFirst", ClientOptions> | null, null, ExtArgs, ClientOptions>
+
+    /**
+     * Find the first MemberStatus that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MemberStatusFindFirstOrThrowArgs} args - Arguments to find a MemberStatus
+     * @example
+     * // Get one MemberStatus
+     * const memberStatus = await prisma.memberStatus.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends MemberStatusFindFirstOrThrowArgs>(args?: SelectSubset<T, MemberStatusFindFirstOrThrowArgs<ExtArgs>>): Prisma__MemberStatusClient<$Result.GetResult<Prisma.$MemberStatusPayload<ExtArgs>, T, "findFirstOrThrow", ClientOptions>, never, ExtArgs, ClientOptions>
+
+    /**
+     * Find zero or more MemberStatuses that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MemberStatusFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all MemberStatuses
+     * const memberStatuses = await prisma.memberStatus.findMany()
+     * 
+     * // Get first 10 MemberStatuses
+     * const memberStatuses = await prisma.memberStatus.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const memberStatusWithIdOnly = await prisma.memberStatus.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends MemberStatusFindManyArgs>(args?: SelectSubset<T, MemberStatusFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MemberStatusPayload<ExtArgs>, T, "findMany", ClientOptions>>
+
+    /**
+     * Create a MemberStatus.
+     * @param {MemberStatusCreateArgs} args - Arguments to create a MemberStatus.
+     * @example
+     * // Create one MemberStatus
+     * const MemberStatus = await prisma.memberStatus.create({
+     *   data: {
+     *     // ... data to create a MemberStatus
+     *   }
+     * })
+     * 
+     */
+    create<T extends MemberStatusCreateArgs>(args: SelectSubset<T, MemberStatusCreateArgs<ExtArgs>>): Prisma__MemberStatusClient<$Result.GetResult<Prisma.$MemberStatusPayload<ExtArgs>, T, "create", ClientOptions>, never, ExtArgs, ClientOptions>
+
+    /**
+     * Create many MemberStatuses.
+     * @param {MemberStatusCreateManyArgs} args - Arguments to create many MemberStatuses.
+     * @example
+     * // Create many MemberStatuses
+     * const memberStatus = await prisma.memberStatus.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends MemberStatusCreateManyArgs>(args?: SelectSubset<T, MemberStatusCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many MemberStatuses and returns the data saved in the database.
+     * @param {MemberStatusCreateManyAndReturnArgs} args - Arguments to create many MemberStatuses.
+     * @example
+     * // Create many MemberStatuses
+     * const memberStatus = await prisma.memberStatus.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many MemberStatuses and only return the `id`
+     * const memberStatusWithIdOnly = await prisma.memberStatus.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends MemberStatusCreateManyAndReturnArgs>(args?: SelectSubset<T, MemberStatusCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MemberStatusPayload<ExtArgs>, T, "createManyAndReturn", ClientOptions>>
+
+    /**
+     * Delete a MemberStatus.
+     * @param {MemberStatusDeleteArgs} args - Arguments to delete one MemberStatus.
+     * @example
+     * // Delete one MemberStatus
+     * const MemberStatus = await prisma.memberStatus.delete({
+     *   where: {
+     *     // ... filter to delete one MemberStatus
+     *   }
+     * })
+     * 
+     */
+    delete<T extends MemberStatusDeleteArgs>(args: SelectSubset<T, MemberStatusDeleteArgs<ExtArgs>>): Prisma__MemberStatusClient<$Result.GetResult<Prisma.$MemberStatusPayload<ExtArgs>, T, "delete", ClientOptions>, never, ExtArgs, ClientOptions>
+
+    /**
+     * Update one MemberStatus.
+     * @param {MemberStatusUpdateArgs} args - Arguments to update one MemberStatus.
+     * @example
+     * // Update one MemberStatus
+     * const memberStatus = await prisma.memberStatus.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends MemberStatusUpdateArgs>(args: SelectSubset<T, MemberStatusUpdateArgs<ExtArgs>>): Prisma__MemberStatusClient<$Result.GetResult<Prisma.$MemberStatusPayload<ExtArgs>, T, "update", ClientOptions>, never, ExtArgs, ClientOptions>
+
+    /**
+     * Delete zero or more MemberStatuses.
+     * @param {MemberStatusDeleteManyArgs} args - Arguments to filter MemberStatuses to delete.
+     * @example
+     * // Delete a few MemberStatuses
+     * const { count } = await prisma.memberStatus.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends MemberStatusDeleteManyArgs>(args?: SelectSubset<T, MemberStatusDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more MemberStatuses.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MemberStatusUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many MemberStatuses
+     * const memberStatus = await prisma.memberStatus.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends MemberStatusUpdateManyArgs>(args: SelectSubset<T, MemberStatusUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more MemberStatuses and returns the data updated in the database.
+     * @param {MemberStatusUpdateManyAndReturnArgs} args - Arguments to update many MemberStatuses.
+     * @example
+     * // Update many MemberStatuses
+     * const memberStatus = await prisma.memberStatus.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more MemberStatuses and only return the `id`
+     * const memberStatusWithIdOnly = await prisma.memberStatus.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends MemberStatusUpdateManyAndReturnArgs>(args: SelectSubset<T, MemberStatusUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MemberStatusPayload<ExtArgs>, T, "updateManyAndReturn", ClientOptions>>
+
+    /**
+     * Create or update one MemberStatus.
+     * @param {MemberStatusUpsertArgs} args - Arguments to update or create a MemberStatus.
+     * @example
+     * // Update or create a MemberStatus
+     * const memberStatus = await prisma.memberStatus.upsert({
+     *   create: {
+     *     // ... data to create a MemberStatus
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the MemberStatus we want to update
+     *   }
+     * })
+     */
+    upsert<T extends MemberStatusUpsertArgs>(args: SelectSubset<T, MemberStatusUpsertArgs<ExtArgs>>): Prisma__MemberStatusClient<$Result.GetResult<Prisma.$MemberStatusPayload<ExtArgs>, T, "upsert", ClientOptions>, never, ExtArgs, ClientOptions>
+
+
+    /**
+     * Count the number of MemberStatuses.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MemberStatusCountArgs} args - Arguments to filter MemberStatuses to count.
+     * @example
+     * // Count the number of MemberStatuses
+     * const count = await prisma.memberStatus.count({
+     *   where: {
+     *     // ... the filter for the MemberStatuses we want to count
+     *   }
+     * })
+    **/
+    count<T extends MemberStatusCountArgs>(
+      args?: Subset<T, MemberStatusCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], MemberStatusCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a MemberStatus.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MemberStatusAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends MemberStatusAggregateArgs>(args: Subset<T, MemberStatusAggregateArgs>): Prisma.PrismaPromise<GetMemberStatusAggregateType<T>>
+
+    /**
+     * Group by MemberStatus.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MemberStatusGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends MemberStatusGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: MemberStatusGroupByArgs['orderBy'] }
+        : { orderBy?: MemberStatusGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, MemberStatusGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetMemberStatusGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the MemberStatus model
+   */
+  readonly fields: MemberStatusFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for MemberStatus.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__MemberStatusClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, ClientOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    member<T extends MemberDefaultArgs<ExtArgs> = {}>(args?: Subset<T, MemberDefaultArgs<ExtArgs>>): Prisma__MemberClient<$Result.GetResult<Prisma.$MemberPayload<ExtArgs>, T, "findUniqueOrThrow", ClientOptions> | Null, Null, ExtArgs, ClientOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the MemberStatus model
+   */ 
+  interface MemberStatusFieldRefs {
+    readonly id: FieldRef<"MemberStatus", 'String'>
+    readonly memberId: FieldRef<"MemberStatus", 'String'>
+    readonly status: FieldRef<"MemberStatus", 'Status'>
+    readonly createdAt: FieldRef<"MemberStatus", 'DateTime'>
+    readonly updatedAt: FieldRef<"MemberStatus", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * MemberStatus findUnique
+   */
+  export type MemberStatusFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MemberStatus
+     */
+    select?: MemberStatusSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MemberStatus
+     */
+    omit?: MemberStatusOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MemberStatusInclude<ExtArgs> | null
+    /**
+     * Filter, which MemberStatus to fetch.
+     */
+    where: MemberStatusWhereUniqueInput
+  }
+
+  /**
+   * MemberStatus findUniqueOrThrow
+   */
+  export type MemberStatusFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MemberStatus
+     */
+    select?: MemberStatusSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MemberStatus
+     */
+    omit?: MemberStatusOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MemberStatusInclude<ExtArgs> | null
+    /**
+     * Filter, which MemberStatus to fetch.
+     */
+    where: MemberStatusWhereUniqueInput
+  }
+
+  /**
+   * MemberStatus findFirst
+   */
+  export type MemberStatusFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MemberStatus
+     */
+    select?: MemberStatusSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MemberStatus
+     */
+    omit?: MemberStatusOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MemberStatusInclude<ExtArgs> | null
+    /**
+     * Filter, which MemberStatus to fetch.
+     */
+    where?: MemberStatusWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of MemberStatuses to fetch.
+     */
+    orderBy?: MemberStatusOrderByWithRelationInput | MemberStatusOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for MemberStatuses.
+     */
+    cursor?: MemberStatusWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` MemberStatuses from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` MemberStatuses.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of MemberStatuses.
+     */
+    distinct?: MemberStatusScalarFieldEnum | MemberStatusScalarFieldEnum[]
+  }
+
+  /**
+   * MemberStatus findFirstOrThrow
+   */
+  export type MemberStatusFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MemberStatus
+     */
+    select?: MemberStatusSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MemberStatus
+     */
+    omit?: MemberStatusOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MemberStatusInclude<ExtArgs> | null
+    /**
+     * Filter, which MemberStatus to fetch.
+     */
+    where?: MemberStatusWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of MemberStatuses to fetch.
+     */
+    orderBy?: MemberStatusOrderByWithRelationInput | MemberStatusOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for MemberStatuses.
+     */
+    cursor?: MemberStatusWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` MemberStatuses from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` MemberStatuses.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of MemberStatuses.
+     */
+    distinct?: MemberStatusScalarFieldEnum | MemberStatusScalarFieldEnum[]
+  }
+
+  /**
+   * MemberStatus findMany
+   */
+  export type MemberStatusFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MemberStatus
+     */
+    select?: MemberStatusSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MemberStatus
+     */
+    omit?: MemberStatusOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MemberStatusInclude<ExtArgs> | null
+    /**
+     * Filter, which MemberStatuses to fetch.
+     */
+    where?: MemberStatusWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of MemberStatuses to fetch.
+     */
+    orderBy?: MemberStatusOrderByWithRelationInput | MemberStatusOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing MemberStatuses.
+     */
+    cursor?: MemberStatusWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` MemberStatuses from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` MemberStatuses.
+     */
+    skip?: number
+    distinct?: MemberStatusScalarFieldEnum | MemberStatusScalarFieldEnum[]
+  }
+
+  /**
+   * MemberStatus create
+   */
+  export type MemberStatusCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MemberStatus
+     */
+    select?: MemberStatusSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MemberStatus
+     */
+    omit?: MemberStatusOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MemberStatusInclude<ExtArgs> | null
+    /**
+     * The data needed to create a MemberStatus.
+     */
+    data: XOR<MemberStatusCreateInput, MemberStatusUncheckedCreateInput>
+  }
+
+  /**
+   * MemberStatus createMany
+   */
+  export type MemberStatusCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many MemberStatuses.
+     */
+    data: MemberStatusCreateManyInput | MemberStatusCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * MemberStatus createManyAndReturn
+   */
+  export type MemberStatusCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MemberStatus
+     */
+    select?: MemberStatusSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the MemberStatus
+     */
+    omit?: MemberStatusOmit<ExtArgs> | null
+    /**
+     * The data used to create many MemberStatuses.
+     */
+    data: MemberStatusCreateManyInput | MemberStatusCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MemberStatusIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * MemberStatus update
+   */
+  export type MemberStatusUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MemberStatus
+     */
+    select?: MemberStatusSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MemberStatus
+     */
+    omit?: MemberStatusOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MemberStatusInclude<ExtArgs> | null
+    /**
+     * The data needed to update a MemberStatus.
+     */
+    data: XOR<MemberStatusUpdateInput, MemberStatusUncheckedUpdateInput>
+    /**
+     * Choose, which MemberStatus to update.
+     */
+    where: MemberStatusWhereUniqueInput
+  }
+
+  /**
+   * MemberStatus updateMany
+   */
+  export type MemberStatusUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update MemberStatuses.
+     */
+    data: XOR<MemberStatusUpdateManyMutationInput, MemberStatusUncheckedUpdateManyInput>
+    /**
+     * Filter which MemberStatuses to update
+     */
+    where?: MemberStatusWhereInput
+  }
+
+  /**
+   * MemberStatus updateManyAndReturn
+   */
+  export type MemberStatusUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MemberStatus
+     */
+    select?: MemberStatusSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the MemberStatus
+     */
+    omit?: MemberStatusOmit<ExtArgs> | null
+    /**
+     * The data used to update MemberStatuses.
+     */
+    data: XOR<MemberStatusUpdateManyMutationInput, MemberStatusUncheckedUpdateManyInput>
+    /**
+     * Filter which MemberStatuses to update
+     */
+    where?: MemberStatusWhereInput
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MemberStatusIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * MemberStatus upsert
+   */
+  export type MemberStatusUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MemberStatus
+     */
+    select?: MemberStatusSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MemberStatus
+     */
+    omit?: MemberStatusOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MemberStatusInclude<ExtArgs> | null
+    /**
+     * The filter to search for the MemberStatus to update in case it exists.
+     */
+    where: MemberStatusWhereUniqueInput
+    /**
+     * In case the MemberStatus found by the `where` argument doesn't exist, create a new MemberStatus with this data.
+     */
+    create: XOR<MemberStatusCreateInput, MemberStatusUncheckedCreateInput>
+    /**
+     * In case the MemberStatus was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<MemberStatusUpdateInput, MemberStatusUncheckedUpdateInput>
+  }
+
+  /**
+   * MemberStatus delete
+   */
+  export type MemberStatusDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MemberStatus
+     */
+    select?: MemberStatusSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MemberStatus
+     */
+    omit?: MemberStatusOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MemberStatusInclude<ExtArgs> | null
+    /**
+     * Filter which MemberStatus to delete.
+     */
+    where: MemberStatusWhereUniqueInput
+  }
+
+  /**
+   * MemberStatus deleteMany
+   */
+  export type MemberStatusDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which MemberStatuses to delete
+     */
+    where?: MemberStatusWhereInput
+  }
+
+  /**
+   * MemberStatus without action
+   */
+  export type MemberStatusDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MemberStatus
+     */
+    select?: MemberStatusSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MemberStatus
+     */
+    omit?: MemberStatusOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MemberStatusInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model YearlyPayment
+   */
+
+  export type AggregateYearlyPayment = {
+    _count: YearlyPaymentCountAggregateOutputType | null
+    _avg: YearlyPaymentAvgAggregateOutputType | null
+    _sum: YearlyPaymentSumAggregateOutputType | null
+    _min: YearlyPaymentMinAggregateOutputType | null
+    _max: YearlyPaymentMaxAggregateOutputType | null
+  }
+
+  export type YearlyPaymentAvgAggregateOutputType = {
+    year: number | null
+    amount: number | null
+  }
+
+  export type YearlyPaymentSumAggregateOutputType = {
+    year: number | null
+    amount: number | null
+  }
+
+  export type YearlyPaymentMinAggregateOutputType = {
+    id: string | null
+    year: number | null
+    amount: number | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type YearlyPaymentMaxAggregateOutputType = {
+    id: string | null
+    year: number | null
+    amount: number | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type YearlyPaymentCountAggregateOutputType = {
+    id: number
+    year: number
+    amount: number
+    createdAt: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type YearlyPaymentAvgAggregateInputType = {
+    year?: true
+    amount?: true
+  }
+
+  export type YearlyPaymentSumAggregateInputType = {
+    year?: true
+    amount?: true
+  }
+
+  export type YearlyPaymentMinAggregateInputType = {
+    id?: true
+    year?: true
+    amount?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type YearlyPaymentMaxAggregateInputType = {
+    id?: true
+    year?: true
+    amount?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type YearlyPaymentCountAggregateInputType = {
+    id?: true
+    year?: true
+    amount?: true
+    createdAt?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type YearlyPaymentAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which YearlyPayment to aggregate.
+     */
+    where?: YearlyPaymentWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of YearlyPayments to fetch.
+     */
+    orderBy?: YearlyPaymentOrderByWithRelationInput | YearlyPaymentOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: YearlyPaymentWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` YearlyPayments from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` YearlyPayments.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned YearlyPayments
+    **/
+    _count?: true | YearlyPaymentCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: YearlyPaymentAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: YearlyPaymentSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: YearlyPaymentMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: YearlyPaymentMaxAggregateInputType
+  }
+
+  export type GetYearlyPaymentAggregateType<T extends YearlyPaymentAggregateArgs> = {
+        [P in keyof T & keyof AggregateYearlyPayment]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateYearlyPayment[P]>
+      : GetScalarType<T[P], AggregateYearlyPayment[P]>
+  }
+
+
+
+
+  export type YearlyPaymentGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: YearlyPaymentWhereInput
+    orderBy?: YearlyPaymentOrderByWithAggregationInput | YearlyPaymentOrderByWithAggregationInput[]
+    by: YearlyPaymentScalarFieldEnum[] | YearlyPaymentScalarFieldEnum
+    having?: YearlyPaymentScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: YearlyPaymentCountAggregateInputType | true
+    _avg?: YearlyPaymentAvgAggregateInputType
+    _sum?: YearlyPaymentSumAggregateInputType
+    _min?: YearlyPaymentMinAggregateInputType
+    _max?: YearlyPaymentMaxAggregateInputType
+  }
+
+  export type YearlyPaymentGroupByOutputType = {
+    id: string
+    year: number
+    amount: number
+    createdAt: Date
+    updatedAt: Date
+    _count: YearlyPaymentCountAggregateOutputType | null
+    _avg: YearlyPaymentAvgAggregateOutputType | null
+    _sum: YearlyPaymentSumAggregateOutputType | null
+    _min: YearlyPaymentMinAggregateOutputType | null
+    _max: YearlyPaymentMaxAggregateOutputType | null
+  }
+
+  type GetYearlyPaymentGroupByPayload<T extends YearlyPaymentGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<YearlyPaymentGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof YearlyPaymentGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], YearlyPaymentGroupByOutputType[P]>
+            : GetScalarType<T[P], YearlyPaymentGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type YearlyPaymentSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    year?: boolean
+    amount?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }, ExtArgs["result"]["yearlyPayment"]>
+
+  export type YearlyPaymentSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    year?: boolean
+    amount?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }, ExtArgs["result"]["yearlyPayment"]>
+
+  export type YearlyPaymentSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    year?: boolean
+    amount?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }, ExtArgs["result"]["yearlyPayment"]>
+
+  export type YearlyPaymentSelectScalar = {
+    id?: boolean
+    year?: boolean
+    amount?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }
+
+  export type YearlyPaymentOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "year" | "amount" | "createdAt" | "updatedAt", ExtArgs["result"]["yearlyPayment"]>
+
+  export type $YearlyPaymentPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "YearlyPayment"
+    objects: {}
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      year: number
+      amount: number
+      createdAt: Date
+      updatedAt: Date
+    }, ExtArgs["result"]["yearlyPayment"]>
+    composites: {}
+  }
+
+  type YearlyPaymentGetPayload<S extends boolean | null | undefined | YearlyPaymentDefaultArgs> = $Result.GetResult<Prisma.$YearlyPaymentPayload, S>
+
+  type YearlyPaymentCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<YearlyPaymentFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: YearlyPaymentCountAggregateInputType | true
+    }
+
+  export interface YearlyPaymentDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, ClientOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['YearlyPayment'], meta: { name: 'YearlyPayment' } }
+    /**
+     * Find zero or one YearlyPayment that matches the filter.
+     * @param {YearlyPaymentFindUniqueArgs} args - Arguments to find a YearlyPayment
+     * @example
+     * // Get one YearlyPayment
+     * const yearlyPayment = await prisma.yearlyPayment.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends YearlyPaymentFindUniqueArgs>(args: SelectSubset<T, YearlyPaymentFindUniqueArgs<ExtArgs>>): Prisma__YearlyPaymentClient<$Result.GetResult<Prisma.$YearlyPaymentPayload<ExtArgs>, T, "findUnique", ClientOptions> | null, null, ExtArgs, ClientOptions>
+
+    /**
+     * Find one YearlyPayment that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {YearlyPaymentFindUniqueOrThrowArgs} args - Arguments to find a YearlyPayment
+     * @example
+     * // Get one YearlyPayment
+     * const yearlyPayment = await prisma.yearlyPayment.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends YearlyPaymentFindUniqueOrThrowArgs>(args: SelectSubset<T, YearlyPaymentFindUniqueOrThrowArgs<ExtArgs>>): Prisma__YearlyPaymentClient<$Result.GetResult<Prisma.$YearlyPaymentPayload<ExtArgs>, T, "findUniqueOrThrow", ClientOptions>, never, ExtArgs, ClientOptions>
+
+    /**
+     * Find the first YearlyPayment that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {YearlyPaymentFindFirstArgs} args - Arguments to find a YearlyPayment
+     * @example
+     * // Get one YearlyPayment
+     * const yearlyPayment = await prisma.yearlyPayment.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends YearlyPaymentFindFirstArgs>(args?: SelectSubset<T, YearlyPaymentFindFirstArgs<ExtArgs>>): Prisma__YearlyPaymentClient<$Result.GetResult<Prisma.$YearlyPaymentPayload<ExtArgs>, T, "findFirst", ClientOptions> | null, null, ExtArgs, ClientOptions>
+
+    /**
+     * Find the first YearlyPayment that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {YearlyPaymentFindFirstOrThrowArgs} args - Arguments to find a YearlyPayment
+     * @example
+     * // Get one YearlyPayment
+     * const yearlyPayment = await prisma.yearlyPayment.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends YearlyPaymentFindFirstOrThrowArgs>(args?: SelectSubset<T, YearlyPaymentFindFirstOrThrowArgs<ExtArgs>>): Prisma__YearlyPaymentClient<$Result.GetResult<Prisma.$YearlyPaymentPayload<ExtArgs>, T, "findFirstOrThrow", ClientOptions>, never, ExtArgs, ClientOptions>
+
+    /**
+     * Find zero or more YearlyPayments that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {YearlyPaymentFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all YearlyPayments
+     * const yearlyPayments = await prisma.yearlyPayment.findMany()
+     * 
+     * // Get first 10 YearlyPayments
+     * const yearlyPayments = await prisma.yearlyPayment.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const yearlyPaymentWithIdOnly = await prisma.yearlyPayment.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends YearlyPaymentFindManyArgs>(args?: SelectSubset<T, YearlyPaymentFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$YearlyPaymentPayload<ExtArgs>, T, "findMany", ClientOptions>>
+
+    /**
+     * Create a YearlyPayment.
+     * @param {YearlyPaymentCreateArgs} args - Arguments to create a YearlyPayment.
+     * @example
+     * // Create one YearlyPayment
+     * const YearlyPayment = await prisma.yearlyPayment.create({
+     *   data: {
+     *     // ... data to create a YearlyPayment
+     *   }
+     * })
+     * 
+     */
+    create<T extends YearlyPaymentCreateArgs>(args: SelectSubset<T, YearlyPaymentCreateArgs<ExtArgs>>): Prisma__YearlyPaymentClient<$Result.GetResult<Prisma.$YearlyPaymentPayload<ExtArgs>, T, "create", ClientOptions>, never, ExtArgs, ClientOptions>
+
+    /**
+     * Create many YearlyPayments.
+     * @param {YearlyPaymentCreateManyArgs} args - Arguments to create many YearlyPayments.
+     * @example
+     * // Create many YearlyPayments
+     * const yearlyPayment = await prisma.yearlyPayment.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends YearlyPaymentCreateManyArgs>(args?: SelectSubset<T, YearlyPaymentCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many YearlyPayments and returns the data saved in the database.
+     * @param {YearlyPaymentCreateManyAndReturnArgs} args - Arguments to create many YearlyPayments.
+     * @example
+     * // Create many YearlyPayments
+     * const yearlyPayment = await prisma.yearlyPayment.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many YearlyPayments and only return the `id`
+     * const yearlyPaymentWithIdOnly = await prisma.yearlyPayment.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends YearlyPaymentCreateManyAndReturnArgs>(args?: SelectSubset<T, YearlyPaymentCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$YearlyPaymentPayload<ExtArgs>, T, "createManyAndReturn", ClientOptions>>
+
+    /**
+     * Delete a YearlyPayment.
+     * @param {YearlyPaymentDeleteArgs} args - Arguments to delete one YearlyPayment.
+     * @example
+     * // Delete one YearlyPayment
+     * const YearlyPayment = await prisma.yearlyPayment.delete({
+     *   where: {
+     *     // ... filter to delete one YearlyPayment
+     *   }
+     * })
+     * 
+     */
+    delete<T extends YearlyPaymentDeleteArgs>(args: SelectSubset<T, YearlyPaymentDeleteArgs<ExtArgs>>): Prisma__YearlyPaymentClient<$Result.GetResult<Prisma.$YearlyPaymentPayload<ExtArgs>, T, "delete", ClientOptions>, never, ExtArgs, ClientOptions>
+
+    /**
+     * Update one YearlyPayment.
+     * @param {YearlyPaymentUpdateArgs} args - Arguments to update one YearlyPayment.
+     * @example
+     * // Update one YearlyPayment
+     * const yearlyPayment = await prisma.yearlyPayment.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends YearlyPaymentUpdateArgs>(args: SelectSubset<T, YearlyPaymentUpdateArgs<ExtArgs>>): Prisma__YearlyPaymentClient<$Result.GetResult<Prisma.$YearlyPaymentPayload<ExtArgs>, T, "update", ClientOptions>, never, ExtArgs, ClientOptions>
+
+    /**
+     * Delete zero or more YearlyPayments.
+     * @param {YearlyPaymentDeleteManyArgs} args - Arguments to filter YearlyPayments to delete.
+     * @example
+     * // Delete a few YearlyPayments
+     * const { count } = await prisma.yearlyPayment.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends YearlyPaymentDeleteManyArgs>(args?: SelectSubset<T, YearlyPaymentDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more YearlyPayments.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {YearlyPaymentUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many YearlyPayments
+     * const yearlyPayment = await prisma.yearlyPayment.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends YearlyPaymentUpdateManyArgs>(args: SelectSubset<T, YearlyPaymentUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more YearlyPayments and returns the data updated in the database.
+     * @param {YearlyPaymentUpdateManyAndReturnArgs} args - Arguments to update many YearlyPayments.
+     * @example
+     * // Update many YearlyPayments
+     * const yearlyPayment = await prisma.yearlyPayment.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more YearlyPayments and only return the `id`
+     * const yearlyPaymentWithIdOnly = await prisma.yearlyPayment.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends YearlyPaymentUpdateManyAndReturnArgs>(args: SelectSubset<T, YearlyPaymentUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$YearlyPaymentPayload<ExtArgs>, T, "updateManyAndReturn", ClientOptions>>
+
+    /**
+     * Create or update one YearlyPayment.
+     * @param {YearlyPaymentUpsertArgs} args - Arguments to update or create a YearlyPayment.
+     * @example
+     * // Update or create a YearlyPayment
+     * const yearlyPayment = await prisma.yearlyPayment.upsert({
+     *   create: {
+     *     // ... data to create a YearlyPayment
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the YearlyPayment we want to update
+     *   }
+     * })
+     */
+    upsert<T extends YearlyPaymentUpsertArgs>(args: SelectSubset<T, YearlyPaymentUpsertArgs<ExtArgs>>): Prisma__YearlyPaymentClient<$Result.GetResult<Prisma.$YearlyPaymentPayload<ExtArgs>, T, "upsert", ClientOptions>, never, ExtArgs, ClientOptions>
+
+
+    /**
+     * Count the number of YearlyPayments.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {YearlyPaymentCountArgs} args - Arguments to filter YearlyPayments to count.
+     * @example
+     * // Count the number of YearlyPayments
+     * const count = await prisma.yearlyPayment.count({
+     *   where: {
+     *     // ... the filter for the YearlyPayments we want to count
+     *   }
+     * })
+    **/
+    count<T extends YearlyPaymentCountArgs>(
+      args?: Subset<T, YearlyPaymentCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], YearlyPaymentCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a YearlyPayment.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {YearlyPaymentAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends YearlyPaymentAggregateArgs>(args: Subset<T, YearlyPaymentAggregateArgs>): Prisma.PrismaPromise<GetYearlyPaymentAggregateType<T>>
+
+    /**
+     * Group by YearlyPayment.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {YearlyPaymentGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends YearlyPaymentGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: YearlyPaymentGroupByArgs['orderBy'] }
+        : { orderBy?: YearlyPaymentGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, YearlyPaymentGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetYearlyPaymentGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the YearlyPayment model
+   */
+  readonly fields: YearlyPaymentFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for YearlyPayment.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__YearlyPaymentClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, ClientOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the YearlyPayment model
+   */ 
+  interface YearlyPaymentFieldRefs {
+    readonly id: FieldRef<"YearlyPayment", 'String'>
+    readonly year: FieldRef<"YearlyPayment", 'Int'>
+    readonly amount: FieldRef<"YearlyPayment", 'Float'>
+    readonly createdAt: FieldRef<"YearlyPayment", 'DateTime'>
+    readonly updatedAt: FieldRef<"YearlyPayment", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * YearlyPayment findUnique
+   */
+  export type YearlyPaymentFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the YearlyPayment
+     */
+    select?: YearlyPaymentSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the YearlyPayment
+     */
+    omit?: YearlyPaymentOmit<ExtArgs> | null
+    /**
+     * Filter, which YearlyPayment to fetch.
+     */
+    where: YearlyPaymentWhereUniqueInput
+  }
+
+  /**
+   * YearlyPayment findUniqueOrThrow
+   */
+  export type YearlyPaymentFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the YearlyPayment
+     */
+    select?: YearlyPaymentSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the YearlyPayment
+     */
+    omit?: YearlyPaymentOmit<ExtArgs> | null
+    /**
+     * Filter, which YearlyPayment to fetch.
+     */
+    where: YearlyPaymentWhereUniqueInput
+  }
+
+  /**
+   * YearlyPayment findFirst
+   */
+  export type YearlyPaymentFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the YearlyPayment
+     */
+    select?: YearlyPaymentSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the YearlyPayment
+     */
+    omit?: YearlyPaymentOmit<ExtArgs> | null
+    /**
+     * Filter, which YearlyPayment to fetch.
+     */
+    where?: YearlyPaymentWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of YearlyPayments to fetch.
+     */
+    orderBy?: YearlyPaymentOrderByWithRelationInput | YearlyPaymentOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for YearlyPayments.
+     */
+    cursor?: YearlyPaymentWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` YearlyPayments from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` YearlyPayments.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of YearlyPayments.
+     */
+    distinct?: YearlyPaymentScalarFieldEnum | YearlyPaymentScalarFieldEnum[]
+  }
+
+  /**
+   * YearlyPayment findFirstOrThrow
+   */
+  export type YearlyPaymentFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the YearlyPayment
+     */
+    select?: YearlyPaymentSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the YearlyPayment
+     */
+    omit?: YearlyPaymentOmit<ExtArgs> | null
+    /**
+     * Filter, which YearlyPayment to fetch.
+     */
+    where?: YearlyPaymentWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of YearlyPayments to fetch.
+     */
+    orderBy?: YearlyPaymentOrderByWithRelationInput | YearlyPaymentOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for YearlyPayments.
+     */
+    cursor?: YearlyPaymentWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` YearlyPayments from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` YearlyPayments.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of YearlyPayments.
+     */
+    distinct?: YearlyPaymentScalarFieldEnum | YearlyPaymentScalarFieldEnum[]
+  }
+
+  /**
+   * YearlyPayment findMany
+   */
+  export type YearlyPaymentFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the YearlyPayment
+     */
+    select?: YearlyPaymentSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the YearlyPayment
+     */
+    omit?: YearlyPaymentOmit<ExtArgs> | null
+    /**
+     * Filter, which YearlyPayments to fetch.
+     */
+    where?: YearlyPaymentWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of YearlyPayments to fetch.
+     */
+    orderBy?: YearlyPaymentOrderByWithRelationInput | YearlyPaymentOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing YearlyPayments.
+     */
+    cursor?: YearlyPaymentWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` YearlyPayments from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` YearlyPayments.
+     */
+    skip?: number
+    distinct?: YearlyPaymentScalarFieldEnum | YearlyPaymentScalarFieldEnum[]
+  }
+
+  /**
+   * YearlyPayment create
+   */
+  export type YearlyPaymentCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the YearlyPayment
+     */
+    select?: YearlyPaymentSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the YearlyPayment
+     */
+    omit?: YearlyPaymentOmit<ExtArgs> | null
+    /**
+     * The data needed to create a YearlyPayment.
+     */
+    data: XOR<YearlyPaymentCreateInput, YearlyPaymentUncheckedCreateInput>
+  }
+
+  /**
+   * YearlyPayment createMany
+   */
+  export type YearlyPaymentCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many YearlyPayments.
+     */
+    data: YearlyPaymentCreateManyInput | YearlyPaymentCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * YearlyPayment createManyAndReturn
+   */
+  export type YearlyPaymentCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the YearlyPayment
+     */
+    select?: YearlyPaymentSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the YearlyPayment
+     */
+    omit?: YearlyPaymentOmit<ExtArgs> | null
+    /**
+     * The data used to create many YearlyPayments.
+     */
+    data: YearlyPaymentCreateManyInput | YearlyPaymentCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * YearlyPayment update
+   */
+  export type YearlyPaymentUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the YearlyPayment
+     */
+    select?: YearlyPaymentSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the YearlyPayment
+     */
+    omit?: YearlyPaymentOmit<ExtArgs> | null
+    /**
+     * The data needed to update a YearlyPayment.
+     */
+    data: XOR<YearlyPaymentUpdateInput, YearlyPaymentUncheckedUpdateInput>
+    /**
+     * Choose, which YearlyPayment to update.
+     */
+    where: YearlyPaymentWhereUniqueInput
+  }
+
+  /**
+   * YearlyPayment updateMany
+   */
+  export type YearlyPaymentUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update YearlyPayments.
+     */
+    data: XOR<YearlyPaymentUpdateManyMutationInput, YearlyPaymentUncheckedUpdateManyInput>
+    /**
+     * Filter which YearlyPayments to update
+     */
+    where?: YearlyPaymentWhereInput
+  }
+
+  /**
+   * YearlyPayment updateManyAndReturn
+   */
+  export type YearlyPaymentUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the YearlyPayment
+     */
+    select?: YearlyPaymentSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the YearlyPayment
+     */
+    omit?: YearlyPaymentOmit<ExtArgs> | null
+    /**
+     * The data used to update YearlyPayments.
+     */
+    data: XOR<YearlyPaymentUpdateManyMutationInput, YearlyPaymentUncheckedUpdateManyInput>
+    /**
+     * Filter which YearlyPayments to update
+     */
+    where?: YearlyPaymentWhereInput
+  }
+
+  /**
+   * YearlyPayment upsert
+   */
+  export type YearlyPaymentUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the YearlyPayment
+     */
+    select?: YearlyPaymentSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the YearlyPayment
+     */
+    omit?: YearlyPaymentOmit<ExtArgs> | null
+    /**
+     * The filter to search for the YearlyPayment to update in case it exists.
+     */
+    where: YearlyPaymentWhereUniqueInput
+    /**
+     * In case the YearlyPayment found by the `where` argument doesn't exist, create a new YearlyPayment with this data.
+     */
+    create: XOR<YearlyPaymentCreateInput, YearlyPaymentUncheckedCreateInput>
+    /**
+     * In case the YearlyPayment was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<YearlyPaymentUpdateInput, YearlyPaymentUncheckedUpdateInput>
+  }
+
+  /**
+   * YearlyPayment delete
+   */
+  export type YearlyPaymentDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the YearlyPayment
+     */
+    select?: YearlyPaymentSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the YearlyPayment
+     */
+    omit?: YearlyPaymentOmit<ExtArgs> | null
+    /**
+     * Filter which YearlyPayment to delete.
+     */
+    where: YearlyPaymentWhereUniqueInput
+  }
+
+  /**
+   * YearlyPayment deleteMany
+   */
+  export type YearlyPaymentDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which YearlyPayments to delete
+     */
+    where?: YearlyPaymentWhereInput
+  }
+
+  /**
+   * YearlyPayment without action
+   */
+  export type YearlyPaymentDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the YearlyPayment
+     */
+    select?: YearlyPaymentSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the YearlyPayment
+     */
+    omit?: YearlyPaymentOmit<ExtArgs> | null
+  }
+
+
+  /**
+   * Model YearlyDonation
+   */
+
+  export type AggregateYearlyDonation = {
+    _count: YearlyDonationCountAggregateOutputType | null
+    _avg: YearlyDonationAvgAggregateOutputType | null
+    _sum: YearlyDonationSumAggregateOutputType | null
+    _min: YearlyDonationMinAggregateOutputType | null
+    _max: YearlyDonationMaxAggregateOutputType | null
+  }
+
+  export type YearlyDonationAvgAggregateOutputType = {
+    year: number | null
+    amount: number | null
+  }
+
+  export type YearlyDonationSumAggregateOutputType = {
+    year: number | null
+    amount: number | null
+  }
+
+  export type YearlyDonationMinAggregateOutputType = {
+    id: string | null
+    year: number | null
+    amount: number | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type YearlyDonationMaxAggregateOutputType = {
+    id: string | null
+    year: number | null
+    amount: number | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type YearlyDonationCountAggregateOutputType = {
+    id: number
+    year: number
+    amount: number
+    createdAt: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type YearlyDonationAvgAggregateInputType = {
+    year?: true
+    amount?: true
+  }
+
+  export type YearlyDonationSumAggregateInputType = {
+    year?: true
+    amount?: true
+  }
+
+  export type YearlyDonationMinAggregateInputType = {
+    id?: true
+    year?: true
+    amount?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type YearlyDonationMaxAggregateInputType = {
+    id?: true
+    year?: true
+    amount?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type YearlyDonationCountAggregateInputType = {
+    id?: true
+    year?: true
+    amount?: true
+    createdAt?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type YearlyDonationAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which YearlyDonation to aggregate.
+     */
+    where?: YearlyDonationWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of YearlyDonations to fetch.
+     */
+    orderBy?: YearlyDonationOrderByWithRelationInput | YearlyDonationOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: YearlyDonationWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` YearlyDonations from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` YearlyDonations.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned YearlyDonations
+    **/
+    _count?: true | YearlyDonationCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: YearlyDonationAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: YearlyDonationSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: YearlyDonationMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: YearlyDonationMaxAggregateInputType
+  }
+
+  export type GetYearlyDonationAggregateType<T extends YearlyDonationAggregateArgs> = {
+        [P in keyof T & keyof AggregateYearlyDonation]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateYearlyDonation[P]>
+      : GetScalarType<T[P], AggregateYearlyDonation[P]>
+  }
+
+
+
+
+  export type YearlyDonationGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: YearlyDonationWhereInput
+    orderBy?: YearlyDonationOrderByWithAggregationInput | YearlyDonationOrderByWithAggregationInput[]
+    by: YearlyDonationScalarFieldEnum[] | YearlyDonationScalarFieldEnum
+    having?: YearlyDonationScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: YearlyDonationCountAggregateInputType | true
+    _avg?: YearlyDonationAvgAggregateInputType
+    _sum?: YearlyDonationSumAggregateInputType
+    _min?: YearlyDonationMinAggregateInputType
+    _max?: YearlyDonationMaxAggregateInputType
+  }
+
+  export type YearlyDonationGroupByOutputType = {
+    id: string
+    year: number
+    amount: number
+    createdAt: Date
+    updatedAt: Date
+    _count: YearlyDonationCountAggregateOutputType | null
+    _avg: YearlyDonationAvgAggregateOutputType | null
+    _sum: YearlyDonationSumAggregateOutputType | null
+    _min: YearlyDonationMinAggregateOutputType | null
+    _max: YearlyDonationMaxAggregateOutputType | null
+  }
+
+  type GetYearlyDonationGroupByPayload<T extends YearlyDonationGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<YearlyDonationGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof YearlyDonationGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], YearlyDonationGroupByOutputType[P]>
+            : GetScalarType<T[P], YearlyDonationGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type YearlyDonationSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    year?: boolean
+    amount?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }, ExtArgs["result"]["yearlyDonation"]>
+
+  export type YearlyDonationSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    year?: boolean
+    amount?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }, ExtArgs["result"]["yearlyDonation"]>
+
+  export type YearlyDonationSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    year?: boolean
+    amount?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }, ExtArgs["result"]["yearlyDonation"]>
+
+  export type YearlyDonationSelectScalar = {
+    id?: boolean
+    year?: boolean
+    amount?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }
+
+  export type YearlyDonationOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "year" | "amount" | "createdAt" | "updatedAt", ExtArgs["result"]["yearlyDonation"]>
+
+  export type $YearlyDonationPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "YearlyDonation"
+    objects: {}
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      year: number
+      amount: number
+      createdAt: Date
+      updatedAt: Date
+    }, ExtArgs["result"]["yearlyDonation"]>
+    composites: {}
+  }
+
+  type YearlyDonationGetPayload<S extends boolean | null | undefined | YearlyDonationDefaultArgs> = $Result.GetResult<Prisma.$YearlyDonationPayload, S>
+
+  type YearlyDonationCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<YearlyDonationFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: YearlyDonationCountAggregateInputType | true
+    }
+
+  export interface YearlyDonationDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, ClientOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['YearlyDonation'], meta: { name: 'YearlyDonation' } }
+    /**
+     * Find zero or one YearlyDonation that matches the filter.
+     * @param {YearlyDonationFindUniqueArgs} args - Arguments to find a YearlyDonation
+     * @example
+     * // Get one YearlyDonation
+     * const yearlyDonation = await prisma.yearlyDonation.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends YearlyDonationFindUniqueArgs>(args: SelectSubset<T, YearlyDonationFindUniqueArgs<ExtArgs>>): Prisma__YearlyDonationClient<$Result.GetResult<Prisma.$YearlyDonationPayload<ExtArgs>, T, "findUnique", ClientOptions> | null, null, ExtArgs, ClientOptions>
+
+    /**
+     * Find one YearlyDonation that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {YearlyDonationFindUniqueOrThrowArgs} args - Arguments to find a YearlyDonation
+     * @example
+     * // Get one YearlyDonation
+     * const yearlyDonation = await prisma.yearlyDonation.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends YearlyDonationFindUniqueOrThrowArgs>(args: SelectSubset<T, YearlyDonationFindUniqueOrThrowArgs<ExtArgs>>): Prisma__YearlyDonationClient<$Result.GetResult<Prisma.$YearlyDonationPayload<ExtArgs>, T, "findUniqueOrThrow", ClientOptions>, never, ExtArgs, ClientOptions>
+
+    /**
+     * Find the first YearlyDonation that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {YearlyDonationFindFirstArgs} args - Arguments to find a YearlyDonation
+     * @example
+     * // Get one YearlyDonation
+     * const yearlyDonation = await prisma.yearlyDonation.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends YearlyDonationFindFirstArgs>(args?: SelectSubset<T, YearlyDonationFindFirstArgs<ExtArgs>>): Prisma__YearlyDonationClient<$Result.GetResult<Prisma.$YearlyDonationPayload<ExtArgs>, T, "findFirst", ClientOptions> | null, null, ExtArgs, ClientOptions>
+
+    /**
+     * Find the first YearlyDonation that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {YearlyDonationFindFirstOrThrowArgs} args - Arguments to find a YearlyDonation
+     * @example
+     * // Get one YearlyDonation
+     * const yearlyDonation = await prisma.yearlyDonation.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends YearlyDonationFindFirstOrThrowArgs>(args?: SelectSubset<T, YearlyDonationFindFirstOrThrowArgs<ExtArgs>>): Prisma__YearlyDonationClient<$Result.GetResult<Prisma.$YearlyDonationPayload<ExtArgs>, T, "findFirstOrThrow", ClientOptions>, never, ExtArgs, ClientOptions>
+
+    /**
+     * Find zero or more YearlyDonations that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {YearlyDonationFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all YearlyDonations
+     * const yearlyDonations = await prisma.yearlyDonation.findMany()
+     * 
+     * // Get first 10 YearlyDonations
+     * const yearlyDonations = await prisma.yearlyDonation.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const yearlyDonationWithIdOnly = await prisma.yearlyDonation.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends YearlyDonationFindManyArgs>(args?: SelectSubset<T, YearlyDonationFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$YearlyDonationPayload<ExtArgs>, T, "findMany", ClientOptions>>
+
+    /**
+     * Create a YearlyDonation.
+     * @param {YearlyDonationCreateArgs} args - Arguments to create a YearlyDonation.
+     * @example
+     * // Create one YearlyDonation
+     * const YearlyDonation = await prisma.yearlyDonation.create({
+     *   data: {
+     *     // ... data to create a YearlyDonation
+     *   }
+     * })
+     * 
+     */
+    create<T extends YearlyDonationCreateArgs>(args: SelectSubset<T, YearlyDonationCreateArgs<ExtArgs>>): Prisma__YearlyDonationClient<$Result.GetResult<Prisma.$YearlyDonationPayload<ExtArgs>, T, "create", ClientOptions>, never, ExtArgs, ClientOptions>
+
+    /**
+     * Create many YearlyDonations.
+     * @param {YearlyDonationCreateManyArgs} args - Arguments to create many YearlyDonations.
+     * @example
+     * // Create many YearlyDonations
+     * const yearlyDonation = await prisma.yearlyDonation.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends YearlyDonationCreateManyArgs>(args?: SelectSubset<T, YearlyDonationCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many YearlyDonations and returns the data saved in the database.
+     * @param {YearlyDonationCreateManyAndReturnArgs} args - Arguments to create many YearlyDonations.
+     * @example
+     * // Create many YearlyDonations
+     * const yearlyDonation = await prisma.yearlyDonation.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many YearlyDonations and only return the `id`
+     * const yearlyDonationWithIdOnly = await prisma.yearlyDonation.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends YearlyDonationCreateManyAndReturnArgs>(args?: SelectSubset<T, YearlyDonationCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$YearlyDonationPayload<ExtArgs>, T, "createManyAndReturn", ClientOptions>>
+
+    /**
+     * Delete a YearlyDonation.
+     * @param {YearlyDonationDeleteArgs} args - Arguments to delete one YearlyDonation.
+     * @example
+     * // Delete one YearlyDonation
+     * const YearlyDonation = await prisma.yearlyDonation.delete({
+     *   where: {
+     *     // ... filter to delete one YearlyDonation
+     *   }
+     * })
+     * 
+     */
+    delete<T extends YearlyDonationDeleteArgs>(args: SelectSubset<T, YearlyDonationDeleteArgs<ExtArgs>>): Prisma__YearlyDonationClient<$Result.GetResult<Prisma.$YearlyDonationPayload<ExtArgs>, T, "delete", ClientOptions>, never, ExtArgs, ClientOptions>
+
+    /**
+     * Update one YearlyDonation.
+     * @param {YearlyDonationUpdateArgs} args - Arguments to update one YearlyDonation.
+     * @example
+     * // Update one YearlyDonation
+     * const yearlyDonation = await prisma.yearlyDonation.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends YearlyDonationUpdateArgs>(args: SelectSubset<T, YearlyDonationUpdateArgs<ExtArgs>>): Prisma__YearlyDonationClient<$Result.GetResult<Prisma.$YearlyDonationPayload<ExtArgs>, T, "update", ClientOptions>, never, ExtArgs, ClientOptions>
+
+    /**
+     * Delete zero or more YearlyDonations.
+     * @param {YearlyDonationDeleteManyArgs} args - Arguments to filter YearlyDonations to delete.
+     * @example
+     * // Delete a few YearlyDonations
+     * const { count } = await prisma.yearlyDonation.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends YearlyDonationDeleteManyArgs>(args?: SelectSubset<T, YearlyDonationDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more YearlyDonations.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {YearlyDonationUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many YearlyDonations
+     * const yearlyDonation = await prisma.yearlyDonation.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends YearlyDonationUpdateManyArgs>(args: SelectSubset<T, YearlyDonationUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more YearlyDonations and returns the data updated in the database.
+     * @param {YearlyDonationUpdateManyAndReturnArgs} args - Arguments to update many YearlyDonations.
+     * @example
+     * // Update many YearlyDonations
+     * const yearlyDonation = await prisma.yearlyDonation.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more YearlyDonations and only return the `id`
+     * const yearlyDonationWithIdOnly = await prisma.yearlyDonation.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends YearlyDonationUpdateManyAndReturnArgs>(args: SelectSubset<T, YearlyDonationUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$YearlyDonationPayload<ExtArgs>, T, "updateManyAndReturn", ClientOptions>>
+
+    /**
+     * Create or update one YearlyDonation.
+     * @param {YearlyDonationUpsertArgs} args - Arguments to update or create a YearlyDonation.
+     * @example
+     * // Update or create a YearlyDonation
+     * const yearlyDonation = await prisma.yearlyDonation.upsert({
+     *   create: {
+     *     // ... data to create a YearlyDonation
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the YearlyDonation we want to update
+     *   }
+     * })
+     */
+    upsert<T extends YearlyDonationUpsertArgs>(args: SelectSubset<T, YearlyDonationUpsertArgs<ExtArgs>>): Prisma__YearlyDonationClient<$Result.GetResult<Prisma.$YearlyDonationPayload<ExtArgs>, T, "upsert", ClientOptions>, never, ExtArgs, ClientOptions>
+
+
+    /**
+     * Count the number of YearlyDonations.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {YearlyDonationCountArgs} args - Arguments to filter YearlyDonations to count.
+     * @example
+     * // Count the number of YearlyDonations
+     * const count = await prisma.yearlyDonation.count({
+     *   where: {
+     *     // ... the filter for the YearlyDonations we want to count
+     *   }
+     * })
+    **/
+    count<T extends YearlyDonationCountArgs>(
+      args?: Subset<T, YearlyDonationCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], YearlyDonationCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a YearlyDonation.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {YearlyDonationAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends YearlyDonationAggregateArgs>(args: Subset<T, YearlyDonationAggregateArgs>): Prisma.PrismaPromise<GetYearlyDonationAggregateType<T>>
+
+    /**
+     * Group by YearlyDonation.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {YearlyDonationGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends YearlyDonationGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: YearlyDonationGroupByArgs['orderBy'] }
+        : { orderBy?: YearlyDonationGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, YearlyDonationGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetYearlyDonationGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the YearlyDonation model
+   */
+  readonly fields: YearlyDonationFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for YearlyDonation.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__YearlyDonationClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, ClientOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the YearlyDonation model
+   */ 
+  interface YearlyDonationFieldRefs {
+    readonly id: FieldRef<"YearlyDonation", 'String'>
+    readonly year: FieldRef<"YearlyDonation", 'Int'>
+    readonly amount: FieldRef<"YearlyDonation", 'Float'>
+    readonly createdAt: FieldRef<"YearlyDonation", 'DateTime'>
+    readonly updatedAt: FieldRef<"YearlyDonation", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * YearlyDonation findUnique
+   */
+  export type YearlyDonationFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the YearlyDonation
+     */
+    select?: YearlyDonationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the YearlyDonation
+     */
+    omit?: YearlyDonationOmit<ExtArgs> | null
+    /**
+     * Filter, which YearlyDonation to fetch.
+     */
+    where: YearlyDonationWhereUniqueInput
+  }
+
+  /**
+   * YearlyDonation findUniqueOrThrow
+   */
+  export type YearlyDonationFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the YearlyDonation
+     */
+    select?: YearlyDonationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the YearlyDonation
+     */
+    omit?: YearlyDonationOmit<ExtArgs> | null
+    /**
+     * Filter, which YearlyDonation to fetch.
+     */
+    where: YearlyDonationWhereUniqueInput
+  }
+
+  /**
+   * YearlyDonation findFirst
+   */
+  export type YearlyDonationFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the YearlyDonation
+     */
+    select?: YearlyDonationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the YearlyDonation
+     */
+    omit?: YearlyDonationOmit<ExtArgs> | null
+    /**
+     * Filter, which YearlyDonation to fetch.
+     */
+    where?: YearlyDonationWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of YearlyDonations to fetch.
+     */
+    orderBy?: YearlyDonationOrderByWithRelationInput | YearlyDonationOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for YearlyDonations.
+     */
+    cursor?: YearlyDonationWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` YearlyDonations from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` YearlyDonations.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of YearlyDonations.
+     */
+    distinct?: YearlyDonationScalarFieldEnum | YearlyDonationScalarFieldEnum[]
+  }
+
+  /**
+   * YearlyDonation findFirstOrThrow
+   */
+  export type YearlyDonationFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the YearlyDonation
+     */
+    select?: YearlyDonationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the YearlyDonation
+     */
+    omit?: YearlyDonationOmit<ExtArgs> | null
+    /**
+     * Filter, which YearlyDonation to fetch.
+     */
+    where?: YearlyDonationWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of YearlyDonations to fetch.
+     */
+    orderBy?: YearlyDonationOrderByWithRelationInput | YearlyDonationOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for YearlyDonations.
+     */
+    cursor?: YearlyDonationWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` YearlyDonations from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` YearlyDonations.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of YearlyDonations.
+     */
+    distinct?: YearlyDonationScalarFieldEnum | YearlyDonationScalarFieldEnum[]
+  }
+
+  /**
+   * YearlyDonation findMany
+   */
+  export type YearlyDonationFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the YearlyDonation
+     */
+    select?: YearlyDonationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the YearlyDonation
+     */
+    omit?: YearlyDonationOmit<ExtArgs> | null
+    /**
+     * Filter, which YearlyDonations to fetch.
+     */
+    where?: YearlyDonationWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of YearlyDonations to fetch.
+     */
+    orderBy?: YearlyDonationOrderByWithRelationInput | YearlyDonationOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing YearlyDonations.
+     */
+    cursor?: YearlyDonationWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` YearlyDonations from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` YearlyDonations.
+     */
+    skip?: number
+    distinct?: YearlyDonationScalarFieldEnum | YearlyDonationScalarFieldEnum[]
+  }
+
+  /**
+   * YearlyDonation create
+   */
+  export type YearlyDonationCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the YearlyDonation
+     */
+    select?: YearlyDonationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the YearlyDonation
+     */
+    omit?: YearlyDonationOmit<ExtArgs> | null
+    /**
+     * The data needed to create a YearlyDonation.
+     */
+    data: XOR<YearlyDonationCreateInput, YearlyDonationUncheckedCreateInput>
+  }
+
+  /**
+   * YearlyDonation createMany
+   */
+  export type YearlyDonationCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many YearlyDonations.
+     */
+    data: YearlyDonationCreateManyInput | YearlyDonationCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * YearlyDonation createManyAndReturn
+   */
+  export type YearlyDonationCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the YearlyDonation
+     */
+    select?: YearlyDonationSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the YearlyDonation
+     */
+    omit?: YearlyDonationOmit<ExtArgs> | null
+    /**
+     * The data used to create many YearlyDonations.
+     */
+    data: YearlyDonationCreateManyInput | YearlyDonationCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * YearlyDonation update
+   */
+  export type YearlyDonationUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the YearlyDonation
+     */
+    select?: YearlyDonationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the YearlyDonation
+     */
+    omit?: YearlyDonationOmit<ExtArgs> | null
+    /**
+     * The data needed to update a YearlyDonation.
+     */
+    data: XOR<YearlyDonationUpdateInput, YearlyDonationUncheckedUpdateInput>
+    /**
+     * Choose, which YearlyDonation to update.
+     */
+    where: YearlyDonationWhereUniqueInput
+  }
+
+  /**
+   * YearlyDonation updateMany
+   */
+  export type YearlyDonationUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update YearlyDonations.
+     */
+    data: XOR<YearlyDonationUpdateManyMutationInput, YearlyDonationUncheckedUpdateManyInput>
+    /**
+     * Filter which YearlyDonations to update
+     */
+    where?: YearlyDonationWhereInput
+  }
+
+  /**
+   * YearlyDonation updateManyAndReturn
+   */
+  export type YearlyDonationUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the YearlyDonation
+     */
+    select?: YearlyDonationSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the YearlyDonation
+     */
+    omit?: YearlyDonationOmit<ExtArgs> | null
+    /**
+     * The data used to update YearlyDonations.
+     */
+    data: XOR<YearlyDonationUpdateManyMutationInput, YearlyDonationUncheckedUpdateManyInput>
+    /**
+     * Filter which YearlyDonations to update
+     */
+    where?: YearlyDonationWhereInput
+  }
+
+  /**
+   * YearlyDonation upsert
+   */
+  export type YearlyDonationUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the YearlyDonation
+     */
+    select?: YearlyDonationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the YearlyDonation
+     */
+    omit?: YearlyDonationOmit<ExtArgs> | null
+    /**
+     * The filter to search for the YearlyDonation to update in case it exists.
+     */
+    where: YearlyDonationWhereUniqueInput
+    /**
+     * In case the YearlyDonation found by the `where` argument doesn't exist, create a new YearlyDonation with this data.
+     */
+    create: XOR<YearlyDonationCreateInput, YearlyDonationUncheckedCreateInput>
+    /**
+     * In case the YearlyDonation was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<YearlyDonationUpdateInput, YearlyDonationUncheckedUpdateInput>
+  }
+
+  /**
+   * YearlyDonation delete
+   */
+  export type YearlyDonationDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the YearlyDonation
+     */
+    select?: YearlyDonationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the YearlyDonation
+     */
+    omit?: YearlyDonationOmit<ExtArgs> | null
+    /**
+     * Filter which YearlyDonation to delete.
+     */
+    where: YearlyDonationWhereUniqueInput
+  }
+
+  /**
+   * YearlyDonation deleteMany
+   */
+  export type YearlyDonationDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which YearlyDonations to delete
+     */
+    where?: YearlyDonationWhereInput
+  }
+
+  /**
+   * YearlyDonation without action
+   */
+  export type YearlyDonationDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the YearlyDonation
+     */
+    select?: YearlyDonationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the YearlyDonation
+     */
+    omit?: YearlyDonationOmit<ExtArgs> | null
   }
 
 
@@ -9112,6 +12523,39 @@ export namespace Prisma {
   export type MemberScalarFieldEnum = (typeof MemberScalarFieldEnum)[keyof typeof MemberScalarFieldEnum]
 
 
+  export const MemberStatusScalarFieldEnum: {
+    id: 'id',
+    memberId: 'memberId',
+    status: 'status',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+  };
+
+  export type MemberStatusScalarFieldEnum = (typeof MemberStatusScalarFieldEnum)[keyof typeof MemberStatusScalarFieldEnum]
+
+
+  export const YearlyPaymentScalarFieldEnum: {
+    id: 'id',
+    year: 'year',
+    amount: 'amount',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+  };
+
+  export type YearlyPaymentScalarFieldEnum = (typeof YearlyPaymentScalarFieldEnum)[keyof typeof YearlyPaymentScalarFieldEnum]
+
+
+  export const YearlyDonationScalarFieldEnum: {
+    id: 'id',
+    year: 'year',
+    amount: 'amount',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+  };
+
+  export type YearlyDonationScalarFieldEnum = (typeof YearlyDonationScalarFieldEnum)[keyof typeof YearlyDonationScalarFieldEnum]
+
+
   export const MemberPaymentsScalarFieldEnum: {
     id: 'id',
     memberId: 'memberId',
@@ -9223,6 +12667,20 @@ export namespace Prisma {
    * Reference to a field of type 'Boolean'
    */
   export type BooleanFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Boolean'>
+    
+
+
+  /**
+   * Reference to a field of type 'Status'
+   */
+  export type EnumStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Status'>
+    
+
+
+  /**
+   * Reference to a field of type 'Status[]'
+   */
+  export type ListEnumStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Status[]'>
     
 
 
@@ -9505,6 +12963,7 @@ export namespace Prisma {
     role?: EnumRoleFilter<"Member"> | $Enums.Role
     media?: MemberMediaListRelationFilter
     payments?: MemberPaymentsListRelationFilter
+    memberStatus?: MemberStatusListRelationFilter
   }
 
   export type MemberOrderByWithRelationInput = {
@@ -9519,6 +12978,7 @@ export namespace Prisma {
     role?: SortOrder
     media?: MemberMediaOrderByRelationAggregateInput
     payments?: MemberPaymentsOrderByRelationAggregateInput
+    memberStatus?: MemberStatusOrderByRelationAggregateInput
   }
 
   export type MemberWhereUniqueInput = Prisma.AtLeast<{
@@ -9536,6 +12996,7 @@ export namespace Prisma {
     role?: EnumRoleFilter<"Member"> | $Enums.Role
     media?: MemberMediaListRelationFilter
     payments?: MemberPaymentsListRelationFilter
+    memberStatus?: MemberStatusListRelationFilter
   }, "id" | "cnic">
 
   export type MemberOrderByWithAggregationInput = {
@@ -9566,6 +13027,169 @@ export namespace Prisma {
     city?: StringNullableWithAggregatesFilter<"Member"> | string | null
     deleted?: BoolWithAggregatesFilter<"Member"> | boolean
     role?: EnumRoleWithAggregatesFilter<"Member"> | $Enums.Role
+  }
+
+  export type MemberStatusWhereInput = {
+    AND?: MemberStatusWhereInput | MemberStatusWhereInput[]
+    OR?: MemberStatusWhereInput[]
+    NOT?: MemberStatusWhereInput | MemberStatusWhereInput[]
+    id?: StringFilter<"MemberStatus"> | string
+    memberId?: StringFilter<"MemberStatus"> | string
+    status?: EnumStatusFilter<"MemberStatus"> | $Enums.Status
+    createdAt?: DateTimeFilter<"MemberStatus"> | Date | string
+    updatedAt?: DateTimeFilter<"MemberStatus"> | Date | string
+    member?: XOR<MemberScalarRelationFilter, MemberWhereInput>
+  }
+
+  export type MemberStatusOrderByWithRelationInput = {
+    id?: SortOrder
+    memberId?: SortOrder
+    status?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    member?: MemberOrderByWithRelationInput
+  }
+
+  export type MemberStatusWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: MemberStatusWhereInput | MemberStatusWhereInput[]
+    OR?: MemberStatusWhereInput[]
+    NOT?: MemberStatusWhereInput | MemberStatusWhereInput[]
+    memberId?: StringFilter<"MemberStatus"> | string
+    status?: EnumStatusFilter<"MemberStatus"> | $Enums.Status
+    createdAt?: DateTimeFilter<"MemberStatus"> | Date | string
+    updatedAt?: DateTimeFilter<"MemberStatus"> | Date | string
+    member?: XOR<MemberScalarRelationFilter, MemberWhereInput>
+  }, "id">
+
+  export type MemberStatusOrderByWithAggregationInput = {
+    id?: SortOrder
+    memberId?: SortOrder
+    status?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    _count?: MemberStatusCountOrderByAggregateInput
+    _max?: MemberStatusMaxOrderByAggregateInput
+    _min?: MemberStatusMinOrderByAggregateInput
+  }
+
+  export type MemberStatusScalarWhereWithAggregatesInput = {
+    AND?: MemberStatusScalarWhereWithAggregatesInput | MemberStatusScalarWhereWithAggregatesInput[]
+    OR?: MemberStatusScalarWhereWithAggregatesInput[]
+    NOT?: MemberStatusScalarWhereWithAggregatesInput | MemberStatusScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"MemberStatus"> | string
+    memberId?: StringWithAggregatesFilter<"MemberStatus"> | string
+    status?: EnumStatusWithAggregatesFilter<"MemberStatus"> | $Enums.Status
+    createdAt?: DateTimeWithAggregatesFilter<"MemberStatus"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"MemberStatus"> | Date | string
+  }
+
+  export type YearlyPaymentWhereInput = {
+    AND?: YearlyPaymentWhereInput | YearlyPaymentWhereInput[]
+    OR?: YearlyPaymentWhereInput[]
+    NOT?: YearlyPaymentWhereInput | YearlyPaymentWhereInput[]
+    id?: StringFilter<"YearlyPayment"> | string
+    year?: IntFilter<"YearlyPayment"> | number
+    amount?: FloatFilter<"YearlyPayment"> | number
+    createdAt?: DateTimeFilter<"YearlyPayment"> | Date | string
+    updatedAt?: DateTimeFilter<"YearlyPayment"> | Date | string
+  }
+
+  export type YearlyPaymentOrderByWithRelationInput = {
+    id?: SortOrder
+    year?: SortOrder
+    amount?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type YearlyPaymentWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: YearlyPaymentWhereInput | YearlyPaymentWhereInput[]
+    OR?: YearlyPaymentWhereInput[]
+    NOT?: YearlyPaymentWhereInput | YearlyPaymentWhereInput[]
+    year?: IntFilter<"YearlyPayment"> | number
+    amount?: FloatFilter<"YearlyPayment"> | number
+    createdAt?: DateTimeFilter<"YearlyPayment"> | Date | string
+    updatedAt?: DateTimeFilter<"YearlyPayment"> | Date | string
+  }, "id">
+
+  export type YearlyPaymentOrderByWithAggregationInput = {
+    id?: SortOrder
+    year?: SortOrder
+    amount?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    _count?: YearlyPaymentCountOrderByAggregateInput
+    _avg?: YearlyPaymentAvgOrderByAggregateInput
+    _max?: YearlyPaymentMaxOrderByAggregateInput
+    _min?: YearlyPaymentMinOrderByAggregateInput
+    _sum?: YearlyPaymentSumOrderByAggregateInput
+  }
+
+  export type YearlyPaymentScalarWhereWithAggregatesInput = {
+    AND?: YearlyPaymentScalarWhereWithAggregatesInput | YearlyPaymentScalarWhereWithAggregatesInput[]
+    OR?: YearlyPaymentScalarWhereWithAggregatesInput[]
+    NOT?: YearlyPaymentScalarWhereWithAggregatesInput | YearlyPaymentScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"YearlyPayment"> | string
+    year?: IntWithAggregatesFilter<"YearlyPayment"> | number
+    amount?: FloatWithAggregatesFilter<"YearlyPayment"> | number
+    createdAt?: DateTimeWithAggregatesFilter<"YearlyPayment"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"YearlyPayment"> | Date | string
+  }
+
+  export type YearlyDonationWhereInput = {
+    AND?: YearlyDonationWhereInput | YearlyDonationWhereInput[]
+    OR?: YearlyDonationWhereInput[]
+    NOT?: YearlyDonationWhereInput | YearlyDonationWhereInput[]
+    id?: StringFilter<"YearlyDonation"> | string
+    year?: IntFilter<"YearlyDonation"> | number
+    amount?: FloatFilter<"YearlyDonation"> | number
+    createdAt?: DateTimeFilter<"YearlyDonation"> | Date | string
+    updatedAt?: DateTimeFilter<"YearlyDonation"> | Date | string
+  }
+
+  export type YearlyDonationOrderByWithRelationInput = {
+    id?: SortOrder
+    year?: SortOrder
+    amount?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type YearlyDonationWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: YearlyDonationWhereInput | YearlyDonationWhereInput[]
+    OR?: YearlyDonationWhereInput[]
+    NOT?: YearlyDonationWhereInput | YearlyDonationWhereInput[]
+    year?: IntFilter<"YearlyDonation"> | number
+    amount?: FloatFilter<"YearlyDonation"> | number
+    createdAt?: DateTimeFilter<"YearlyDonation"> | Date | string
+    updatedAt?: DateTimeFilter<"YearlyDonation"> | Date | string
+  }, "id">
+
+  export type YearlyDonationOrderByWithAggregationInput = {
+    id?: SortOrder
+    year?: SortOrder
+    amount?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    _count?: YearlyDonationCountOrderByAggregateInput
+    _avg?: YearlyDonationAvgOrderByAggregateInput
+    _max?: YearlyDonationMaxOrderByAggregateInput
+    _min?: YearlyDonationMinOrderByAggregateInput
+    _sum?: YearlyDonationSumOrderByAggregateInput
+  }
+
+  export type YearlyDonationScalarWhereWithAggregatesInput = {
+    AND?: YearlyDonationScalarWhereWithAggregatesInput | YearlyDonationScalarWhereWithAggregatesInput[]
+    OR?: YearlyDonationScalarWhereWithAggregatesInput[]
+    NOT?: YearlyDonationScalarWhereWithAggregatesInput | YearlyDonationScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"YearlyDonation"> | string
+    year?: IntWithAggregatesFilter<"YearlyDonation"> | number
+    amount?: FloatWithAggregatesFilter<"YearlyDonation"> | number
+    createdAt?: DateTimeWithAggregatesFilter<"YearlyDonation"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"YearlyDonation"> | Date | string
   }
 
   export type MemberPaymentsWhereInput = {
@@ -9957,6 +13581,7 @@ export namespace Prisma {
     role?: $Enums.Role
     media?: MemberMediaCreateNestedManyWithoutMemberInput
     payments?: MemberPaymentsCreateNestedManyWithoutMemberInput
+    memberStatus?: MemberStatusCreateNestedManyWithoutMemberInput
   }
 
   export type MemberUncheckedCreateInput = {
@@ -9971,6 +13596,7 @@ export namespace Prisma {
     role?: $Enums.Role
     media?: MemberMediaUncheckedCreateNestedManyWithoutMemberInput
     payments?: MemberPaymentsUncheckedCreateNestedManyWithoutMemberInput
+    memberStatus?: MemberStatusUncheckedCreateNestedManyWithoutMemberInput
   }
 
   export type MemberUpdateInput = {
@@ -9985,6 +13611,7 @@ export namespace Prisma {
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     media?: MemberMediaUpdateManyWithoutMemberNestedInput
     payments?: MemberPaymentsUpdateManyWithoutMemberNestedInput
+    memberStatus?: MemberStatusUpdateManyWithoutMemberNestedInput
   }
 
   export type MemberUncheckedUpdateInput = {
@@ -9999,6 +13626,7 @@ export namespace Prisma {
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     media?: MemberMediaUncheckedUpdateManyWithoutMemberNestedInput
     payments?: MemberPaymentsUncheckedUpdateManyWithoutMemberNestedInput
+    memberStatus?: MemberStatusUncheckedUpdateManyWithoutMemberNestedInput
   }
 
   export type MemberCreateManyInput = {
@@ -10035,6 +13663,173 @@ export namespace Prisma {
     city?: NullableStringFieldUpdateOperationsInput | string | null
     deleted?: BoolFieldUpdateOperationsInput | boolean
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  }
+
+  export type MemberStatusCreateInput = {
+    id?: string
+    status?: $Enums.Status
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    member: MemberCreateNestedOneWithoutMemberStatusInput
+  }
+
+  export type MemberStatusUncheckedCreateInput = {
+    id?: string
+    memberId: string
+    status?: $Enums.Status
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type MemberStatusUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    status?: EnumStatusFieldUpdateOperationsInput | $Enums.Status
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    member?: MemberUpdateOneRequiredWithoutMemberStatusNestedInput
+  }
+
+  export type MemberStatusUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    memberId?: StringFieldUpdateOperationsInput | string
+    status?: EnumStatusFieldUpdateOperationsInput | $Enums.Status
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type MemberStatusCreateManyInput = {
+    id?: string
+    memberId: string
+    status?: $Enums.Status
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type MemberStatusUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    status?: EnumStatusFieldUpdateOperationsInput | $Enums.Status
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type MemberStatusUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    memberId?: StringFieldUpdateOperationsInput | string
+    status?: EnumStatusFieldUpdateOperationsInput | $Enums.Status
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type YearlyPaymentCreateInput = {
+    id?: string
+    year: number
+    amount: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type YearlyPaymentUncheckedCreateInput = {
+    id?: string
+    year: number
+    amount: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type YearlyPaymentUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    year?: IntFieldUpdateOperationsInput | number
+    amount?: FloatFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type YearlyPaymentUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    year?: IntFieldUpdateOperationsInput | number
+    amount?: FloatFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type YearlyPaymentCreateManyInput = {
+    id?: string
+    year: number
+    amount: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type YearlyPaymentUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    year?: IntFieldUpdateOperationsInput | number
+    amount?: FloatFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type YearlyPaymentUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    year?: IntFieldUpdateOperationsInput | number
+    amount?: FloatFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type YearlyDonationCreateInput = {
+    id?: string
+    year: number
+    amount: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type YearlyDonationUncheckedCreateInput = {
+    id?: string
+    year: number
+    amount: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type YearlyDonationUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    year?: IntFieldUpdateOperationsInput | number
+    amount?: FloatFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type YearlyDonationUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    year?: IntFieldUpdateOperationsInput | number
+    amount?: FloatFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type YearlyDonationCreateManyInput = {
+    id?: string
+    year: number
+    amount: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type YearlyDonationUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    year?: IntFieldUpdateOperationsInput | number
+    amount?: FloatFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type YearlyDonationUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    year?: IntFieldUpdateOperationsInput | number
+    amount?: FloatFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type MemberPaymentsCreateInput = {
@@ -10448,11 +14243,21 @@ export namespace Prisma {
     none?: MemberPaymentsWhereInput
   }
 
+  export type MemberStatusListRelationFilter = {
+    every?: MemberStatusWhereInput
+    some?: MemberStatusWhereInput
+    none?: MemberStatusWhereInput
+  }
+
   export type MemberMediaOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
   export type MemberPaymentsOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type MemberStatusOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -10500,9 +14305,145 @@ export namespace Prisma {
     _max?: NestedBoolFilter<$PrismaModel>
   }
 
+  export type EnumStatusFilter<$PrismaModel = never> = {
+    equals?: $Enums.Status | EnumStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.Status[] | ListEnumStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.Status[] | ListEnumStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumStatusFilter<$PrismaModel> | $Enums.Status
+  }
+
   export type MemberScalarRelationFilter = {
     is?: MemberWhereInput
     isNot?: MemberWhereInput
+  }
+
+  export type MemberStatusCountOrderByAggregateInput = {
+    id?: SortOrder
+    memberId?: SortOrder
+    status?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type MemberStatusMaxOrderByAggregateInput = {
+    id?: SortOrder
+    memberId?: SortOrder
+    status?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type MemberStatusMinOrderByAggregateInput = {
+    id?: SortOrder
+    memberId?: SortOrder
+    status?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type EnumStatusWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.Status | EnumStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.Status[] | ListEnumStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.Status[] | ListEnumStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumStatusWithAggregatesFilter<$PrismaModel> | $Enums.Status
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumStatusFilter<$PrismaModel>
+    _max?: NestedEnumStatusFilter<$PrismaModel>
+  }
+
+  export type IntFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel>
+    in?: number[] | ListIntFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntFilter<$PrismaModel> | number
+  }
+
+  export type YearlyPaymentCountOrderByAggregateInput = {
+    id?: SortOrder
+    year?: SortOrder
+    amount?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type YearlyPaymentAvgOrderByAggregateInput = {
+    year?: SortOrder
+    amount?: SortOrder
+  }
+
+  export type YearlyPaymentMaxOrderByAggregateInput = {
+    id?: SortOrder
+    year?: SortOrder
+    amount?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type YearlyPaymentMinOrderByAggregateInput = {
+    id?: SortOrder
+    year?: SortOrder
+    amount?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type YearlyPaymentSumOrderByAggregateInput = {
+    year?: SortOrder
+    amount?: SortOrder
+  }
+
+  export type IntWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel>
+    in?: number[] | ListIntFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntWithAggregatesFilter<$PrismaModel> | number
+    _count?: NestedIntFilter<$PrismaModel>
+    _avg?: NestedFloatFilter<$PrismaModel>
+    _sum?: NestedIntFilter<$PrismaModel>
+    _min?: NestedIntFilter<$PrismaModel>
+    _max?: NestedIntFilter<$PrismaModel>
+  }
+
+  export type YearlyDonationCountOrderByAggregateInput = {
+    id?: SortOrder
+    year?: SortOrder
+    amount?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type YearlyDonationAvgOrderByAggregateInput = {
+    year?: SortOrder
+    amount?: SortOrder
+  }
+
+  export type YearlyDonationMaxOrderByAggregateInput = {
+    id?: SortOrder
+    year?: SortOrder
+    amount?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type YearlyDonationMinOrderByAggregateInput = {
+    id?: SortOrder
+    year?: SortOrder
+    amount?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type YearlyDonationSumOrderByAggregateInput = {
+    year?: SortOrder
+    amount?: SortOrder
   }
 
   export type MemberPaymentsCountOrderByAggregateInput = {
@@ -10711,6 +14652,13 @@ export namespace Prisma {
     connect?: MemberPaymentsWhereUniqueInput | MemberPaymentsWhereUniqueInput[]
   }
 
+  export type MemberStatusCreateNestedManyWithoutMemberInput = {
+    create?: XOR<MemberStatusCreateWithoutMemberInput, MemberStatusUncheckedCreateWithoutMemberInput> | MemberStatusCreateWithoutMemberInput[] | MemberStatusUncheckedCreateWithoutMemberInput[]
+    connectOrCreate?: MemberStatusCreateOrConnectWithoutMemberInput | MemberStatusCreateOrConnectWithoutMemberInput[]
+    createMany?: MemberStatusCreateManyMemberInputEnvelope
+    connect?: MemberStatusWhereUniqueInput | MemberStatusWhereUniqueInput[]
+  }
+
   export type MemberMediaUncheckedCreateNestedManyWithoutMemberInput = {
     create?: XOR<MemberMediaCreateWithoutMemberInput, MemberMediaUncheckedCreateWithoutMemberInput> | MemberMediaCreateWithoutMemberInput[] | MemberMediaUncheckedCreateWithoutMemberInput[]
     connectOrCreate?: MemberMediaCreateOrConnectWithoutMemberInput | MemberMediaCreateOrConnectWithoutMemberInput[]
@@ -10723,6 +14671,13 @@ export namespace Prisma {
     connectOrCreate?: MemberPaymentsCreateOrConnectWithoutMemberInput | MemberPaymentsCreateOrConnectWithoutMemberInput[]
     createMany?: MemberPaymentsCreateManyMemberInputEnvelope
     connect?: MemberPaymentsWhereUniqueInput | MemberPaymentsWhereUniqueInput[]
+  }
+
+  export type MemberStatusUncheckedCreateNestedManyWithoutMemberInput = {
+    create?: XOR<MemberStatusCreateWithoutMemberInput, MemberStatusUncheckedCreateWithoutMemberInput> | MemberStatusCreateWithoutMemberInput[] | MemberStatusUncheckedCreateWithoutMemberInput[]
+    connectOrCreate?: MemberStatusCreateOrConnectWithoutMemberInput | MemberStatusCreateOrConnectWithoutMemberInput[]
+    createMany?: MemberStatusCreateManyMemberInputEnvelope
+    connect?: MemberStatusWhereUniqueInput | MemberStatusWhereUniqueInput[]
   }
 
   export type BoolFieldUpdateOperationsInput = {
@@ -10757,6 +14712,20 @@ export namespace Prisma {
     deleteMany?: MemberPaymentsScalarWhereInput | MemberPaymentsScalarWhereInput[]
   }
 
+  export type MemberStatusUpdateManyWithoutMemberNestedInput = {
+    create?: XOR<MemberStatusCreateWithoutMemberInput, MemberStatusUncheckedCreateWithoutMemberInput> | MemberStatusCreateWithoutMemberInput[] | MemberStatusUncheckedCreateWithoutMemberInput[]
+    connectOrCreate?: MemberStatusCreateOrConnectWithoutMemberInput | MemberStatusCreateOrConnectWithoutMemberInput[]
+    upsert?: MemberStatusUpsertWithWhereUniqueWithoutMemberInput | MemberStatusUpsertWithWhereUniqueWithoutMemberInput[]
+    createMany?: MemberStatusCreateManyMemberInputEnvelope
+    set?: MemberStatusWhereUniqueInput | MemberStatusWhereUniqueInput[]
+    disconnect?: MemberStatusWhereUniqueInput | MemberStatusWhereUniqueInput[]
+    delete?: MemberStatusWhereUniqueInput | MemberStatusWhereUniqueInput[]
+    connect?: MemberStatusWhereUniqueInput | MemberStatusWhereUniqueInput[]
+    update?: MemberStatusUpdateWithWhereUniqueWithoutMemberInput | MemberStatusUpdateWithWhereUniqueWithoutMemberInput[]
+    updateMany?: MemberStatusUpdateManyWithWhereWithoutMemberInput | MemberStatusUpdateManyWithWhereWithoutMemberInput[]
+    deleteMany?: MemberStatusScalarWhereInput | MemberStatusScalarWhereInput[]
+  }
+
   export type MemberMediaUncheckedUpdateManyWithoutMemberNestedInput = {
     create?: XOR<MemberMediaCreateWithoutMemberInput, MemberMediaUncheckedCreateWithoutMemberInput> | MemberMediaCreateWithoutMemberInput[] | MemberMediaUncheckedCreateWithoutMemberInput[]
     connectOrCreate?: MemberMediaCreateOrConnectWithoutMemberInput | MemberMediaCreateOrConnectWithoutMemberInput[]
@@ -10783,6 +14752,46 @@ export namespace Prisma {
     update?: MemberPaymentsUpdateWithWhereUniqueWithoutMemberInput | MemberPaymentsUpdateWithWhereUniqueWithoutMemberInput[]
     updateMany?: MemberPaymentsUpdateManyWithWhereWithoutMemberInput | MemberPaymentsUpdateManyWithWhereWithoutMemberInput[]
     deleteMany?: MemberPaymentsScalarWhereInput | MemberPaymentsScalarWhereInput[]
+  }
+
+  export type MemberStatusUncheckedUpdateManyWithoutMemberNestedInput = {
+    create?: XOR<MemberStatusCreateWithoutMemberInput, MemberStatusUncheckedCreateWithoutMemberInput> | MemberStatusCreateWithoutMemberInput[] | MemberStatusUncheckedCreateWithoutMemberInput[]
+    connectOrCreate?: MemberStatusCreateOrConnectWithoutMemberInput | MemberStatusCreateOrConnectWithoutMemberInput[]
+    upsert?: MemberStatusUpsertWithWhereUniqueWithoutMemberInput | MemberStatusUpsertWithWhereUniqueWithoutMemberInput[]
+    createMany?: MemberStatusCreateManyMemberInputEnvelope
+    set?: MemberStatusWhereUniqueInput | MemberStatusWhereUniqueInput[]
+    disconnect?: MemberStatusWhereUniqueInput | MemberStatusWhereUniqueInput[]
+    delete?: MemberStatusWhereUniqueInput | MemberStatusWhereUniqueInput[]
+    connect?: MemberStatusWhereUniqueInput | MemberStatusWhereUniqueInput[]
+    update?: MemberStatusUpdateWithWhereUniqueWithoutMemberInput | MemberStatusUpdateWithWhereUniqueWithoutMemberInput[]
+    updateMany?: MemberStatusUpdateManyWithWhereWithoutMemberInput | MemberStatusUpdateManyWithWhereWithoutMemberInput[]
+    deleteMany?: MemberStatusScalarWhereInput | MemberStatusScalarWhereInput[]
+  }
+
+  export type MemberCreateNestedOneWithoutMemberStatusInput = {
+    create?: XOR<MemberCreateWithoutMemberStatusInput, MemberUncheckedCreateWithoutMemberStatusInput>
+    connectOrCreate?: MemberCreateOrConnectWithoutMemberStatusInput
+    connect?: MemberWhereUniqueInput
+  }
+
+  export type EnumStatusFieldUpdateOperationsInput = {
+    set?: $Enums.Status
+  }
+
+  export type MemberUpdateOneRequiredWithoutMemberStatusNestedInput = {
+    create?: XOR<MemberCreateWithoutMemberStatusInput, MemberUncheckedCreateWithoutMemberStatusInput>
+    connectOrCreate?: MemberCreateOrConnectWithoutMemberStatusInput
+    upsert?: MemberUpsertWithoutMemberStatusInput
+    connect?: MemberWhereUniqueInput
+    update?: XOR<XOR<MemberUpdateToOneWithWhereWithoutMemberStatusInput, MemberUpdateWithoutMemberStatusInput>, MemberUncheckedUpdateWithoutMemberStatusInput>
+  }
+
+  export type IntFieldUpdateOperationsInput = {
+    set?: number
+    increment?: number
+    decrement?: number
+    multiply?: number
+    divide?: number
   }
 
   export type MemberCreateNestedOneWithoutPaymentsInput = {
@@ -10977,6 +14986,39 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedBoolFilter<$PrismaModel>
     _max?: NestedBoolFilter<$PrismaModel>
+  }
+
+  export type NestedEnumStatusFilter<$PrismaModel = never> = {
+    equals?: $Enums.Status | EnumStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.Status[] | ListEnumStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.Status[] | ListEnumStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumStatusFilter<$PrismaModel> | $Enums.Status
+  }
+
+  export type NestedEnumStatusWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.Status | EnumStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.Status[] | ListEnumStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.Status[] | ListEnumStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumStatusWithAggregatesFilter<$PrismaModel> | $Enums.Status
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumStatusFilter<$PrismaModel>
+    _max?: NestedEnumStatusFilter<$PrismaModel>
+  }
+
+  export type NestedIntWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel>
+    in?: number[] | ListIntFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntWithAggregatesFilter<$PrismaModel> | number
+    _count?: NestedIntFilter<$PrismaModel>
+    _avg?: NestedFloatFilter<$PrismaModel>
+    _sum?: NestedIntFilter<$PrismaModel>
+    _min?: NestedIntFilter<$PrismaModel>
+    _max?: NestedIntFilter<$PrismaModel>
   }
 
   export type DonationCreateWithoutDonorInput = {
@@ -11273,6 +15315,30 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type MemberStatusCreateWithoutMemberInput = {
+    id?: string
+    status?: $Enums.Status
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type MemberStatusUncheckedCreateWithoutMemberInput = {
+    id?: string
+    status?: $Enums.Status
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type MemberStatusCreateOrConnectWithoutMemberInput = {
+    where: MemberStatusWhereUniqueInput
+    create: XOR<MemberStatusCreateWithoutMemberInput, MemberStatusUncheckedCreateWithoutMemberInput>
+  }
+
+  export type MemberStatusCreateManyMemberInputEnvelope = {
+    data: MemberStatusCreateManyMemberInput | MemberStatusCreateManyMemberInput[]
+    skipDuplicates?: boolean
+  }
+
   export type MemberMediaUpsertWithWhereUniqueWithoutMemberInput = {
     where: MemberMediaWhereUniqueInput
     update: XOR<MemberMediaUpdateWithoutMemberInput, MemberMediaUncheckedUpdateWithoutMemberInput>
@@ -11327,6 +15393,105 @@ export namespace Prisma {
     updatedAt?: DateTimeFilter<"MemberPayments"> | Date | string
   }
 
+  export type MemberStatusUpsertWithWhereUniqueWithoutMemberInput = {
+    where: MemberStatusWhereUniqueInput
+    update: XOR<MemberStatusUpdateWithoutMemberInput, MemberStatusUncheckedUpdateWithoutMemberInput>
+    create: XOR<MemberStatusCreateWithoutMemberInput, MemberStatusUncheckedCreateWithoutMemberInput>
+  }
+
+  export type MemberStatusUpdateWithWhereUniqueWithoutMemberInput = {
+    where: MemberStatusWhereUniqueInput
+    data: XOR<MemberStatusUpdateWithoutMemberInput, MemberStatusUncheckedUpdateWithoutMemberInput>
+  }
+
+  export type MemberStatusUpdateManyWithWhereWithoutMemberInput = {
+    where: MemberStatusScalarWhereInput
+    data: XOR<MemberStatusUpdateManyMutationInput, MemberStatusUncheckedUpdateManyWithoutMemberInput>
+  }
+
+  export type MemberStatusScalarWhereInput = {
+    AND?: MemberStatusScalarWhereInput | MemberStatusScalarWhereInput[]
+    OR?: MemberStatusScalarWhereInput[]
+    NOT?: MemberStatusScalarWhereInput | MemberStatusScalarWhereInput[]
+    id?: StringFilter<"MemberStatus"> | string
+    memberId?: StringFilter<"MemberStatus"> | string
+    status?: EnumStatusFilter<"MemberStatus"> | $Enums.Status
+    createdAt?: DateTimeFilter<"MemberStatus"> | Date | string
+    updatedAt?: DateTimeFilter<"MemberStatus"> | Date | string
+  }
+
+  export type MemberCreateWithoutMemberStatusInput = {
+    id?: string
+    cnic: string
+    name: string
+    fatherName?: string | null
+    phone?: string | null
+    address?: string | null
+    city?: string | null
+    deleted?: boolean
+    role?: $Enums.Role
+    media?: MemberMediaCreateNestedManyWithoutMemberInput
+    payments?: MemberPaymentsCreateNestedManyWithoutMemberInput
+  }
+
+  export type MemberUncheckedCreateWithoutMemberStatusInput = {
+    id?: string
+    cnic: string
+    name: string
+    fatherName?: string | null
+    phone?: string | null
+    address?: string | null
+    city?: string | null
+    deleted?: boolean
+    role?: $Enums.Role
+    media?: MemberMediaUncheckedCreateNestedManyWithoutMemberInput
+    payments?: MemberPaymentsUncheckedCreateNestedManyWithoutMemberInput
+  }
+
+  export type MemberCreateOrConnectWithoutMemberStatusInput = {
+    where: MemberWhereUniqueInput
+    create: XOR<MemberCreateWithoutMemberStatusInput, MemberUncheckedCreateWithoutMemberStatusInput>
+  }
+
+  export type MemberUpsertWithoutMemberStatusInput = {
+    update: XOR<MemberUpdateWithoutMemberStatusInput, MemberUncheckedUpdateWithoutMemberStatusInput>
+    create: XOR<MemberCreateWithoutMemberStatusInput, MemberUncheckedCreateWithoutMemberStatusInput>
+    where?: MemberWhereInput
+  }
+
+  export type MemberUpdateToOneWithWhereWithoutMemberStatusInput = {
+    where?: MemberWhereInput
+    data: XOR<MemberUpdateWithoutMemberStatusInput, MemberUncheckedUpdateWithoutMemberStatusInput>
+  }
+
+  export type MemberUpdateWithoutMemberStatusInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    cnic?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    fatherName?: NullableStringFieldUpdateOperationsInput | string | null
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    address?: NullableStringFieldUpdateOperationsInput | string | null
+    city?: NullableStringFieldUpdateOperationsInput | string | null
+    deleted?: BoolFieldUpdateOperationsInput | boolean
+    role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
+    media?: MemberMediaUpdateManyWithoutMemberNestedInput
+    payments?: MemberPaymentsUpdateManyWithoutMemberNestedInput
+  }
+
+  export type MemberUncheckedUpdateWithoutMemberStatusInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    cnic?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    fatherName?: NullableStringFieldUpdateOperationsInput | string | null
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    address?: NullableStringFieldUpdateOperationsInput | string | null
+    city?: NullableStringFieldUpdateOperationsInput | string | null
+    deleted?: BoolFieldUpdateOperationsInput | boolean
+    role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
+    media?: MemberMediaUncheckedUpdateManyWithoutMemberNestedInput
+    payments?: MemberPaymentsUncheckedUpdateManyWithoutMemberNestedInput
+  }
+
   export type MemberCreateWithoutPaymentsInput = {
     id?: string
     cnic: string
@@ -11338,6 +15503,7 @@ export namespace Prisma {
     deleted?: boolean
     role?: $Enums.Role
     media?: MemberMediaCreateNestedManyWithoutMemberInput
+    memberStatus?: MemberStatusCreateNestedManyWithoutMemberInput
   }
 
   export type MemberUncheckedCreateWithoutPaymentsInput = {
@@ -11351,6 +15517,7 @@ export namespace Prisma {
     deleted?: boolean
     role?: $Enums.Role
     media?: MemberMediaUncheckedCreateNestedManyWithoutMemberInput
+    memberStatus?: MemberStatusUncheckedCreateNestedManyWithoutMemberInput
   }
 
   export type MemberCreateOrConnectWithoutPaymentsInput = {
@@ -11380,6 +15547,7 @@ export namespace Prisma {
     deleted?: BoolFieldUpdateOperationsInput | boolean
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     media?: MemberMediaUpdateManyWithoutMemberNestedInput
+    memberStatus?: MemberStatusUpdateManyWithoutMemberNestedInput
   }
 
   export type MemberUncheckedUpdateWithoutPaymentsInput = {
@@ -11393,6 +15561,7 @@ export namespace Prisma {
     deleted?: BoolFieldUpdateOperationsInput | boolean
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     media?: MemberMediaUncheckedUpdateManyWithoutMemberNestedInput
+    memberStatus?: MemberStatusUncheckedUpdateManyWithoutMemberNestedInput
   }
 
   export type MemberCreateWithoutMediaInput = {
@@ -11406,6 +15575,7 @@ export namespace Prisma {
     deleted?: boolean
     role?: $Enums.Role
     payments?: MemberPaymentsCreateNestedManyWithoutMemberInput
+    memberStatus?: MemberStatusCreateNestedManyWithoutMemberInput
   }
 
   export type MemberUncheckedCreateWithoutMediaInput = {
@@ -11419,6 +15589,7 @@ export namespace Prisma {
     deleted?: boolean
     role?: $Enums.Role
     payments?: MemberPaymentsUncheckedCreateNestedManyWithoutMemberInput
+    memberStatus?: MemberStatusUncheckedCreateNestedManyWithoutMemberInput
   }
 
   export type MemberCreateOrConnectWithoutMediaInput = {
@@ -11448,6 +15619,7 @@ export namespace Prisma {
     deleted?: BoolFieldUpdateOperationsInput | boolean
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     payments?: MemberPaymentsUpdateManyWithoutMemberNestedInput
+    memberStatus?: MemberStatusUpdateManyWithoutMemberNestedInput
   }
 
   export type MemberUncheckedUpdateWithoutMediaInput = {
@@ -11461,6 +15633,7 @@ export namespace Prisma {
     deleted?: BoolFieldUpdateOperationsInput | boolean
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     payments?: MemberPaymentsUncheckedUpdateManyWithoutMemberNestedInput
+    memberStatus?: MemberStatusUncheckedUpdateManyWithoutMemberNestedInput
   }
 
   export type DonationCreateManyDonorInput = {
@@ -11533,6 +15706,13 @@ export namespace Prisma {
     updatedAt?: Date | string
   }
 
+  export type MemberStatusCreateManyMemberInput = {
+    id?: string
+    status?: $Enums.Status
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
   export type MemberMediaUpdateWithoutMemberInput = {
     id?: StringFieldUpdateOperationsInput | string
     profilePic?: NullableStringFieldUpdateOperationsInput | string | null
@@ -11571,6 +15751,27 @@ export namespace Prisma {
   export type MemberPaymentsUncheckedUpdateManyWithoutMemberInput = {
     id?: StringFieldUpdateOperationsInput | string
     amount?: FloatFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type MemberStatusUpdateWithoutMemberInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    status?: EnumStatusFieldUpdateOperationsInput | $Enums.Status
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type MemberStatusUncheckedUpdateWithoutMemberInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    status?: EnumStatusFieldUpdateOperationsInput | $Enums.Status
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type MemberStatusUncheckedUpdateManyWithoutMemberInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    status?: EnumStatusFieldUpdateOperationsInput | $Enums.Status
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }

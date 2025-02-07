@@ -12,8 +12,15 @@ import {
 import { formatDate } from '@/lib/utils';
 import { Shapes } from 'lucide-react';
 import { Button } from './ui/button';
+
+interface MemberPaymentType extends MemberPayment{
+  member: {
+    name: string
+    cnic: string
+  }
+}
 export interface PaymentsTableProps {
-  payments: MemberPayment[];
+  payments: MemberPaymentType[];
 }
 const PaymentsTable:React.FC<PaymentsTableProps> = ({payments}) => {
   return (
@@ -21,6 +28,8 @@ const PaymentsTable:React.FC<PaymentsTableProps> = ({payments}) => {
   <TableHeader>
     <TableRow>
       <TableHead>Sr. No</TableHead>
+      <TableHead>Name</TableHead>
+      <TableHead>CNIC</TableHead>
       <TableHead>Amount</TableHead>
       <TableHead>Paid at</TableHead>
       <TableHead>Actions</TableHead>
@@ -31,6 +40,8 @@ const PaymentsTable:React.FC<PaymentsTableProps> = ({payments}) => {
       return(
       <TableRow key={index}>
         <TableCell>{index + 1}</TableCell>
+        <TableCell>{donation.member.name}</TableCell>
+        <TableCell>{donation.member.cnic}</TableCell>
         <TableCell>{donation.amount}</TableCell>
         <TableCell>{formatDate(donation.createdAt as Date)}</TableCell>
         <TableCell><Button variant={'outline'}><Shapes /></Button></TableCell>

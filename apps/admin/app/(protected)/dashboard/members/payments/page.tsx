@@ -8,7 +8,7 @@ const Page =async () => {
   const payments= await getAllPayments();
   return (
     <div>
-      <h1>Payments to beneficiaries</h1>
+      <h1 className='text-pretty'>Payments to beneficiaries</h1>
       <PaymentsTable payments={payments} />
       {/* <DonorsPagination totalDonors={totalDonors} /> */}
     </div>

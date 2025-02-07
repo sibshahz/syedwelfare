@@ -18,6 +18,12 @@ enum Role {
   DONOR
   MEMBER
 }
+
+enum Status{
+  APPROVED
+  PENDING
+  REJECTED
+}
 model User {
   id       String  @id @default(cuid())
   name     String?
@@ -81,8 +87,36 @@ model Member {
   role       Role    @default(MEMBER)
   media      MemberMedia[]
   payments   MemberPayments[]
+  memberStatus MemberStatus[]
 
   @@index([cnic,phone])
+}
+
+model MemberStatus{
+  id        String  @id @default(cuid())
+  memberId  String
+  status    Status @default(PENDING)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  member    Member  @relation(fields: [memberId], references: [id], onDelete: NoAction)
+
+  @@index([memberId])
+}
+
+model YearlyPayment{
+  id        String  @id @default(cuid())
+  year      Int
+  amount    Float
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model YearlyDonation{
+  id        String @id @default(cuid())
+  year      Int
+  amount    Float
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
 
 model MemberPayments {

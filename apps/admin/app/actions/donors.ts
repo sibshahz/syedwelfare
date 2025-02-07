@@ -11,6 +11,19 @@ export const getAllDonor = async () => {
     return error;
   }
 };
+
+export const getDonorsPaginated = async (page: number, limit: number) => {
+  try {
+    const response = await axios_default.get(`donors/paginated/${page-1}/${limit}`);
+    return {success: true, data:response.data.message};
+  } catch (error) {
+    console.error("Failed to fetch resources:", error);
+    return {
+      success: false,
+      data: error,
+    };
+  }
+}
 export const getTotalDonor = async () => {
   try {
     const response = await axios_default.get(`donors/total-donors`);
@@ -33,10 +46,13 @@ export const getDonorById = async (id: string) => {
 export const createDonor = async (data: Donor) => {
   try {
     const response = await axios_default.post(`donors`, { data });
-    return response;
+    return { success: true, data: response.data }; // Return a success flag
   } catch (error: any) {
-    console.error("Failed to fetch resources:", error.response.data);
-    return error;
+    console.error("Failed to create donor:", error?.response?.data);
+    return {
+      success: false,
+      error: error?.response?.data?.error || "An error occurred",
+    };
   }
 };
 

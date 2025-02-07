@@ -51,58 +51,20 @@ export function DonorForm() {
 }
 
 async function onSubmit(values: Donor) {
-console.log("Form values: ", values)
-// setLoading(true);
-const result=await createDonor(values)
-if(result.error){
-  const errorResponse:any = result;
-  console.error("Failed to create donor:", errorResponse.error);
-  setError(result.error);
-  
-}else{
+  console.log("Form values: ", values);
+
+  const result = await createDonor(values);
+
+  if (!result.success) {
+    setError(result.error); // Set error message properly
+    return;
+  }
+
+  // If successful, clear errors and reset form
   setError(null);
-  form.reset(); // Reset the form after successful submission
-
+  form.reset();
 }
-// setLoading(false);
 
-  // const formData = new FormData();
-
-  // // Loop through the keys in the `values` object
-  // for (const [key, value] of Object.entries(values)) {
-  //   if (value && typeof value === 'object' && 'length' in value && value.length > 0) {
-  //     // Append the first file from FileList
-  //     formData.append(key, value[0]);
-  //   } else if (value && typeof value === 'object' && value instanceof File) {
-  //     // Append the File instance
-  //     formData.append(key, value);
-  //   } else if (value) {
-  //     // Append plain fields
-  //     formData.append(key, value as string);
-  //   }
-  // }
-
-  // console.log("Form data:", formData.getAll("name")); // Debugging form data
-
-  // Submit the formData
-  // fetch("/api/members", {
-  //   method: "POST",
-  //   body: formData,
-  // })
-  //   .then((res) => {
-  //     if (!res.ok) {
-  //       throw new Error("Failed to submit form");
-  //     }
-  //     return res.json();
-  //   })
-  //   .then((data) => {
-  //     console.log("Success:", data);
-  //     form.reset(); // Reset the form after successful submission
-  //   })
-  //   .catch((error) => {
-  //     console.error("Error:", error);
-  //   });
-}
 
 
 
@@ -111,7 +73,7 @@ if(result.error){
     <>
     <Form {...form}>
       <form
-        onSubmit={form.handleSubmit(onSubmit)} // Attach the handler here
+        // onSubmit={form.handleSubmit(onSubmit)} // Attach the handler here
         className="space-y-8"
       >
 
@@ -306,7 +268,14 @@ if(result.error){
   )}
 />
         </div>
-        <Button type="submit">Submit</Button> {/* Leave type as submit */}
+        <Button 
+        onClick={(e) => {
+    e.preventDefault(); // Prevents default form submission
+    form.handleSubmit(onSubmit)();
+  }}
+        // type="submit"
+        
+        >Submit</Button> {/* Leave type as submit */}
       </form>
     </Form>
     {

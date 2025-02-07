@@ -6,6 +6,7 @@ export const dynamic = 'force-dynamic'
 
 const Page =async () => {
   const donations= await getAllDonations()
+
   return (
     <div>
       <h1>Donors</h1>

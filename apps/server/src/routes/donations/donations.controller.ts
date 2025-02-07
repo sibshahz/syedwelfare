@@ -4,7 +4,20 @@ import { DonationSchema, z } from "@repo/zod-utils";
 
 export const httpGetDonationsList = async (req: Request, res: Response) => {
   try {
-    const donations = await prisma.donation.findMany();
+    const donations = await prisma.donation.findMany({
+      include: {
+        donor: {
+          select: {
+            name: true,
+            cnic: true,
+          },
+        },
+      },
+      orderBy: {
+        createdAt: "desc",
+      },
+
+    });
     res.json({ message: donations });
   } catch (error) {
     res.json({ error: "Failed to fetch donations." });

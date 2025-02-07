@@ -13,7 +13,7 @@ import {
 const membersRouter = express.Router();
 
 membersRouter.get("/", httpGetMembersList);
-membersRouter.get("/:page/:limit", httpGetMembersPaginated);
+membersRouter.get("/paginated/:page/:limit", httpGetMembersPaginated);
 membersRouter.get("/total-members", httpGetTotalMembers); // Make sure this comes before the :memberid route
 membersRouter.get("/:memberid", httpGetMember); // This should come after /total-members route
 membersRouter.post("/", httpPostMember);

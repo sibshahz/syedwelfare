@@ -100,7 +100,7 @@ form.reset(); // Reset the form after successful submission
   return (
     <Form {...form}>
       <form
-        onSubmit={form.handleSubmit(onSubmit)} // Attach the handler here
+        // onSubmit={form.handleSubmit(onSubmit)} // Attach the handler here
         className="space-y-8"
       >
 
@@ -312,7 +312,11 @@ form.reset(); // Reset the form after successful submission
   )
   }
     </div>
-        <Button type="submit">Submit</Button> {/* Leave type as submit */}
+        <Button
+        onClick={() => form.handleSubmit(onSubmit)()}
+        // type="submit"
+        
+        >Submit</Button> {/* Leave type as submit */}
       </form>
     </Form>
   );

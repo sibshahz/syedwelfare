@@ -10,3 +10,13 @@ export const getAllPayments = async () => {
     return error;
   }
 };
+
+export const getTotalPayments = async () => {
+  try {
+    const response = await axios_default.get(`payments/total-payments`);
+    return response.data.message;
+  } catch (error) {
+    console.error("Failed to fetch resources:", error);
+    return 0;
+  }
+}

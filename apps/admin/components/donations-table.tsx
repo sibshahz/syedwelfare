@@ -12,8 +12,15 @@ import {
 import { formatDate } from '@/lib/utils';
 import { Shapes } from 'lucide-react';
 import { Button } from './ui/button';
+
+interface DonationType extends Donation{
+  donor: {
+    name: string
+    cnic: string
+  }
+}
 export interface DonationsTableProps {
-  donations: Donation[];
+  donations: DonationType[];
 }
 const DonationsTable:React.FC<DonationsTableProps> = ({donations}) => {
   return (
@@ -21,6 +28,8 @@ const DonationsTable:React.FC<DonationsTableProps> = ({donations}) => {
   <TableHeader>
     <TableRow>
       <TableHead>Sr. No</TableHead>
+      <TableHead>Name</TableHead>
+      <TableHead>CNIC</TableHead>
       <TableHead>Amount</TableHead>
       <TableHead>Donated at</TableHead>
       <TableHead>Actions</TableHead>
@@ -31,6 +40,8 @@ const DonationsTable:React.FC<DonationsTableProps> = ({donations}) => {
       return(
       <TableRow key={index}>
         <TableCell>{index + 1}</TableCell>
+        <TableCell>{donation.donor.name}</TableCell>
+        <TableCell>{donation.donor.cnic}</TableCell>
         <TableCell>{donation.amount}</TableCell>
         <TableCell>{formatDate(donation.createdAt as Date)}</TableCell>
         <TableCell><Button variant={'outline'}><Shapes /></Button></TableCell>

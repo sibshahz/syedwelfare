@@ -19,6 +19,19 @@ export const getTotalMembers = async () => {
     return 0;
   }
 };
+
+export const getMembersPaginated = async (page: number, limit: number) => {
+  try {
+    const response = await axios_default.get(`members/paginated/${page-1}/${limit}`);
+    return {success: true, data:response.data.message};
+  } catch (error) {
+    console.error("Failed to fetch resources:", error);
+    return {
+      success: false,
+      data: error,
+    };
+  }
+}
 export const getMemberById = async (id: string) => {
   try {
     const response = await axios_default.get(`members/${id}`);

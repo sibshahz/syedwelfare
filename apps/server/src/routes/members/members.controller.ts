@@ -15,12 +15,13 @@ export const httpGetMembersList = async (req: Request, res: Response) => {
 
 export const httpGetMembersPaginated = async (req: Request, res: Response) => {
   try {
-    const { page, limit } = req.query;
+    const page = req.params.page;
+    const limit = req.params.limit;
     const members = await prisma.member.findMany({
       skip: Number(page) * Number(limit),
       take: Number(limit),
     });
-    return res.json({ message: members });
+    return res.status(200).json({ message: members });
   } catch (error) {
     // next(error);
     return res

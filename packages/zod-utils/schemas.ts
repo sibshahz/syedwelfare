@@ -41,7 +41,7 @@ export const MemberSchema = z.object({
   id: z.string().optional(),
   cnic: z //done
     .string()
-    .regex(/^\d{13}$/, { message: "CNIC must be exactly 13 digits" }),
+    .min(13, { message: "CNIC should contain minimum 13 digits." }),
   name: z.string().optional(), //done
   profilePic: z.string().optional(),
   cnicFront: z.string().optional(),
@@ -62,7 +62,7 @@ export const DonorSchema = z.object({
   id: z.string().optional(),
   cnic: z //done
     .string()
-    .regex(/^\d{13}$/, { message: "CNIC must be exactly 13 digits" }),
+    .min(13, { message: "CNIC must contain minimum 13 digits." }),
   name: z.string().optional(), //done
   fatherName: z.string().optional(), //done
   amount: z.number().optional(),
