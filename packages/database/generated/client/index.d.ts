@@ -6080,6 +6080,7 @@ export namespace Prisma {
     cnic: string | null
     name: string | null
     fatherName: string | null
+    husbandName: string | null
     phone: string | null
     address: string | null
     city: string | null
@@ -6092,6 +6093,7 @@ export namespace Prisma {
     cnic: string | null
     name: string | null
     fatherName: string | null
+    husbandName: string | null
     phone: string | null
     address: string | null
     city: string | null
@@ -6104,6 +6106,7 @@ export namespace Prisma {
     cnic: number
     name: number
     fatherName: number
+    husbandName: number
     phone: number
     address: number
     city: number
@@ -6118,6 +6121,7 @@ export namespace Prisma {
     cnic?: true
     name?: true
     fatherName?: true
+    husbandName?: true
     phone?: true
     address?: true
     city?: true
@@ -6130,6 +6134,7 @@ export namespace Prisma {
     cnic?: true
     name?: true
     fatherName?: true
+    husbandName?: true
     phone?: true
     address?: true
     city?: true
@@ -6142,6 +6147,7 @@ export namespace Prisma {
     cnic?: true
     name?: true
     fatherName?: true
+    husbandName?: true
     phone?: true
     address?: true
     city?: true
@@ -6227,6 +6233,7 @@ export namespace Prisma {
     cnic: string
     name: string
     fatherName: string | null
+    husbandName: string | null
     phone: string | null
     address: string | null
     city: string | null
@@ -6256,6 +6263,7 @@ export namespace Prisma {
     cnic?: boolean
     name?: boolean
     fatherName?: boolean
+    husbandName?: boolean
     phone?: boolean
     address?: boolean
     city?: boolean
@@ -6272,6 +6280,7 @@ export namespace Prisma {
     cnic?: boolean
     name?: boolean
     fatherName?: boolean
+    husbandName?: boolean
     phone?: boolean
     address?: boolean
     city?: boolean
@@ -6284,6 +6293,7 @@ export namespace Prisma {
     cnic?: boolean
     name?: boolean
     fatherName?: boolean
+    husbandName?: boolean
     phone?: boolean
     address?: boolean
     city?: boolean
@@ -6296,6 +6306,7 @@ export namespace Prisma {
     cnic?: boolean
     name?: boolean
     fatherName?: boolean
+    husbandName?: boolean
     phone?: boolean
     address?: boolean
     city?: boolean
@@ -6303,7 +6314,7 @@ export namespace Prisma {
     role?: boolean
   }
 
-  export type MemberOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "cnic" | "name" | "fatherName" | "phone" | "address" | "city" | "deleted" | "role", ExtArgs["result"]["member"]>
+  export type MemberOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "cnic" | "name" | "fatherName" | "husbandName" | "phone" | "address" | "city" | "deleted" | "role", ExtArgs["result"]["member"]>
   export type MemberInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     media?: boolean | Member$mediaArgs<ExtArgs>
     payments?: boolean | Member$paymentsArgs<ExtArgs>
@@ -6325,6 +6336,7 @@ export namespace Prisma {
       cnic: string
       name: string
       fatherName: string | null
+      husbandName: string | null
       phone: string | null
       address: string | null
       city: string | null
@@ -6760,6 +6772,7 @@ export namespace Prisma {
     readonly cnic: FieldRef<"Member", 'String'>
     readonly name: FieldRef<"Member", 'String'>
     readonly fatherName: FieldRef<"Member", 'String'>
+    readonly husbandName: FieldRef<"Member", 'String'>
     readonly phone: FieldRef<"Member", 'String'>
     readonly address: FieldRef<"Member", 'String'>
     readonly city: FieldRef<"Member", 'String'>
@@ -12513,6 +12526,7 @@ export namespace Prisma {
     cnic: 'cnic',
     name: 'name',
     fatherName: 'fatherName',
+    husbandName: 'husbandName',
     phone: 'phone',
     address: 'address',
     city: 'city',
@@ -12956,6 +12970,7 @@ export namespace Prisma {
     cnic?: StringFilter<"Member"> | string
     name?: StringFilter<"Member"> | string
     fatherName?: StringNullableFilter<"Member"> | string | null
+    husbandName?: StringNullableFilter<"Member"> | string | null
     phone?: StringNullableFilter<"Member"> | string | null
     address?: StringNullableFilter<"Member"> | string | null
     city?: StringNullableFilter<"Member"> | string | null
@@ -12971,6 +12986,7 @@ export namespace Prisma {
     cnic?: SortOrder
     name?: SortOrder
     fatherName?: SortOrderInput | SortOrder
+    husbandName?: SortOrderInput | SortOrder
     phone?: SortOrderInput | SortOrder
     address?: SortOrderInput | SortOrder
     city?: SortOrderInput | SortOrder
@@ -12989,6 +13005,7 @@ export namespace Prisma {
     NOT?: MemberWhereInput | MemberWhereInput[]
     name?: StringFilter<"Member"> | string
     fatherName?: StringNullableFilter<"Member"> | string | null
+    husbandName?: StringNullableFilter<"Member"> | string | null
     phone?: StringNullableFilter<"Member"> | string | null
     address?: StringNullableFilter<"Member"> | string | null
     city?: StringNullableFilter<"Member"> | string | null
@@ -13004,6 +13021,7 @@ export namespace Prisma {
     cnic?: SortOrder
     name?: SortOrder
     fatherName?: SortOrderInput | SortOrder
+    husbandName?: SortOrderInput | SortOrder
     phone?: SortOrderInput | SortOrder
     address?: SortOrderInput | SortOrder
     city?: SortOrderInput | SortOrder
@@ -13022,6 +13040,7 @@ export namespace Prisma {
     cnic?: StringWithAggregatesFilter<"Member"> | string
     name?: StringWithAggregatesFilter<"Member"> | string
     fatherName?: StringNullableWithAggregatesFilter<"Member"> | string | null
+    husbandName?: StringNullableWithAggregatesFilter<"Member"> | string | null
     phone?: StringNullableWithAggregatesFilter<"Member"> | string | null
     address?: StringNullableWithAggregatesFilter<"Member"> | string | null
     city?: StringNullableWithAggregatesFilter<"Member"> | string | null
@@ -13574,6 +13593,7 @@ export namespace Prisma {
     cnic: string
     name: string
     fatherName?: string | null
+    husbandName?: string | null
     phone?: string | null
     address?: string | null
     city?: string | null
@@ -13589,6 +13609,7 @@ export namespace Prisma {
     cnic: string
     name: string
     fatherName?: string | null
+    husbandName?: string | null
     phone?: string | null
     address?: string | null
     city?: string | null
@@ -13604,6 +13625,7 @@ export namespace Prisma {
     cnic?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     fatherName?: NullableStringFieldUpdateOperationsInput | string | null
+    husbandName?: NullableStringFieldUpdateOperationsInput | string | null
     phone?: NullableStringFieldUpdateOperationsInput | string | null
     address?: NullableStringFieldUpdateOperationsInput | string | null
     city?: NullableStringFieldUpdateOperationsInput | string | null
@@ -13619,6 +13641,7 @@ export namespace Prisma {
     cnic?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     fatherName?: NullableStringFieldUpdateOperationsInput | string | null
+    husbandName?: NullableStringFieldUpdateOperationsInput | string | null
     phone?: NullableStringFieldUpdateOperationsInput | string | null
     address?: NullableStringFieldUpdateOperationsInput | string | null
     city?: NullableStringFieldUpdateOperationsInput | string | null
@@ -13634,6 +13657,7 @@ export namespace Prisma {
     cnic: string
     name: string
     fatherName?: string | null
+    husbandName?: string | null
     phone?: string | null
     address?: string | null
     city?: string | null
@@ -13646,6 +13670,7 @@ export namespace Prisma {
     cnic?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     fatherName?: NullableStringFieldUpdateOperationsInput | string | null
+    husbandName?: NullableStringFieldUpdateOperationsInput | string | null
     phone?: NullableStringFieldUpdateOperationsInput | string | null
     address?: NullableStringFieldUpdateOperationsInput | string | null
     city?: NullableStringFieldUpdateOperationsInput | string | null
@@ -13658,6 +13683,7 @@ export namespace Prisma {
     cnic?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     fatherName?: NullableStringFieldUpdateOperationsInput | string | null
+    husbandName?: NullableStringFieldUpdateOperationsInput | string | null
     phone?: NullableStringFieldUpdateOperationsInput | string | null
     address?: NullableStringFieldUpdateOperationsInput | string | null
     city?: NullableStringFieldUpdateOperationsInput | string | null
@@ -14266,6 +14292,7 @@ export namespace Prisma {
     cnic?: SortOrder
     name?: SortOrder
     fatherName?: SortOrder
+    husbandName?: SortOrder
     phone?: SortOrder
     address?: SortOrder
     city?: SortOrder
@@ -14278,6 +14305,7 @@ export namespace Prisma {
     cnic?: SortOrder
     name?: SortOrder
     fatherName?: SortOrder
+    husbandName?: SortOrder
     phone?: SortOrder
     address?: SortOrder
     city?: SortOrder
@@ -14290,6 +14318,7 @@ export namespace Prisma {
     cnic?: SortOrder
     name?: SortOrder
     fatherName?: SortOrder
+    husbandName?: SortOrder
     phone?: SortOrder
     address?: SortOrder
     city?: SortOrder
@@ -15425,6 +15454,7 @@ export namespace Prisma {
     cnic: string
     name: string
     fatherName?: string | null
+    husbandName?: string | null
     phone?: string | null
     address?: string | null
     city?: string | null
@@ -15439,6 +15469,7 @@ export namespace Prisma {
     cnic: string
     name: string
     fatherName?: string | null
+    husbandName?: string | null
     phone?: string | null
     address?: string | null
     city?: string | null
@@ -15469,6 +15500,7 @@ export namespace Prisma {
     cnic?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     fatherName?: NullableStringFieldUpdateOperationsInput | string | null
+    husbandName?: NullableStringFieldUpdateOperationsInput | string | null
     phone?: NullableStringFieldUpdateOperationsInput | string | null
     address?: NullableStringFieldUpdateOperationsInput | string | null
     city?: NullableStringFieldUpdateOperationsInput | string | null
@@ -15483,6 +15515,7 @@ export namespace Prisma {
     cnic?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     fatherName?: NullableStringFieldUpdateOperationsInput | string | null
+    husbandName?: NullableStringFieldUpdateOperationsInput | string | null
     phone?: NullableStringFieldUpdateOperationsInput | string | null
     address?: NullableStringFieldUpdateOperationsInput | string | null
     city?: NullableStringFieldUpdateOperationsInput | string | null
@@ -15497,6 +15530,7 @@ export namespace Prisma {
     cnic: string
     name: string
     fatherName?: string | null
+    husbandName?: string | null
     phone?: string | null
     address?: string | null
     city?: string | null
@@ -15511,6 +15545,7 @@ export namespace Prisma {
     cnic: string
     name: string
     fatherName?: string | null
+    husbandName?: string | null
     phone?: string | null
     address?: string | null
     city?: string | null
@@ -15541,6 +15576,7 @@ export namespace Prisma {
     cnic?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     fatherName?: NullableStringFieldUpdateOperationsInput | string | null
+    husbandName?: NullableStringFieldUpdateOperationsInput | string | null
     phone?: NullableStringFieldUpdateOperationsInput | string | null
     address?: NullableStringFieldUpdateOperationsInput | string | null
     city?: NullableStringFieldUpdateOperationsInput | string | null
@@ -15555,6 +15591,7 @@ export namespace Prisma {
     cnic?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     fatherName?: NullableStringFieldUpdateOperationsInput | string | null
+    husbandName?: NullableStringFieldUpdateOperationsInput | string | null
     phone?: NullableStringFieldUpdateOperationsInput | string | null
     address?: NullableStringFieldUpdateOperationsInput | string | null
     city?: NullableStringFieldUpdateOperationsInput | string | null
@@ -15569,6 +15606,7 @@ export namespace Prisma {
     cnic: string
     name: string
     fatherName?: string | null
+    husbandName?: string | null
     phone?: string | null
     address?: string | null
     city?: string | null
@@ -15583,6 +15621,7 @@ export namespace Prisma {
     cnic: string
     name: string
     fatherName?: string | null
+    husbandName?: string | null
     phone?: string | null
     address?: string | null
     city?: string | null
@@ -15613,6 +15652,7 @@ export namespace Prisma {
     cnic?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     fatherName?: NullableStringFieldUpdateOperationsInput | string | null
+    husbandName?: NullableStringFieldUpdateOperationsInput | string | null
     phone?: NullableStringFieldUpdateOperationsInput | string | null
     address?: NullableStringFieldUpdateOperationsInput | string | null
     city?: NullableStringFieldUpdateOperationsInput | string | null
@@ -15627,6 +15667,7 @@ export namespace Prisma {
     cnic?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     fatherName?: NullableStringFieldUpdateOperationsInput | string | null
+    husbandName?: NullableStringFieldUpdateOperationsInput | string | null
     phone?: NullableStringFieldUpdateOperationsInput | string | null
     address?: NullableStringFieldUpdateOperationsInput | string | null
     city?: NullableStringFieldUpdateOperationsInput | string | null

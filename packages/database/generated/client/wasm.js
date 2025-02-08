@@ -159,6 +159,7 @@ exports.Prisma.MemberScalarFieldEnum = {
   cnic: 'cnic',
   name: 'name',
   fatherName: 'fatherName',
+  husbandName: 'husbandName',
   phone: 'phone',
   address: 'address',
   city: 'city',

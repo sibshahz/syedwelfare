@@ -1,5 +1,6 @@
 import express from "express";
 import {
+  httpGetPaymentsById,
   httpGetPaymentsList,
   // httpGetDonorsPaginated,
   // httpGetDonor,
@@ -13,6 +14,7 @@ import {
 const paymentsRouter = express.Router();
 
 paymentsRouter.get("/", httpGetPaymentsList);
+paymentsRouter.get("/:memberid",httpGetPaymentsById)
 // donorsRouter.get("/:page/:limit", httpGetDonorsPaginated);
 // donorsRouter.get("/total-donors", httpGetTotalDonors); // Make sure this comes before the :memberid route
 // donorsRouter.get("/:donorid", httpGetDonor); // This should come after /total-donors route

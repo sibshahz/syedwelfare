@@ -34,9 +34,12 @@ export const httpGetMember = async (req: Request, res: Response) => {
   try {
     const { memberid } = req.params;
     const member = await prisma.member.findUnique({
+      include: {
+        media: true
+      },
       where: {
         id: memberid,
-      },
+      }
     });
     if (!member) {
       return res.status(404).json({ error: "Member not found by id." });

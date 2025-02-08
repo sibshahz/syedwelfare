@@ -79,6 +79,7 @@ model Member {
   cnic       String @unique
   name       String
   fatherName String?
+  husbandName String?
   phone      String?
   address    String?
   city       String?

@@ -35,10 +35,13 @@ export const getMembersPaginated = async (page: number, limit: number) => {
 export const getMemberById = async (id: string) => {
   try {
     const response = await axios_default.get(`members/${id}`);
-    return response.data.message;
+    return {success: true, data: response.data.message}
   } catch (error) {
     console.error("Failed to fetch resources:", error);
-    return error;
+    return {
+      success: false,
+      data: error,
+    };
   }
 };
 

@@ -11,7 +11,6 @@ const Page =async () => {
     <div>
       <h1>Donors</h1>
       <DonationsTable donations={donations} />
-      {/* <DonorsPagination totalDonors={totalDonors} /> */}
     </div>
   )
 }

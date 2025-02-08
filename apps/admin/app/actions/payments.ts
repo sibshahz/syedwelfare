@@ -20,3 +20,19 @@ export const getTotalPayments = async () => {
     return 0;
   }
 }
+
+export const getPaymentsById = async (memberid: string) => {
+  try{
+    const response = await axios_default.get(`payments/${memberid}`);
+    return {
+      success: true,
+      data: response.data.message
+    }
+  }catch(error){
+    console.error("Error fetching payments for the member: ", error);
+    return {
+      success: false,
+      data: error
+    }
+  }
+}

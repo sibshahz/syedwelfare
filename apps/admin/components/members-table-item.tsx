@@ -1,7 +1,7 @@
 "use client"
 import React from 'react'
 import { TableCell, TableRow } from './ui/table'
-import { Banknote, Pencil, Trash2 } from 'lucide-react'
+import { Banknote, Eye, EyeIcon, Pencil, Trash2 } from 'lucide-react'
 import { Button } from './ui/button'
 import { Member } from '@repo/zod-utils'
 import {
@@ -151,6 +151,7 @@ const MembersTableItem: React.FC<MembersTableItemProps> = ({ member }) => {
         <TableCell>{city}</TableCell>
         <TableCell className="flex space-x-2 items-center">
           <PaymentDialog id={id as string} name={name as string} cnic={cnic as string} />
+          <Link href={`/dashboard/members/details/${id}`}><Button variant={"secondary"}><EyeIcon size={16} /></Button></Link>
           <Link href={`/dashboard/members/edit/${id}`}>
           <Button variant={"outline"}><Pencil size={16} /></Button>
           </Link>

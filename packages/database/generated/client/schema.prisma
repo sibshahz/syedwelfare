@@ -76,14 +76,15 @@ model Donation {
 }
 
 model Member {
-  id         String  @id @default(cuid())
-  cnic       String  @unique
-  name       String
-  fatherName String?
-  phone      String?
-  address    String?
-  city       String?
-  deleted    Boolean @default(false)
+  id          String  @id @default(cuid())
+  cnic        String  @unique
+  name        String
+  fatherName  String?
+  husbandName String?
+  phone       String?
+  address     String?
+  city        String?
+  deleted     Boolean @default(false)
 
   role         Role             @default(MEMBER)
   media        MemberMedia[]
