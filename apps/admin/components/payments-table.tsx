@@ -1,4 +1,35 @@
+"use client"
+
 import React from 'react'
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu"
+
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog"
+
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "@/components/ui/alert-dialog"
 
 import { MemberPayment } from '@repo/zod-utils';
 import {
@@ -10,8 +41,14 @@ import {
   TableRow,
 } from "@/components/ui/table"
 import { formatDate } from '@/lib/utils';
-import { Shapes } from 'lucide-react';
+import { CircleEllipsis, Shapes, Trash2 } from 'lucide-react';
 import { Button } from './ui/button';
+import Link from 'next/link';
+import { useRouter } from 'next/navigation';
+import { useToast } from '@/hooks/use-toast';
+import { deletePayment } from '@/app/actions/payments';
+import { Input } from './ui/input'
+import { Card, CardContent, CardFooter } from './ui/card'
 
 interface MemberPaymentType extends MemberPayment{
   member: {
@@ -22,6 +59,144 @@ interface MemberPaymentType extends MemberPayment{
 export interface PaymentsTableProps {
   payments: MemberPaymentType[];
 }
+
+
+
+const ActionsDropDown = ({ id, paymentid,payment }) => {
+  const [deleteOpen, setDeleteOpen] = React.useState(false);
+  const [editOpen, setEditOpen] = React.useState(false);
+  const [dropDownOpen,setDropDownOpen]=React.useState(false);
+  const EditPaymentDialog: React.FC = () => {
+    return (
+      <Dialog open={editOpen}  onOpenChange={(isOpen) => setEditOpen(isOpen)}>
+        <DialogTrigger asChild>
+          <Button
+            variant="secondary"
+            className="w-full text-left"
+            onClick={(e) => {
+              e.stopPropagation(); // Prevent dropdown from closing
+              setEditOpen(true);
+            }}
+          >
+            Edit Payment
+          </Button>
+        </DialogTrigger>
+        <DialogContent>
+          <DialogHeader>
+            <DialogTitle>Edit Payment</DialogTitle>
+            <DialogDescription>
+                <Card className='py-2 px-2'>
+                  <CardContent>
+                  <Input type="number" defaultValue={payment} /> {/* Use defaultValue to allow user input */}
+                  <CardFooter className='mt-4 flex flex-row gap-2 px-0'>
+                    <Button
+                  variant={"default"}
+                  >Update</Button><Button variant={"outline"} onClick={(e) => {
+                    e.stopPropagation();
+                    setEditOpen(false);
+                  }}>Cancel</Button>
+                  </CardFooter>
+                  </CardContent>
+                </Card>
+            </DialogDescription>
+          </DialogHeader>
+        </DialogContent>
+      </Dialog>
+    );
+  };
+
+  const DeleteDialogPayment: React.FC<{ id: string }> = ({ id }) => {
+    const router = useRouter();
+    const toast = useToast();
+
+    const deleteItem = async (id: string) => {
+      const result = await deletePayment(id);
+      if (!result.success) {
+        toast.toast({
+          variant: "destructive",
+          title: "Failed to delete",
+          description: "Beneficiary cannot be deleted at the moment.",
+        });
+      } else {
+        toast.toast({
+          variant: "destructive",
+          title: "Deleted",
+          description: "Beneficiary has been successfully deleted.",
+        });
+      }
+      setDeleteOpen(false); // Close dialog after action
+    };
+
+    return (
+      <AlertDialog open={deleteOpen} onOpenChange={(isOpen) => setDeleteOpen(isOpen)}>
+        <AlertDialogTrigger asChild>
+          <Button
+            variant="destructive"
+            className="w-full text-left"
+            onClick={(e) => {
+              e.stopPropagation(); // Prevent dropdown from closing
+              setDeleteOpen(true);
+            }}
+          >
+            Delete payment
+          </Button>
+        </AlertDialogTrigger>
+        <AlertDialogContent>
+          <AlertDialogHeader>
+            <AlertDialogTitle>Are you sure?</AlertDialogTitle>
+            <AlertDialogDescription>
+              This action cannot be undone. This will permanently delete the payment.
+            </AlertDialogDescription>
+          </AlertDialogHeader>
+          <AlertDialogFooter>
+            <AlertDialogCancel onClick={() => setDeleteOpen(false)}>Cancel</AlertDialogCancel>
+            <AlertDialogAction
+              onClick={async () => deleteItem(id)}
+              className="bg-red-500 text-white hover:bg-red-600"
+            >
+              Continue
+            </AlertDialogAction>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
+    );
+  };
+
+  return (
+    <DropdownMenu open={dropDownOpen} onOpenChange={(isOpen) =>{
+      if(isOpen==false){
+        setDeleteOpen(false);
+        setEditOpen(false);
+        setDropDownOpen(false);
+      }
+    }}>
+      <DropdownMenuTrigger
+      onClick={() => setDropDownOpen(true)}
+      asChild>
+        <Button variant="ghost" className="p-2">
+          <CircleEllipsis />
+        </Button>
+      </DropdownMenuTrigger>
+      <DropdownMenuContent align="end">
+        <DropdownMenuLabel>Actions</DropdownMenuLabel>
+        <DropdownMenuSeparator />
+        <DropdownMenuItem asChild className='hover:cursor-pointer'>
+          <Link href={`/dashboard/members/details/${id}`}>View Beneficiary</Link>
+        </DropdownMenuItem>
+        <DropdownMenuSeparator />
+        <DropdownMenuItem asChild>
+          <EditPaymentDialog />
+        </DropdownMenuItem>
+        <DropdownMenuSeparator />
+        <DropdownMenuItem asChild>
+          <DeleteDialogPayment id={paymentid} />
+        </DropdownMenuItem>
+      </DropdownMenuContent>
+    </DropdownMenu>
+  );
+};
+
+
 const PaymentsTable:React.FC<PaymentsTableProps> = ({payments}) => {
   return (
         <Table>
@@ -44,7 +219,8 @@ const PaymentsTable:React.FC<PaymentsTableProps> = ({payments}) => {
         <TableCell>{donation.member.cnic}</TableCell>
         <TableCell>{donation.amount}</TableCell>
         <TableCell>{formatDate(donation.createdAt as Date)}</TableCell>
-        <TableCell><Button variant={'outline'}><Shapes /></Button></TableCell>
+        <TableCell className='flex flex-row items-center justify-start'>
+          <ActionsDropDown id={donation.memberId} payment={donation.amount} paymentid={donation.id} /></TableCell>
       </TableRow>
       )
 })}

@@ -36,3 +36,19 @@ export const getPaymentsById = async (memberid: string) => {
     }
   }
 }
+
+export const deletePayment=async (paymentid: string) => {
+    try{
+    const response = await axios_default.delete(`payments/${paymentid}`);
+    return {
+      success: true,
+      data: response.data.message
+    }
+  }catch(error){
+    console.error("Error fetching payments for the member: ", error);
+    return {
+      success: false,
+      data: error
+    }
+  }
+}
