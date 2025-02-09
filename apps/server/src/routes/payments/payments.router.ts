@@ -1,5 +1,6 @@
 import express from "express";
 import {
+  httpDeletePayment,
   httpGetPaymentsById,
   httpGetPaymentsList,
   // httpGetDonorsPaginated,
@@ -21,6 +22,6 @@ paymentsRouter.get("/:memberid",httpGetPaymentsById)
 // donorsRouter.post("/", httpPostDonor);
 // donorsRouter.post("/:donorid/pay", httpPayDonor);
 // donorsRouter.put("/:donorid", httpUpdateDonor);
-// donorsRouter.delete("/:donorid", httpDeleteDonor);
+paymentsRouter.delete("/:paymentid", httpDeletePayment);
 
 export default paymentsRouter;

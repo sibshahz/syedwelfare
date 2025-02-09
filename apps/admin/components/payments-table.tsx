@@ -62,7 +62,7 @@ export interface PaymentsTableProps {
 
 
 
-const ActionsDropDown = ({ id, paymentid,payment }) => {
+const ActionsDropDown = ({ id, paymentid,payment,memberName }) => {
   const [deleteOpen, setDeleteOpen] = React.useState(false);
   const [editOpen, setEditOpen] = React.useState(false);
   const [dropDownOpen,setDropDownOpen]=React.useState(false);
@@ -115,16 +115,18 @@ const ActionsDropDown = ({ id, paymentid,payment }) => {
         toast.toast({
           variant: "destructive",
           title: "Failed to delete",
-          description: "Beneficiary cannot be deleted at the moment.",
+          description: "Payment record cannot be deleted at the moment.",
         });
       } else {
         toast.toast({
           variant: "destructive",
           title: "Deleted",
-          description: "Beneficiary has been successfully deleted.",
+          description: "Payment has been successfully deleted.",
         });
       }
+      router.refresh();
       setDeleteOpen(false); // Close dialog after action
+      setDropDownOpen(false);
     };
 
     return (
@@ -143,7 +145,7 @@ const ActionsDropDown = ({ id, paymentid,payment }) => {
         </AlertDialogTrigger>
         <AlertDialogContent>
           <AlertDialogHeader>
-            <AlertDialogTitle>Are you sure?</AlertDialogTitle>
+            <AlertDialogTitle>Are you sure to delete payment of Rs. {payment} to member {memberName}?</AlertDialogTitle>
             <AlertDialogDescription>
               This action cannot be undone. This will permanently delete the payment.
             </AlertDialogDescription>
@@ -220,7 +222,9 @@ const PaymentsTable:React.FC<PaymentsTableProps> = ({payments}) => {
         <TableCell>{donation.amount}</TableCell>
         <TableCell>{formatDate(donation.createdAt as Date)}</TableCell>
         <TableCell className='flex flex-row items-center justify-start'>
-          <ActionsDropDown id={donation.memberId} payment={donation.amount} paymentid={donation.id} /></TableCell>
+          <ActionsDropDown id={donation.memberId} payment={donation.amount} paymentid={donation.id}
+          memberName={donation.member.name}
+          /></TableCell>
       </TableRow>
       )
 })}
