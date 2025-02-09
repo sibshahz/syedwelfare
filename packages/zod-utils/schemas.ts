@@ -48,6 +48,7 @@ export const MemberSchema = z.object({
   cnicBack: z.string().optional(),
   amount: z.number().optional(),
   fatherName: z.string().optional(), //done
+  husbandName: z.string().optional(),
   phone: z //done
     .string()
     .optional(),

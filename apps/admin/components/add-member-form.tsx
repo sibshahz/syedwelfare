@@ -17,8 +17,13 @@ import {
 import { Input } from "@/components/ui/input";
 // import { createMember } from "@/lib/api/member";
 import { createMember } from "@/app/actions/members";
+import { useState } from "react";
 
 export function MemberForm() {
+  const [profilePicItem,setProfilePicItem]=useState("");
+  const [cnicFrontItem,setCnicFrontItem]=useState("");
+  const [cnicBackItem,setCnicBackItem]=useState("");
+  
   const form = useForm<Member>({
     resolver: zodResolver(MemberSchema),
     
@@ -29,6 +34,8 @@ export function MemberForm() {
       cnicBack: "",
       cnicFront: "",
       profilePic: "",
+      fatherName: "",
+      husbandName: "",
       amount: 0,
       address: "",
       city: "",
@@ -43,6 +50,19 @@ export function MemberForm() {
       const reader = new FileReader();
       reader.onloadend = () => {
         setValue(field, reader.result as string); // Set base64 string to the form value
+        switch (field) {
+          case "profilePic":
+            setProfilePicItem(reader.result as string)
+            break;
+          case "cnicFront":
+            setCnicFrontItem(reader.result as string)
+            break;
+          case "cnicBack":
+            setCnicBackItem(reader.result as string)
+            break;
+          default:
+            break;
+        }
       };
       reader.readAsDataURL(file);
     }
@@ -104,7 +124,7 @@ form.reset(); // Reset the form after successful submission
         className="space-y-8"
       >
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
         <FormField
           control={form.control}
           name={"name"}
@@ -130,6 +150,23 @@ form.reset(); // Reset the form after successful submission
               <FormLabel>Father name</FormLabel>
               <FormControl>
                 <Input placeholder="Enter father name here" {...field} />
+              </FormControl>
+              {/* <FormDescription>
+                This is your public display name.
+              </FormDescription> */}
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+
+                        <FormField
+          control={form.control}
+          name={"husbandName"}
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Husband name (optional)</FormLabel>
+              <FormControl>
+                <Input placeholder="Enter husband name here" {...field} />
               </FormControl>
               {/* <FormDescription>
                 This is your public display name.
@@ -297,18 +334,18 @@ form.reset(); // Reset the form after successful submission
         </div>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
       {
-  form.getValues("profilePic") && (
-    <Image src={form.getValues("profilePic") as string} alt="Profile" width={128} height={128}  />
+  profilePicItem && (
+    <Image src={profilePicItem} alt="Profile" width={128} height={128}  />
   )
   }
   {
-    form.getValues("cnicFront") && (
-    <Image src={form.getValues("cnicFront") as string} alt="CNIC Front" width={128} height={128}  />
+    cnicFrontItem && (
+    <Image src={cnicFrontItem} alt="CNIC Front" width={128} height={128}  />
   )
   }
     {
-    form.getValues("cnicBack") && (
-    <Image src={form.getValues("cnicBack") as string} alt="CNIC Back" width={128} height={128} />
+    cnicBackItem && (
+    <Image src={cnicBackItem} alt="CNIC Back" width={128} height={128} />
   )
   }
     </div>

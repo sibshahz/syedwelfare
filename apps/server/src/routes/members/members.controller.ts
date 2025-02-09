@@ -35,7 +35,8 @@ export const httpGetMember = async (req: Request, res: Response) => {
     const { memberid } = req.params;
     const member = await prisma.member.findUnique({
       include: {
-        media: true
+        media: true,
+        memberStatus: true,
       },
       where: {
         id: memberid,
@@ -44,7 +45,13 @@ export const httpGetMember = async (req: Request, res: Response) => {
     if (!member) {
       return res.status(404).json({ error: "Member not found by id." });
     }
-    return res.status(200).json({ message: member });
+    const formattedMember = {
+      ...member,
+      profilePic: member.media[0]?.profilePic,
+      cnicFront: member.media[0]?.cnicFront,
+      cnicBack: member.media[0]?.cnicBack,
+    }
+    return res.status(200).json({ message: formattedMember });
   } catch (error) {
     return res.status(400).json({ error: "Failed to fetch member." });
   }
@@ -136,7 +143,7 @@ export const httpPayMember = async (req: Request, res: Response) => {
 };
 export const httpUpdateMember = async (req: Request, res: Response) => {
   const id = req.params.memberid;
-  const { cnic, fatherName, name, phone, address, city, email } = req.body;
+  const { cnic, fatherName, name, phone, address, city, email,cnicFront,cnicBack,profilePic } = req.body;
   try {
     const updatedData = await prisma.member.update({
       where: {
@@ -149,6 +156,16 @@ export const httpUpdateMember = async (req: Request, res: Response) => {
         phone: phone || "",
         address: address || "",
         city: city || "",
+      },
+    });
+    await prisma.memberMedia.update({
+      where: {
+        id: id,
+      },
+      data: {
+        cnicFront: cnicFront || "",
+        cnicBack: cnicBack || "",
+        profilePic: profilePic || "",
       },
     });
     return res.status(202).json({ message: updatedData });

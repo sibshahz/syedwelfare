@@ -9,6 +9,6 @@ export default async function Page({
   const slug = (await params).slug
   const memberData = await getMemberById(slug)
   return(
-    <EditMemberForm memberData={memberData} />
+    <EditMemberForm memberData={memberData.data} />
   )
 }

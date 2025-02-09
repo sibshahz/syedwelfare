@@ -1,4 +1,5 @@
 import { getMemberById } from '@/app/actions/members'
+import MemberDetails from '@/components/member-details'
 import MemberPayments from '@/components/members-payments'
 import React from 'react'
 
@@ -11,10 +12,8 @@ const MemberPage = async ({
   const memberid = (await params).memberid
   const member = await getMemberById(memberid)
   return (
-    <div>Member id is: {memberid}
-    {
-      JSON.stringify(member.data)
-    }
+    <div>
+      <MemberDetails member={member.data} />
     <MemberPayments memberid={memberid} />
     </div>
   )

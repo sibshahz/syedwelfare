@@ -15,11 +15,14 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { updateMember } from "@/app/actions/members";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 
 
 export const EditMemberForm: React.FC<{ memberData: Member }> = ({ memberData }) => {
+  const [profilePicItem,setProfilePicItem]=useState("");
+  const [cnicFrontItem,setCnicFrontItem]=useState("");
+  const [cnicBackItem,setCnicBackItem]=useState("");
   const router = useRouter();  
   const form = useForm<Member>({
     resolver: zodResolver(MemberSchema),
@@ -42,12 +45,15 @@ export const EditMemberForm: React.FC<{ memberData: Member }> = ({ memberData })
     form.setValue("fatherName", memberData.fatherName)
     form.setValue("cnic", memberData.cnic)
     form.setValue("phone", memberData.phone)
-    // form.setValue("cnicBack", memberData.cnicBack)
-    // form.setValue("cnicFront", memberData.cnicFront)
-    // form.setValue("profilePic", memberData.profilePic)
+    form.setValue("cnicBack", memberData.cnicBack)
+    form.setValue("cnicFront", memberData.cnicFront)
+    form.setValue("profilePic", memberData.profilePic)
+    setProfilePicItem(memberData.profilePic || "")
+    setCnicBackItem(memberData.cnicBack || "")
+    setCnicFrontItem(memberData.cnicFront || "")
     form.setValue("address", memberData.address)
     form.setValue("city", memberData.city)
-
+    console.log("Form values: ", memberData)
   },[memberData])
   console.log("Form errors: ", form.formState.errors);
   function handleFileChange(field: any, setValue: any) {
@@ -57,6 +63,19 @@ export const EditMemberForm: React.FC<{ memberData: Member }> = ({ memberData })
       const reader = new FileReader();
       reader.onloadend = () => {
         setValue(field, reader.result as string); // Set base64 string to the form value
+        switch (field) {
+          case "profilePic":
+            setProfilePicItem(reader.result as string)
+            break;
+          case "cnicFront":
+            setCnicFrontItem(reader.result as string)
+            break;
+          case "cnicBack":
+            setCnicBackItem(reader.result as string)
+            break;
+          default:
+            break;
+        }
       };
       reader.readAsDataURL(file);
     }
@@ -298,14 +317,14 @@ router.refresh()
 />
     <div className="col-span-full">
   <div className="flex flex-row gap-4 flex-wrap">
-    {(memberData.profilePic && memberData.profilePic.length > 0) 
-    && <img src={memberData.profilePic} alt={memberData.name} width={200} height={200} className="aspect-square" />}
+    {profilePicItem && profilePicItem.length > 0
+    && <img src={profilePicItem} alt={memberData.name} width={200} height={200} className="aspect-square" />}
     {
-      (memberData.cnicFront && memberData.cnicFront.length > 0) 
+      cnicFrontItem && cnicFrontItem.length > 0 
       && <img src={memberData.cnicFront} alt={memberData.name} width={200} height={200} className="aspect-square" />
     }
     {
-      (memberData.cnicBack && memberData.cnicBack.length > 0) 
+      cnicBackItem && cnicBackItem.length > 0 
       && <img src={memberData.cnicBack} alt={memberData.name} width={200} height={200} className="aspect-square" />
     }
   </div>
