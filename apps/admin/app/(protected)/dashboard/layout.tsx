@@ -21,7 +21,7 @@ export default function Layout({
   children: React.ReactNode
 }) {
   return (
-    <SidebarProvider>
+    <SidebarProvider className="overflow-x-hidden">
       <AppSidebar />
       <SidebarInset>
         <header className="flex sticky top-0 bg-background h-16 shrink-0 items-center justify-between gap-2 border-b px-4">
@@ -43,7 +43,7 @@ export default function Layout({
             </BreadcrumbList>
           </Breadcrumb> */}
         </header>
-        <div className="flex flex-1 flex-col gap-4 p-10">
+        <div className="flex flex-1 flex-col gap-4 p-10 w-full">
           {/* {Array.from({ length: 24 }).map((_, index) => (
             <div
               key={index}

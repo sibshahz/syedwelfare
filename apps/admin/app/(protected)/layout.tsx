@@ -25,7 +25,6 @@ const AuthLayout = ({
               redirect("/signin")
             }
       }
-
     }
     getData();
   }, [user]);
