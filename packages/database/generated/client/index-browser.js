@@ -135,6 +135,8 @@ exports.Prisma.DonorScalarFieldEnum = {
   address: 'address',
   city: 'city',
   email: 'email',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
   role: 'role'
 };
 
@@ -164,6 +166,8 @@ exports.Prisma.MemberScalarFieldEnum = {
   address: 'address',
   city: 'city',
   deleted: 'deleted',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
   role: 'role'
 };
 

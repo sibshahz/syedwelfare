@@ -20,6 +20,9 @@ export const httpGetMembersPaginated = async (req: Request, res: Response) => {
     const members = await prisma.member.findMany({
       skip: Number(page) * Number(limit),
       take: Number(limit),
+      orderBy: {
+        createdAt: "desc",
+      },
     });
     return res.status(200).json({ message: members });
   } catch (error) {
@@ -40,7 +43,7 @@ export const httpGetMember = async (req: Request, res: Response) => {
       },
       where: {
         id: memberid,
-      }
+      },
     });
     if (!member) {
       return res.status(404).json({ error: "Member not found by id." });
@@ -50,7 +53,7 @@ export const httpGetMember = async (req: Request, res: Response) => {
       profilePic: member.media[0]?.profilePic,
       cnicFront: member.media[0]?.cnicFront,
       cnicBack: member.media[0]?.cnicBack,
-    }
+    };
     return res.status(200).json({ message: formattedMember });
   } catch (error) {
     return res.status(400).json({ error: "Failed to fetch member." });
@@ -143,7 +146,18 @@ export const httpPayMember = async (req: Request, res: Response) => {
 };
 export const httpUpdateMember = async (req: Request, res: Response) => {
   const id = req.params.memberid;
-  const { cnic, fatherName, name, phone, address, city, email,cnicFront,cnicBack,profilePic } = req.body;
+  const {
+    cnic,
+    fatherName,
+    name,
+    phone,
+    address,
+    city,
+    email,
+    cnicFront,
+    cnicBack,
+    profilePic,
+  } = req.body;
   try {
     const updatedData = await prisma.member.update({
       where: {

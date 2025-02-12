@@ -2808,6 +2808,8 @@ export namespace Prisma {
     address: string | null
     city: string | null
     email: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
     role: $Enums.Role | null
   }
 
@@ -2821,6 +2823,8 @@ export namespace Prisma {
     address: string | null
     city: string | null
     email: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
     role: $Enums.Role | null
   }
 
@@ -2834,6 +2838,8 @@ export namespace Prisma {
     address: number
     city: number
     email: number
+    createdAt: number
+    updatedAt: number
     role: number
     _all: number
   }
@@ -2849,6 +2855,8 @@ export namespace Prisma {
     address?: true
     city?: true
     email?: true
+    createdAt?: true
+    updatedAt?: true
     role?: true
   }
 
@@ -2862,6 +2870,8 @@ export namespace Prisma {
     address?: true
     city?: true
     email?: true
+    createdAt?: true
+    updatedAt?: true
     role?: true
   }
 
@@ -2875,6 +2885,8 @@ export namespace Prisma {
     address?: true
     city?: true
     email?: true
+    createdAt?: true
+    updatedAt?: true
     role?: true
     _all?: true
   }
@@ -2961,6 +2973,8 @@ export namespace Prisma {
     address: string | null
     city: string | null
     email: string | null
+    createdAt: Date
+    updatedAt: Date | null
     role: $Enums.Role
     _count: DonorCountAggregateOutputType | null
     _min: DonorMinAggregateOutputType | null
@@ -2991,6 +3005,8 @@ export namespace Prisma {
     address?: boolean
     city?: boolean
     email?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
     role?: boolean
     donations?: boolean | Donor$donationsArgs<ExtArgs>
     media?: boolean | Donor$mediaArgs<ExtArgs>
@@ -3007,6 +3023,8 @@ export namespace Prisma {
     address?: boolean
     city?: boolean
     email?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
     role?: boolean
   }, ExtArgs["result"]["donor"]>
 
@@ -3020,6 +3038,8 @@ export namespace Prisma {
     address?: boolean
     city?: boolean
     email?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
     role?: boolean
   }, ExtArgs["result"]["donor"]>
 
@@ -3033,10 +3053,12 @@ export namespace Prisma {
     address?: boolean
     city?: boolean
     email?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
     role?: boolean
   }
 
-  export type DonorOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "cnic" | "name" | "password" | "fatherName" | "phone" | "address" | "city" | "email" | "role", ExtArgs["result"]["donor"]>
+  export type DonorOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "cnic" | "name" | "password" | "fatherName" | "phone" | "address" | "city" | "email" | "createdAt" | "updatedAt" | "role", ExtArgs["result"]["donor"]>
   export type DonorInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     donations?: boolean | Donor$donationsArgs<ExtArgs>
     media?: boolean | Donor$mediaArgs<ExtArgs>
@@ -3061,6 +3083,8 @@ export namespace Prisma {
       address: string | null
       city: string | null
       email: string | null
+      createdAt: Date
+      updatedAt: Date | null
       role: $Enums.Role
     }, ExtArgs["result"]["donor"]>
     composites: {}
@@ -3496,6 +3520,8 @@ export namespace Prisma {
     readonly address: FieldRef<"Donor", 'String'>
     readonly city: FieldRef<"Donor", 'String'>
     readonly email: FieldRef<"Donor", 'String'>
+    readonly createdAt: FieldRef<"Donor", 'DateTime'>
+    readonly updatedAt: FieldRef<"Donor", 'DateTime'>
     readonly role: FieldRef<"Donor", 'Role'>
   }
     
@@ -6085,6 +6111,8 @@ export namespace Prisma {
     address: string | null
     city: string | null
     deleted: boolean | null
+    createdAt: Date | null
+    updatedAt: Date | null
     role: $Enums.Role | null
   }
 
@@ -6098,6 +6126,8 @@ export namespace Prisma {
     address: string | null
     city: string | null
     deleted: boolean | null
+    createdAt: Date | null
+    updatedAt: Date | null
     role: $Enums.Role | null
   }
 
@@ -6111,6 +6141,8 @@ export namespace Prisma {
     address: number
     city: number
     deleted: number
+    createdAt: number
+    updatedAt: number
     role: number
     _all: number
   }
@@ -6126,6 +6158,8 @@ export namespace Prisma {
     address?: true
     city?: true
     deleted?: true
+    createdAt?: true
+    updatedAt?: true
     role?: true
   }
 
@@ -6139,6 +6173,8 @@ export namespace Prisma {
     address?: true
     city?: true
     deleted?: true
+    createdAt?: true
+    updatedAt?: true
     role?: true
   }
 
@@ -6152,6 +6188,8 @@ export namespace Prisma {
     address?: true
     city?: true
     deleted?: true
+    createdAt?: true
+    updatedAt?: true
     role?: true
     _all?: true
   }
@@ -6238,6 +6276,8 @@ export namespace Prisma {
     address: string | null
     city: string | null
     deleted: boolean
+    createdAt: Date
+    updatedAt: Date | null
     role: $Enums.Role
     _count: MemberCountAggregateOutputType | null
     _min: MemberMinAggregateOutputType | null
@@ -6268,6 +6308,8 @@ export namespace Prisma {
     address?: boolean
     city?: boolean
     deleted?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
     role?: boolean
     media?: boolean | Member$mediaArgs<ExtArgs>
     payments?: boolean | Member$paymentsArgs<ExtArgs>
@@ -6285,6 +6327,8 @@ export namespace Prisma {
     address?: boolean
     city?: boolean
     deleted?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
     role?: boolean
   }, ExtArgs["result"]["member"]>
 
@@ -6298,6 +6342,8 @@ export namespace Prisma {
     address?: boolean
     city?: boolean
     deleted?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
     role?: boolean
   }, ExtArgs["result"]["member"]>
 
@@ -6311,10 +6357,12 @@ export namespace Prisma {
     address?: boolean
     city?: boolean
     deleted?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
     role?: boolean
   }
 
-  export type MemberOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "cnic" | "name" | "fatherName" | "husbandName" | "phone" | "address" | "city" | "deleted" | "role", ExtArgs["result"]["member"]>
+  export type MemberOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "cnic" | "name" | "fatherName" | "husbandName" | "phone" | "address" | "city" | "deleted" | "createdAt" | "updatedAt" | "role", ExtArgs["result"]["member"]>
   export type MemberInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     media?: boolean | Member$mediaArgs<ExtArgs>
     payments?: boolean | Member$paymentsArgs<ExtArgs>
@@ -6341,6 +6389,8 @@ export namespace Prisma {
       address: string | null
       city: string | null
       deleted: boolean
+      createdAt: Date
+      updatedAt: Date | null
       role: $Enums.Role
     }, ExtArgs["result"]["member"]>
     composites: {}
@@ -6777,6 +6827,8 @@ export namespace Prisma {
     readonly address: FieldRef<"Member", 'String'>
     readonly city: FieldRef<"Member", 'String'>
     readonly deleted: FieldRef<"Member", 'Boolean'>
+    readonly createdAt: FieldRef<"Member", 'DateTime'>
+    readonly updatedAt: FieldRef<"Member", 'DateTime'>
     readonly role: FieldRef<"Member", 'Role'>
   }
     
@@ -12493,6 +12545,8 @@ export namespace Prisma {
     address: 'address',
     city: 'city',
     email: 'email',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt',
     role: 'role'
   };
 
@@ -12531,6 +12585,8 @@ export namespace Prisma {
     address: 'address',
     city: 'city',
     deleted: 'deleted',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt',
     role: 'role'
   };
 
@@ -12650,20 +12706,6 @@ export namespace Prisma {
 
 
   /**
-   * Reference to a field of type 'Float'
-   */
-  export type FloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float'>
-    
-
-
-  /**
-   * Reference to a field of type 'Float[]'
-   */
-  export type ListFloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float[]'>
-    
-
-
-  /**
    * Reference to a field of type 'DateTime'
    */
   export type DateTimeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'DateTime'>
@@ -12674,6 +12716,20 @@ export namespace Prisma {
    * Reference to a field of type 'DateTime[]'
    */
   export type ListDateTimeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'DateTime[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'Float'
+   */
+  export type FloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float'>
+    
+
+
+  /**
+   * Reference to a field of type 'Float[]'
+   */
+  export type ListFloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float[]'>
     
 
 
@@ -12780,6 +12836,8 @@ export namespace Prisma {
     address?: StringNullableFilter<"Donor"> | string | null
     city?: StringNullableFilter<"Donor"> | string | null
     email?: StringNullableFilter<"Donor"> | string | null
+    createdAt?: DateTimeFilter<"Donor"> | Date | string
+    updatedAt?: DateTimeNullableFilter<"Donor"> | Date | string | null
     role?: EnumRoleFilter<"Donor"> | $Enums.Role
     donations?: DonationListRelationFilter
     media?: DonorMediaListRelationFilter
@@ -12795,6 +12853,8 @@ export namespace Prisma {
     address?: SortOrderInput | SortOrder
     city?: SortOrderInput | SortOrder
     email?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrderInput | SortOrder
     role?: SortOrder
     donations?: DonationOrderByRelationAggregateInput
     media?: DonorMediaOrderByRelationAggregateInput
@@ -12813,6 +12873,8 @@ export namespace Prisma {
     address?: StringNullableFilter<"Donor"> | string | null
     city?: StringNullableFilter<"Donor"> | string | null
     email?: StringNullableFilter<"Donor"> | string | null
+    createdAt?: DateTimeFilter<"Donor"> | Date | string
+    updatedAt?: DateTimeNullableFilter<"Donor"> | Date | string | null
     role?: EnumRoleFilter<"Donor"> | $Enums.Role
     donations?: DonationListRelationFilter
     media?: DonorMediaListRelationFilter
@@ -12828,6 +12890,8 @@ export namespace Prisma {
     address?: SortOrderInput | SortOrder
     city?: SortOrderInput | SortOrder
     email?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrderInput | SortOrder
     role?: SortOrder
     _count?: DonorCountOrderByAggregateInput
     _max?: DonorMaxOrderByAggregateInput
@@ -12847,6 +12911,8 @@ export namespace Prisma {
     address?: StringNullableWithAggregatesFilter<"Donor"> | string | null
     city?: StringNullableWithAggregatesFilter<"Donor"> | string | null
     email?: StringNullableWithAggregatesFilter<"Donor"> | string | null
+    createdAt?: DateTimeWithAggregatesFilter<"Donor"> | Date | string
+    updatedAt?: DateTimeNullableWithAggregatesFilter<"Donor"> | Date | string | null
     role?: EnumRoleWithAggregatesFilter<"Donor"> | $Enums.Role
   }
 
@@ -12975,6 +13041,8 @@ export namespace Prisma {
     address?: StringNullableFilter<"Member"> | string | null
     city?: StringNullableFilter<"Member"> | string | null
     deleted?: BoolFilter<"Member"> | boolean
+    createdAt?: DateTimeFilter<"Member"> | Date | string
+    updatedAt?: DateTimeNullableFilter<"Member"> | Date | string | null
     role?: EnumRoleFilter<"Member"> | $Enums.Role
     media?: MemberMediaListRelationFilter
     payments?: MemberPaymentsListRelationFilter
@@ -12991,6 +13059,8 @@ export namespace Prisma {
     address?: SortOrderInput | SortOrder
     city?: SortOrderInput | SortOrder
     deleted?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrderInput | SortOrder
     role?: SortOrder
     media?: MemberMediaOrderByRelationAggregateInput
     payments?: MemberPaymentsOrderByRelationAggregateInput
@@ -13010,6 +13080,8 @@ export namespace Prisma {
     address?: StringNullableFilter<"Member"> | string | null
     city?: StringNullableFilter<"Member"> | string | null
     deleted?: BoolFilter<"Member"> | boolean
+    createdAt?: DateTimeFilter<"Member"> | Date | string
+    updatedAt?: DateTimeNullableFilter<"Member"> | Date | string | null
     role?: EnumRoleFilter<"Member"> | $Enums.Role
     media?: MemberMediaListRelationFilter
     payments?: MemberPaymentsListRelationFilter
@@ -13026,6 +13098,8 @@ export namespace Prisma {
     address?: SortOrderInput | SortOrder
     city?: SortOrderInput | SortOrder
     deleted?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrderInput | SortOrder
     role?: SortOrder
     _count?: MemberCountOrderByAggregateInput
     _max?: MemberMaxOrderByAggregateInput
@@ -13045,6 +13119,8 @@ export namespace Prisma {
     address?: StringNullableWithAggregatesFilter<"Member"> | string | null
     city?: StringNullableWithAggregatesFilter<"Member"> | string | null
     deleted?: BoolWithAggregatesFilter<"Member"> | boolean
+    createdAt?: DateTimeWithAggregatesFilter<"Member"> | Date | string
+    updatedAt?: DateTimeNullableWithAggregatesFilter<"Member"> | Date | string | null
     role?: EnumRoleWithAggregatesFilter<"Member"> | $Enums.Role
   }
 
@@ -13389,6 +13465,8 @@ export namespace Prisma {
     address?: string | null
     city?: string | null
     email?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string | null
     role?: $Enums.Role
     donations?: DonationCreateNestedManyWithoutDonorInput
     media?: DonorMediaCreateNestedManyWithoutDonorInput
@@ -13404,6 +13482,8 @@ export namespace Prisma {
     address?: string | null
     city?: string | null
     email?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string | null
     role?: $Enums.Role
     donations?: DonationUncheckedCreateNestedManyWithoutDonorInput
     media?: DonorMediaUncheckedCreateNestedManyWithoutDonorInput
@@ -13419,6 +13499,8 @@ export namespace Prisma {
     address?: NullableStringFieldUpdateOperationsInput | string | null
     city?: NullableStringFieldUpdateOperationsInput | string | null
     email?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     donations?: DonationUpdateManyWithoutDonorNestedInput
     media?: DonorMediaUpdateManyWithoutDonorNestedInput
@@ -13434,6 +13516,8 @@ export namespace Prisma {
     address?: NullableStringFieldUpdateOperationsInput | string | null
     city?: NullableStringFieldUpdateOperationsInput | string | null
     email?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     donations?: DonationUncheckedUpdateManyWithoutDonorNestedInput
     media?: DonorMediaUncheckedUpdateManyWithoutDonorNestedInput
@@ -13449,6 +13533,8 @@ export namespace Prisma {
     address?: string | null
     city?: string | null
     email?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string | null
     role?: $Enums.Role
   }
 
@@ -13462,6 +13548,8 @@ export namespace Prisma {
     address?: NullableStringFieldUpdateOperationsInput | string | null
     city?: NullableStringFieldUpdateOperationsInput | string | null
     email?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
   }
 
@@ -13475,6 +13563,8 @@ export namespace Prisma {
     address?: NullableStringFieldUpdateOperationsInput | string | null
     city?: NullableStringFieldUpdateOperationsInput | string | null
     email?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
   }
 
@@ -13598,6 +13688,8 @@ export namespace Prisma {
     address?: string | null
     city?: string | null
     deleted?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string | null
     role?: $Enums.Role
     media?: MemberMediaCreateNestedManyWithoutMemberInput
     payments?: MemberPaymentsCreateNestedManyWithoutMemberInput
@@ -13614,6 +13706,8 @@ export namespace Prisma {
     address?: string | null
     city?: string | null
     deleted?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string | null
     role?: $Enums.Role
     media?: MemberMediaUncheckedCreateNestedManyWithoutMemberInput
     payments?: MemberPaymentsUncheckedCreateNestedManyWithoutMemberInput
@@ -13630,6 +13724,8 @@ export namespace Prisma {
     address?: NullableStringFieldUpdateOperationsInput | string | null
     city?: NullableStringFieldUpdateOperationsInput | string | null
     deleted?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     media?: MemberMediaUpdateManyWithoutMemberNestedInput
     payments?: MemberPaymentsUpdateManyWithoutMemberNestedInput
@@ -13646,6 +13742,8 @@ export namespace Prisma {
     address?: NullableStringFieldUpdateOperationsInput | string | null
     city?: NullableStringFieldUpdateOperationsInput | string | null
     deleted?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     media?: MemberMediaUncheckedUpdateManyWithoutMemberNestedInput
     payments?: MemberPaymentsUncheckedUpdateManyWithoutMemberNestedInput
@@ -13662,6 +13760,8 @@ export namespace Prisma {
     address?: string | null
     city?: string | null
     deleted?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string | null
     role?: $Enums.Role
   }
 
@@ -13675,6 +13775,8 @@ export namespace Prisma {
     address?: NullableStringFieldUpdateOperationsInput | string | null
     city?: NullableStringFieldUpdateOperationsInput | string | null
     deleted?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
   }
 
@@ -13688,6 +13790,8 @@ export namespace Prisma {
     address?: NullableStringFieldUpdateOperationsInput | string | null
     city?: NullableStringFieldUpdateOperationsInput | string | null
     deleted?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
   }
 
@@ -14080,6 +14184,28 @@ export namespace Prisma {
     _max?: NestedEnumRoleFilter<$PrismaModel>
   }
 
+  export type DateTimeFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeFilter<$PrismaModel> | Date | string
+  }
+
+  export type DateTimeNullableFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeNullableFilter<$PrismaModel> | Date | string | null
+  }
+
   export type DonationListRelationFilter = {
     every?: DonationWhereInput
     some?: DonationWhereInput
@@ -14110,6 +14236,8 @@ export namespace Prisma {
     address?: SortOrder
     city?: SortOrder
     email?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
     role?: SortOrder
   }
 
@@ -14123,6 +14251,8 @@ export namespace Prisma {
     address?: SortOrder
     city?: SortOrder
     email?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
     role?: SortOrder
   }
 
@@ -14136,7 +14266,37 @@ export namespace Prisma {
     address?: SortOrder
     city?: SortOrder
     email?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
     role?: SortOrder
+  }
+
+  export type DateTimeWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeWithAggregatesFilter<$PrismaModel> | Date | string
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedDateTimeFilter<$PrismaModel>
+    _max?: NestedDateTimeFilter<$PrismaModel>
+  }
+
+  export type DateTimeNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeNullableWithAggregatesFilter<$PrismaModel> | Date | string | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedDateTimeNullableFilter<$PrismaModel>
+    _max?: NestedDateTimeNullableFilter<$PrismaModel>
   }
 
   export type DonorScalarRelationFilter = {
@@ -14177,17 +14337,6 @@ export namespace Prisma {
     gt?: number | FloatFieldRefInput<$PrismaModel>
     gte?: number | FloatFieldRefInput<$PrismaModel>
     not?: NestedFloatFilter<$PrismaModel> | number
-  }
-
-  export type DateTimeFilter<$PrismaModel = never> = {
-    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
-    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
-    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    not?: NestedDateTimeFilter<$PrismaModel> | Date | string
   }
 
   export type DonationCountOrderByAggregateInput = {
@@ -14238,20 +14387,6 @@ export namespace Prisma {
     _max?: NestedFloatFilter<$PrismaModel>
   }
 
-  export type DateTimeWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
-    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
-    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    not?: NestedDateTimeWithAggregatesFilter<$PrismaModel> | Date | string
-    _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedDateTimeFilter<$PrismaModel>
-    _max?: NestedDateTimeFilter<$PrismaModel>
-  }
-
   export type BoolFilter<$PrismaModel = never> = {
     equals?: boolean | BooleanFieldRefInput<$PrismaModel>
     not?: NestedBoolFilter<$PrismaModel> | boolean
@@ -14297,6 +14432,8 @@ export namespace Prisma {
     address?: SortOrder
     city?: SortOrder
     deleted?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
     role?: SortOrder
   }
 
@@ -14310,6 +14447,8 @@ export namespace Prisma {
     address?: SortOrder
     city?: SortOrder
     deleted?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
     role?: SortOrder
   }
 
@@ -14323,6 +14462,8 @@ export namespace Prisma {
     address?: SortOrder
     city?: SortOrder
     deleted?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
     role?: SortOrder
   }
 
@@ -14571,6 +14712,14 @@ export namespace Prisma {
     connect?: DonorMediaWhereUniqueInput | DonorMediaWhereUniqueInput[]
   }
 
+  export type DateTimeFieldUpdateOperationsInput = {
+    set?: Date | string
+  }
+
+  export type NullableDateTimeFieldUpdateOperationsInput = {
+    set?: Date | string | null
+  }
+
   export type DonationUpdateManyWithoutDonorNestedInput = {
     create?: XOR<DonationCreateWithoutDonorInput, DonationUncheckedCreateWithoutDonorInput> | DonationCreateWithoutDonorInput[] | DonationUncheckedCreateWithoutDonorInput[]
     connectOrCreate?: DonationCreateOrConnectWithoutDonorInput | DonationCreateOrConnectWithoutDonorInput[]
@@ -14653,10 +14802,6 @@ export namespace Prisma {
     decrement?: number
     multiply?: number
     divide?: number
-  }
-
-  export type DateTimeFieldUpdateOperationsInput = {
-    set?: Date | string
   }
 
   export type DonorUpdateOneRequiredWithoutDonationsNestedInput = {
@@ -14952,17 +15097,6 @@ export namespace Prisma {
     _max?: NestedEnumRoleFilter<$PrismaModel>
   }
 
-  export type NestedFloatFilter<$PrismaModel = never> = {
-    equals?: number | FloatFieldRefInput<$PrismaModel>
-    in?: number[] | ListFloatFieldRefInput<$PrismaModel>
-    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel>
-    lt?: number | FloatFieldRefInput<$PrismaModel>
-    lte?: number | FloatFieldRefInput<$PrismaModel>
-    gt?: number | FloatFieldRefInput<$PrismaModel>
-    gte?: number | FloatFieldRefInput<$PrismaModel>
-    not?: NestedFloatFilter<$PrismaModel> | number
-  }
-
   export type NestedDateTimeFilter<$PrismaModel = never> = {
     equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
     in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
@@ -14972,6 +15106,56 @@ export namespace Prisma {
     gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
     gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
     not?: NestedDateTimeFilter<$PrismaModel> | Date | string
+  }
+
+  export type NestedDateTimeNullableFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeNullableFilter<$PrismaModel> | Date | string | null
+  }
+
+  export type NestedDateTimeWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeWithAggregatesFilter<$PrismaModel> | Date | string
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedDateTimeFilter<$PrismaModel>
+    _max?: NestedDateTimeFilter<$PrismaModel>
+  }
+
+  export type NestedDateTimeNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeNullableWithAggregatesFilter<$PrismaModel> | Date | string | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedDateTimeNullableFilter<$PrismaModel>
+    _max?: NestedDateTimeNullableFilter<$PrismaModel>
+  }
+
+  export type NestedFloatFilter<$PrismaModel = never> = {
+    equals?: number | FloatFieldRefInput<$PrismaModel>
+    in?: number[] | ListFloatFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel>
+    lt?: number | FloatFieldRefInput<$PrismaModel>
+    lte?: number | FloatFieldRefInput<$PrismaModel>
+    gt?: number | FloatFieldRefInput<$PrismaModel>
+    gte?: number | FloatFieldRefInput<$PrismaModel>
+    not?: NestedFloatFilter<$PrismaModel> | number
   }
 
   export type NestedFloatWithAggregatesFilter<$PrismaModel = never> = {
@@ -14988,20 +15172,6 @@ export namespace Prisma {
     _sum?: NestedFloatFilter<$PrismaModel>
     _min?: NestedFloatFilter<$PrismaModel>
     _max?: NestedFloatFilter<$PrismaModel>
-  }
-
-  export type NestedDateTimeWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
-    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
-    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    not?: NestedDateTimeWithAggregatesFilter<$PrismaModel> | Date | string
-    _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedDateTimeFilter<$PrismaModel>
-    _max?: NestedDateTimeFilter<$PrismaModel>
   }
 
   export type NestedBoolFilter<$PrismaModel = never> = {
@@ -15162,6 +15332,8 @@ export namespace Prisma {
     address?: string | null
     city?: string | null
     email?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string | null
     role?: $Enums.Role
     donations?: DonationCreateNestedManyWithoutDonorInput
   }
@@ -15176,6 +15348,8 @@ export namespace Prisma {
     address?: string | null
     city?: string | null
     email?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string | null
     role?: $Enums.Role
     donations?: DonationUncheckedCreateNestedManyWithoutDonorInput
   }
@@ -15206,6 +15380,8 @@ export namespace Prisma {
     address?: NullableStringFieldUpdateOperationsInput | string | null
     city?: NullableStringFieldUpdateOperationsInput | string | null
     email?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     donations?: DonationUpdateManyWithoutDonorNestedInput
   }
@@ -15220,6 +15396,8 @@ export namespace Prisma {
     address?: NullableStringFieldUpdateOperationsInput | string | null
     city?: NullableStringFieldUpdateOperationsInput | string | null
     email?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     donations?: DonationUncheckedUpdateManyWithoutDonorNestedInput
   }
@@ -15234,6 +15412,8 @@ export namespace Prisma {
     address?: string | null
     city?: string | null
     email?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string | null
     role?: $Enums.Role
     media?: DonorMediaCreateNestedManyWithoutDonorInput
   }
@@ -15248,6 +15428,8 @@ export namespace Prisma {
     address?: string | null
     city?: string | null
     email?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string | null
     role?: $Enums.Role
     media?: DonorMediaUncheckedCreateNestedManyWithoutDonorInput
   }
@@ -15278,6 +15460,8 @@ export namespace Prisma {
     address?: NullableStringFieldUpdateOperationsInput | string | null
     city?: NullableStringFieldUpdateOperationsInput | string | null
     email?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     media?: DonorMediaUpdateManyWithoutDonorNestedInput
   }
@@ -15292,6 +15476,8 @@ export namespace Prisma {
     address?: NullableStringFieldUpdateOperationsInput | string | null
     city?: NullableStringFieldUpdateOperationsInput | string | null
     email?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     media?: DonorMediaUncheckedUpdateManyWithoutDonorNestedInput
   }
@@ -15459,6 +15645,8 @@ export namespace Prisma {
     address?: string | null
     city?: string | null
     deleted?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string | null
     role?: $Enums.Role
     media?: MemberMediaCreateNestedManyWithoutMemberInput
     payments?: MemberPaymentsCreateNestedManyWithoutMemberInput
@@ -15474,6 +15662,8 @@ export namespace Prisma {
     address?: string | null
     city?: string | null
     deleted?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string | null
     role?: $Enums.Role
     media?: MemberMediaUncheckedCreateNestedManyWithoutMemberInput
     payments?: MemberPaymentsUncheckedCreateNestedManyWithoutMemberInput
@@ -15505,6 +15695,8 @@ export namespace Prisma {
     address?: NullableStringFieldUpdateOperationsInput | string | null
     city?: NullableStringFieldUpdateOperationsInput | string | null
     deleted?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     media?: MemberMediaUpdateManyWithoutMemberNestedInput
     payments?: MemberPaymentsUpdateManyWithoutMemberNestedInput
@@ -15520,6 +15712,8 @@ export namespace Prisma {
     address?: NullableStringFieldUpdateOperationsInput | string | null
     city?: NullableStringFieldUpdateOperationsInput | string | null
     deleted?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     media?: MemberMediaUncheckedUpdateManyWithoutMemberNestedInput
     payments?: MemberPaymentsUncheckedUpdateManyWithoutMemberNestedInput
@@ -15535,6 +15729,8 @@ export namespace Prisma {
     address?: string | null
     city?: string | null
     deleted?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string | null
     role?: $Enums.Role
     media?: MemberMediaCreateNestedManyWithoutMemberInput
     memberStatus?: MemberStatusCreateNestedManyWithoutMemberInput
@@ -15550,6 +15746,8 @@ export namespace Prisma {
     address?: string | null
     city?: string | null
     deleted?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string | null
     role?: $Enums.Role
     media?: MemberMediaUncheckedCreateNestedManyWithoutMemberInput
     memberStatus?: MemberStatusUncheckedCreateNestedManyWithoutMemberInput
@@ -15581,6 +15779,8 @@ export namespace Prisma {
     address?: NullableStringFieldUpdateOperationsInput | string | null
     city?: NullableStringFieldUpdateOperationsInput | string | null
     deleted?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     media?: MemberMediaUpdateManyWithoutMemberNestedInput
     memberStatus?: MemberStatusUpdateManyWithoutMemberNestedInput
@@ -15596,6 +15796,8 @@ export namespace Prisma {
     address?: NullableStringFieldUpdateOperationsInput | string | null
     city?: NullableStringFieldUpdateOperationsInput | string | null
     deleted?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     media?: MemberMediaUncheckedUpdateManyWithoutMemberNestedInput
     memberStatus?: MemberStatusUncheckedUpdateManyWithoutMemberNestedInput
@@ -15611,6 +15813,8 @@ export namespace Prisma {
     address?: string | null
     city?: string | null
     deleted?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string | null
     role?: $Enums.Role
     payments?: MemberPaymentsCreateNestedManyWithoutMemberInput
     memberStatus?: MemberStatusCreateNestedManyWithoutMemberInput
@@ -15626,6 +15830,8 @@ export namespace Prisma {
     address?: string | null
     city?: string | null
     deleted?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string | null
     role?: $Enums.Role
     payments?: MemberPaymentsUncheckedCreateNestedManyWithoutMemberInput
     memberStatus?: MemberStatusUncheckedCreateNestedManyWithoutMemberInput
@@ -15657,6 +15863,8 @@ export namespace Prisma {
     address?: NullableStringFieldUpdateOperationsInput | string | null
     city?: NullableStringFieldUpdateOperationsInput | string | null
     deleted?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     payments?: MemberPaymentsUpdateManyWithoutMemberNestedInput
     memberStatus?: MemberStatusUpdateManyWithoutMemberNestedInput
@@ -15672,6 +15880,8 @@ export namespace Prisma {
     address?: NullableStringFieldUpdateOperationsInput | string | null
     city?: NullableStringFieldUpdateOperationsInput | string | null
     deleted?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     payments?: MemberPaymentsUncheckedUpdateManyWithoutMemberNestedInput
     memberStatus?: MemberStatusUncheckedUpdateManyWithoutMemberNestedInput

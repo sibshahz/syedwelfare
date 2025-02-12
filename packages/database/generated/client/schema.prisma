@@ -33,8 +33,8 @@ model User {
 }
 
 model Donor {
-  id         String  @id @default(cuid())
-  cnic       String? @unique
+  id         String    @id @default(cuid())
+  cnic       String?   @unique
   name       String
   password   String?
   fatherName String?
@@ -42,6 +42,8 @@ model Donor {
   address    String?
   city       String?
   email      String?
+  createdAt  DateTime  @default(now())
+  updatedAt  DateTime? @updatedAt
 
   role Role @default(DONOR)
 
@@ -76,15 +78,17 @@ model Donation {
 }
 
 model Member {
-  id          String  @id @default(cuid())
-  cnic        String  @unique
+  id          String    @id @default(cuid())
+  cnic        String    @unique
   name        String
   fatherName  String?
   husbandName String?
   phone       String?
   address     String?
   city        String?
-  deleted     Boolean @default(false)
+  deleted     Boolean   @default(false)
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime? @updatedAt
 
   role         Role             @default(MEMBER)
   media        MemberMedia[]

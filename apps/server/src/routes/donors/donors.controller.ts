@@ -18,6 +18,9 @@ export const httpGetDonorsPaginated = async (req: Request, res: Response) => {
     const donors = await prisma.donor.findMany({
       skip: Number(page) * Number(limit),
       take: Number(limit),
+      orderBy: {
+        createdAt: "desc",
+      },
     });
     return res.json({ message: donors });
   } catch (error) {

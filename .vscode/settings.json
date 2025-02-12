@@ -2,5 +2,6 @@
   "editor.formatOnSave": true,
   "editor.formatOnPaste": true,
   "prettier.experimentalTernaries": true,
-  "vs-code-prettier-eslint.prettierLast": true
+  "vs-code-prettier-eslint.prettierLast": true,
+  "notebook.defaultFormatter": "rvest.vs-code-prettier-eslint"
 }
