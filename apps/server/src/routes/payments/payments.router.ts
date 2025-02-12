@@ -1,8 +1,13 @@
 import express from "express";
 import {
   httpDeletePayment,
+  httpGetMemberPaymentsPaginated,
   httpGetPaymentsById,
   httpGetPaymentsList,
+  httpGetPaymentsPaginated,
+  httpGetTotalMemberPayments,
+  httpGetTotalPayments,
+  httpUpdatePayment,
   // httpGetDonorsPaginated,
   // httpGetDonor,
   // httpPostDonor,
@@ -15,13 +20,19 @@ import {
 const paymentsRouter = express.Router();
 
 paymentsRouter.get("/", httpGetPaymentsList);
-paymentsRouter.get("/:memberid",httpGetPaymentsById)
-// donorsRouter.get("/:page/:limit", httpGetDonorsPaginated);
-// donorsRouter.get("/total-donors", httpGetTotalDonors); // Make sure this comes before the :memberid route
-// donorsRouter.get("/:donorid", httpGetDonor); // This should come after /total-donors route
-// donorsRouter.post("/", httpPostDonor);
-// donorsRouter.post("/:donorid/pay", httpPayDonor);
-// donorsRouter.put("/:donorid", httpUpdateDonor);
+paymentsRouter.get("/:memberid", httpGetPaymentsById);
+paymentsRouter.get("/stats/total-payments", httpGetTotalPayments);
+paymentsRouter.get(
+  "/stats/total-member-payments/:memberid",
+  httpGetTotalMemberPayments
+);
+paymentsRouter.get("/paginated/:page/:limit", httpGetPaymentsPaginated);
+// `payments/paginated/member/${memberid}/${page - 1}/${limit}`;
+paymentsRouter.get(
+  "/paginated/member/:memberid/:page/:limit",
+  httpGetMemberPaymentsPaginated
+);
+paymentsRouter.put("/:paymentid", httpUpdatePayment);
 paymentsRouter.delete("/:paymentid", httpDeletePayment);
 
 export default paymentsRouter;

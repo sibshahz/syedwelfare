@@ -28,6 +28,7 @@ import {
 import { useToast } from "@/hooks/use-toast";
 import { deleteMember } from "@/app/actions/members";
 import { Pencil, Trash2 } from "lucide-react";
+import PaymentDialog from "./payment-dialog";
 
 type Media = {
   profilePic: string;
@@ -94,6 +95,11 @@ const MemberDetails = ({ member }: { member: MemberType }) => {
         <CardHeader>
           <CardTitle>
             <div className="flex flex-row justify-end items-center py-3 gap-2">
+              <PaymentDialog
+                id={member.id || ""}
+                cnic={member.cnic || ""}
+                name={member.name || ""}
+              />
               <Button
                 onClick={() => {
                   router.push(`/dashboard/members/edit/${member.id}`);
@@ -111,9 +117,9 @@ const MemberDetails = ({ member }: { member: MemberType }) => {
               {member.fatherName && <div>Father: {member.fatherName}</div>}
               {member.cnic && <div>CNIC: {member.cnic}</div>}
             </div>
-            {(member.media[0].profilePic ||
-              member.media[0].cnicFront ||
-              member.media[0].cnicBack) && (
+            {(member?.media[0]?.profilePic ||
+              member?.media[0]?.cnicFront ||
+              member?.media[0]?.cnicBack) && (
               <Card className="py-3 mb-4">
                 <CardContent className="flex flex-wrap flex-row gap-2 items-center justify-between py-0">
                   {member.media[0].profilePic && (

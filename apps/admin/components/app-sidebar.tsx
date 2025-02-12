@@ -1,11 +1,20 @@
-import type * as React from "react"
-import { ArrowDownToDot, ArrowUpFromDot, Bolt, ChevronRight, CirclePlus, HandCoins, Logs, ShieldPlus } from "lucide-react"
+import type * as React from "react";
+import {
+  ArrowDownToDot,
+  ArrowUpFromDot,
+  Bolt,
+  ChevronRight,
+  CirclePlus,
+  HandCoins,
+  Logs,
+  ShieldPlus,
+} from "lucide-react";
 
 import {
   Collapsible,
   CollapsibleContent,
   CollapsibleTrigger,
-} from "@/components/ui/collapsible"
+} from "@/components/ui/collapsible";
 import {
   Sidebar,
   SidebarContent,
@@ -17,8 +26,8 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
   SidebarRail,
-} from "@/components/ui/sidebar"
-import Logo from "./logo"
+} from "@/components/ui/sidebar";
+import Logo from "./logo";
 
 // This is sample data.
 const data = {
@@ -38,11 +47,11 @@ const data = {
           url: "/dashboard/members/list/1",
           icon: <Logs />,
         },
-                {
+        {
           title: "Payments",
-          url: "/dashboard/members/payments",
+          url: "/dashboard/members/payments/1",
           icon: <ArrowUpFromDot />,
-        }
+        },
       ],
     },
     {
@@ -52,18 +61,18 @@ const data = {
         {
           title: "Add Donor",
           url: "/dashboard/donors/add",
-          icon: <ShieldPlus />
+          icon: <ShieldPlus />,
         },
         {
           title: "Donors List",
           url: "/dashboard/donors/list/1",
-          icon: <HandCoins />
+          icon: <HandCoins />,
         },
-                {
+        {
           title: "Donations",
           url: "/dashboard/donors/donations",
-          icon: <ArrowDownToDot /> 
-        }
+          icon: <ArrowDownToDot />,
+        },
       ],
     },
     {
@@ -73,12 +82,12 @@ const data = {
         {
           title: "User Settings",
           url: "/user-settings",
-          icon: <Bolt />
-        }
+          icon: <Bolt />,
+        },
       ],
-    }
+    },
   ],
-}
+};
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   return (
@@ -115,10 +124,14 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
                   <SidebarMenu>
                     {item.items.map((item) => (
                       <SidebarMenuItem key={item.title}>
-                        <SidebarMenuButton asChild 
-                        // isActive={item.isActive}
+                        <SidebarMenuButton
+                          asChild
+                          // isActive={item.isActive}
                         >
-                          <a href={item.url}>{item.icon}{item.title}</a>
+                          <a href={item.url}>
+                            {item.icon}
+                            {item.title}
+                          </a>
                         </SidebarMenuButton>
                       </SidebarMenuItem>
                     ))}
@@ -131,5 +144,5 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
       </SidebarContent>
       <SidebarRail />
     </Sidebar>
-  )
+  );
 }

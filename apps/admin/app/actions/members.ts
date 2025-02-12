@@ -22,8 +22,10 @@ export const getTotalMembers = async () => {
 
 export const getMembersPaginated = async (page: number, limit: number) => {
   try {
-    const response = await axios_default.get(`members/paginated/${page-1}/${limit}`);
-    return {success: true, data:response.data.message};
+    const response = await axios_default.get(
+      `members/paginated/${page - 1}/${limit}`
+    );
+    return { success: true, data: response.data.message };
   } catch (error) {
     console.error("Failed to fetch resources:", error);
     return {
@@ -31,11 +33,11 @@ export const getMembersPaginated = async (page: number, limit: number) => {
       data: error,
     };
   }
-}
+};
 export const getMemberById = async (id: string) => {
   try {
     const response = await axios_default.get(`members/${id}`);
-    return {success: true, data: response.data.message}
+    return { success: true, data: response.data.message };
   } catch (error) {
     console.error("Failed to fetch resources:", error);
     return {
@@ -68,10 +70,16 @@ export const updateMember = async (id: string, data: Member) => {
 export const payMember = async (id: string, amount: number) => {
   try {
     const response = await axios_default.post(`members/${id}/pay`, { amount });
-    return response;
+    return {
+      success: true,
+      data: response.data.message,
+    };
   } catch (error) {
     console.error("Failed to fetch resources:", error);
-    return error;
+    return {
+      success: false,
+      data: error,
+    };
   }
 };
 

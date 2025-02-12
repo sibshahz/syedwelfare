@@ -24,12 +24,10 @@ export const httpGetMembersPaginated = async (req: Request, res: Response) => {
         createdAt: "desc",
       },
     });
-    return res.status(200).json({ message: members });
+    res.status(200).json({ message: members });
   } catch (error) {
     // next(error);
-    return res
-      .status(400)
-      .json({ error: "Failed to fetch members paginated." });
+    res.status(400).json({ error: "Failed to fetch members paginated." });
   }
 };
 
