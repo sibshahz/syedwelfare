@@ -1,3 +1,4 @@
+"use client";
 import React from "react";
 import {
   Pagination,
@@ -8,6 +9,7 @@ import {
   PaginationNext,
   PaginationPrevious,
 } from "@/components/ui/pagination";
+import { useSearchParams } from "next/navigation";
 
 interface PaginationProps {
   page: number;
@@ -25,6 +27,9 @@ const PaginationSelector: React.FC<PaginationProps> = ({
   postLink,
 }) => {
   const totalPages = Math.ceil(total / limit);
+  const searchParams = useSearchParams();
+  const allParams = Object.fromEntries(searchParams.entries());
+  const stringValue = new URLSearchParams(allParams).toString();
   if (totalPages <= 1) return null;
 
   const prePage = Math.max(1, page - 1);
@@ -52,38 +57,49 @@ const PaginationSelector: React.FC<PaginationProps> = ({
   };
 
   return (
-    <Pagination>
-      <PaginationContent>
-        <PaginationItem>
-          <PaginationPrevious
-            href={!preLinkDisabled ? `${preLink}/${prePage}` : "#"}
-            aria-disabled={preLinkDisabled}
-          />
-        </PaginationItem>
+    <>
+      <h1>Total members are: {total}</h1>
+      {total - 1 >= limit && (
+        <Pagination>
+          <PaginationContent>
+            <PaginationItem>
+              <PaginationPrevious
+                href={
+                  !preLinkDisabled ?
+                    `${preLink}/${prePage}/?${stringValue}`
+                  : "#"
+                }
+                aria-disabled={preLinkDisabled}
+              />
+            </PaginationItem>
 
-        {generatePageNumbers().map((pageNumber, index) => (
-          <PaginationItem key={index}>
-            {typeof pageNumber === "number" ? (
-              <PaginationLink
-                href={`${preLink}/${pageNumber}`}
-                isActive={pageNumber === page}
-              >
-                {pageNumber}
-              </PaginationLink>
-            ) : (
-              <PaginationEllipsis />
-            )}
-          </PaginationItem>
-        ))}
+            {generatePageNumbers().map((pageNumber, index) => (
+              <PaginationItem key={index}>
+                {typeof pageNumber === "number" ?
+                  <PaginationLink
+                    href={`${preLink}/${pageNumber}/?${stringValue}`}
+                    isActive={pageNumber === page}
+                  >
+                    {pageNumber}
+                  </PaginationLink>
+                : <PaginationEllipsis />}
+              </PaginationItem>
+            ))}
 
-        <PaginationItem>
-          <PaginationNext
-            href={!postLinkDisabled ? `${postLink}/${postPage}` : "#"}
-            aria-disabled={postLinkDisabled}
-          />
-        </PaginationItem>
-      </PaginationContent>
-    </Pagination>
+            <PaginationItem>
+              <PaginationNext
+                href={
+                  !postLinkDisabled ?
+                    `${postLink}/${postPage}/?${stringValue}`
+                  : "#"
+                }
+                aria-disabled={postLinkDisabled}
+              />
+            </PaginationItem>
+          </PaginationContent>
+        </Pagination>
+      )}
+    </>
   );
 };
 

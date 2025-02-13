@@ -17,14 +17,22 @@ export const httpGetMembersPaginated = async (req: Request, res: Response) => {
   try {
     const page = req.params.page;
     const limit = req.params.limit;
+    const { name, cnic, phone } = req.query;
+    const where: any = {};
+    if (name) where.name = { contains: name as string, mode: "insensitive" };
+    if (cnic) where.cnic = { contains: cnic as string };
+    if (phone) where.phone = { contains: phone as string };
+
     const members = await prisma.member.findMany({
       skip: Number(page) * Number(limit),
       take: Number(limit),
       orderBy: {
         createdAt: "desc",
       },
+      where,
     });
-    res.status(200).json({ message: members });
+    const count = await prisma.member.count({ where });
+    res.status(200).json({ message: members, count });
   } catch (error) {
     // next(error);
     res.status(400).json({ error: "Failed to fetch members paginated." });

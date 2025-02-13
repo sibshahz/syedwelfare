@@ -29,4 +29,9 @@ api.use("/payments", paymentsRouter);
 api.use("/donors", donorsRouter);
 api.use("/donations", donationsRouter);
 api.use("/auth", authRouter);
+api.get("/params", (req, res) => {
+  res.json({
+    message: req.query,
+  });
+});
 export default api;
