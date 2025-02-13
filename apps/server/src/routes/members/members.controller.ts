@@ -32,7 +32,7 @@ export const httpGetMembersPaginated = async (req: Request, res: Response) => {
       where,
     });
     const count = await prisma.member.count({ where });
-    res.status(200).json({ message: members, count });
+    res.status(200).json({ members, count });
   } catch (error) {
     // next(error);
     res.status(400).json({ error: "Failed to fetch members paginated." });

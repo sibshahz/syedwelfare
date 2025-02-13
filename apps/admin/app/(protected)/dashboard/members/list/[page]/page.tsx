@@ -13,7 +13,7 @@ export const dynamic = "force-dynamic";
 interface MemberResponse {
   success: boolean;
   data: {
-    message: Member[];
+    members: Member[];
     count: number;
   };
 }
@@ -41,10 +41,9 @@ const ListMemberPage = async ({
   )) as MemberResponse;
   return (
     <div className="flex flex-col gap-4">
-      Search for members
       <MemberSearchForm />
       <h1>Members</h1>
-      <MembersTable members={data.message} cnic={""} />
+      <MembersTable members={data.members} cnic={""} />
       <PaginationSelector
         page={parseInt(page)}
         limit={limit}
