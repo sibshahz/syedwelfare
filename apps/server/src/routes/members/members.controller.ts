@@ -51,14 +51,24 @@ export const httpGetMember = async (req: Request, res: Response) => {
         id: memberid,
       },
     });
+
     if (!member) {
       return res.status(404).json({ error: "Member not found by id." });
     }
+    const totalPaymentsAmount = await prisma.memberPayments.aggregate({
+      _sum: {
+        amount: true,
+      },
+      where: {
+        memberId: memberid,
+      },
+    });
     const formattedMember = {
       ...member,
       profilePic: member.media[0]?.profilePic,
       cnicFront: member.media[0]?.cnicFront,
       cnicBack: member.media[0]?.cnicBack,
+      totalPaymentsAmount: totalPaymentsAmount._sum.amount || 0,
     };
     return res.status(200).json({ message: formattedMember });
   } catch (error) {

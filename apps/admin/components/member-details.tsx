@@ -35,11 +35,21 @@ type Media = {
   cnicFront: string;
   cnicBack: string;
 };
+type MemberStatus = {
+  id?: string;
+  memberId?: string;
+  status?: string;
+  createdAt?: string;
+  updatedAt?: string;
+};
 
 interface MemberType extends Member {
   media: Media[];
+  totalPaymentsAmount?: number;
+  memberStatus?: MemberStatus[];
 }
 const MemberDetails = ({ member }: { member: MemberType }) => {
+  // console.log(JSON.stringify(member.memberStatus));
   const DeleteDialog: React.FC<{ id: string }> = ({ id }: { id: string }) => {
     const router = useRouter();
     const toast = useToast();
@@ -170,8 +180,10 @@ const MemberDetails = ({ member }: { member: MemberType }) => {
                   <TableCell>{member.phone}</TableCell>
                   <TableCell>{member.city}</TableCell>
                   <TableCell>{member.address}</TableCell>
-                  {/* <TableCell>{JSON.stringify(member)}</TableCell> */}
-                  <TableCell>TOTAL PAYMENTS</TableCell>
+                  <TableCell>
+                    {member?.memberStatus?.[0]?.status || "Pending"}
+                  </TableCell>
+                  <TableCell>Rs. {member.totalPaymentsAmount || 0}/-</TableCell>
                 </TableRow>
               </TableBody>
             </Table>

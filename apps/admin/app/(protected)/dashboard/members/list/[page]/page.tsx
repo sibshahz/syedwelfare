@@ -41,7 +41,9 @@ const ListMemberPage = async ({
   )) as MemberResponse;
   return (
     <div className="flex flex-col gap-4">
-      <MemberSearchForm />
+      <MemberSearchForm
+      
+      />
       <h1>Members</h1>
       <MembersTable members={data.members} cnic={""} />
       <PaginationSelector

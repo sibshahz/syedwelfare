@@ -230,7 +230,7 @@ const ActionsDropDown = ({ id, paymentid, payment, memberName }) => {
         <DropdownMenuLabel>Actions</DropdownMenuLabel>
         <DropdownMenuSeparator />
         <DropdownMenuItem asChild className="hover:cursor-pointer">
-          <Link href={`/dashboard/members/details/${id}`}>
+          <Link href={`/dashboard/members/details/${id}/1`}>
             View Beneficiary
           </Link>
         </DropdownMenuItem>
@@ -267,7 +267,7 @@ const PaymentsTable: React.FC<PaymentsTableProps> = ({ payments }) => {
               <TableCell>{index + 1}</TableCell>
               <TableCell>{donation.member.name}</TableCell>
               <TableCell>{donation.member.cnic}</TableCell>
-              <TableCell>{donation.amount}</TableCell>
+              <TableCell>Rs. {donation.amount}/-</TableCell>
               <TableCell>{formatDate(donation.createdAt as Date)}</TableCell>
               <TableCell className="flex flex-row items-center justify-start">
                 <ActionsDropDown
