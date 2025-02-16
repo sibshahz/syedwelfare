@@ -10,6 +10,8 @@ import { Separator } from "@/components/ui/separator";
 // import MemberPayments from "@/components/members-payments";
 import React from "react";
 
+export const dynamic = "force-dynamic";
+
 const MemberPage = async ({
   params,
 }: {

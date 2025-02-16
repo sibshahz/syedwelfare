@@ -185,8 +185,13 @@ export const httpPayMember = async (req: Request, res: Response) => {
         memberId: memberid as string,
       },
     });
-    if (memberStatusExists?.status === MemberStatusValues.REJECTED) {
-      return res.status(400).json({ message: "Member is rejected." });
+    if (
+      memberStatusExists &&
+      memberStatusExists.status !== MemberStatusValues.APPROVED
+    ) {
+      return res
+        .status(400)
+        .json({ message: "Member payment is not allowed." });
     }
     const result = await prisma.memberPayments.create({
       data: {

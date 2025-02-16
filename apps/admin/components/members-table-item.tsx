@@ -106,7 +106,7 @@ const MembersTableItem: React.FC<MembersTableItemProps> = ({ member }) => {
         >
           <PaymentDialog
             id={id as string}
-            disabled={memberStatus?.[0]?.status === MemberStatusValues.REJECTED}
+            disabled={memberStatus?.[0]?.status !== MemberStatusValues.APPROVED}
             name={name as string}
             cnic={cnic as string}
           />

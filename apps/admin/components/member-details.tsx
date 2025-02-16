@@ -200,8 +200,8 @@ const MemberDetails = ({ member }: { member: MemberType }) => {
                 <PaymentDialog
                   id={member.id || ""}
                   disabled={
-                    member.memberStatus?.[0]?.status ===
-                    MemberStatusValues.REJECTED
+                    member.memberStatus?.[0]?.status !==
+                    MemberStatusValues.APPROVED
                   }
                   cnic={member.cnic || ""}
                   name={member.name || ""}
