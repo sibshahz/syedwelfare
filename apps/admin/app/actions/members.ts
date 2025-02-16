@@ -131,10 +131,17 @@ export const payMember = async (id: string, amount: number) => {
 
 export const deleteMember = async (id: string) => {
   try {
-    const response = await axios_default.delete(`members/${id}`);
-    return response;
-  } catch (error) {
-    console.error("Failed to fetch resources:", error);
-    return error;
+    const response = await axios_default.delete(`members/delete/${id}`);
+
+    return {
+      success: true,
+      data: response.data.message,
+    };
+  } catch (error: any) {
+    console.error("Failed to fetch resources:", error.response.data.error);
+    return {
+      success: false,
+      data: error.response.data.error,
+    };
   }
 };

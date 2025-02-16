@@ -44,6 +44,7 @@ const MemberSearchForm = () => {
         MemberStatusValues.APPROVED,
         MemberStatusValues.PENDING,
         MemberStatusValues.REJECTED,
+        "",
       ])
       .optional(),
   });

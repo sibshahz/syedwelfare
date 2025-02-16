@@ -24,7 +24,7 @@ membersRouter.post("/:memberid/pay", httpPayMember);
 membersRouter.put("/:memberid", httpUpdateMember);
 membersRouter.put("/status/:memberid", httpUpdateMemberStatus);
 membersRouter.get("/add/missing-status", httpAddMissingStatus);
-membersRouter.delete("/:memberid", httpDeleteMember);
+membersRouter.delete("/delete/:memberid", httpDeleteMember);
 membersRouter.get("/stats/member-stats", httpGetMemberStats);
 
 export default membersRouter;

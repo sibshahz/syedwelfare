@@ -1,6 +1,7 @@
 import type { Request, Response, NextFunction, RequestHandler } from "express";
 import { prisma, Status } from "@repo/database";
 import { MemberSchema, MemberStatusValues, z } from "@repo/zod-utils";
+import { escapeString } from "@/utils/utils";
 
 export const httpGetMembersList = async (req: Request, res: Response) => {
   try {
@@ -111,11 +112,12 @@ export const httpPostMember = async (req: Request, res: Response) => {
     // return; // Ensure the function returns void here
     return res.status(400).json({ error: "Failed to create member." });
   }
+  const userCnic = escapeString(req.body.data?.cnic);
 
   // member already exists cnic
   const memberExists = await prisma.member.findFirst({
     where: {
-      cnic: req.body.data?.cnic,
+      cnic: userCnic,
     },
   });
   if (memberExists) {
@@ -158,7 +160,7 @@ export const httpPostMember = async (req: Request, res: Response) => {
     const memberStatus = await prisma.memberStatus.create({
       data: {
         memberId: result.id,
-        cnic: req.body.data?.cnic,
+        cnic: userCnic,
       },
     });
     res.json({ message: result }); // This returns a Response but does not conflict with void if the function returns after
@@ -236,12 +238,25 @@ export const httpUpdateMember = async (req: Request, res: Response) => {
     profilePic,
   } = req.body;
   try {
+    const checkCnicMember = await prisma.member.findFirst({
+      where: {
+        cnic: escapeString(cnic),
+        id: {
+          not: id,
+        },
+      },
+    });
+    if (checkCnicMember) {
+      return res
+        .status(400)
+        .json({ error: "Member already exists with this CNIC." });
+    }
     const updatedData = await prisma.member.update({
       where: {
         id: id,
       },
       data: {
-        cnic: cnic || "",
+        cnic: escapeString(cnic) || "",
         fatherName: fatherName || "",
         name: name || "",
         phone: phone || "",
@@ -274,14 +289,16 @@ export const httpDeleteMember = async (req: Request, res: Response) => {
         id: memberid,
       },
     });
-    const media = await prisma.memberMedia.delete({
-      where: {
-        id: memberid,
-      },
-    });
-    return res.status(201).json({ message: "Member deleted." });
-  } catch (error) {
-    return res.status(400).json({ message: "Failed to delete member." });
+    // const media = await prisma.memberMedia.delete({
+    //   where: {
+    //     id: memberid,
+    //   },
+    // });
+    if (result) {
+      return res.status(201).json({ message: "Member deleted." });
+    }
+  } catch (error: any) {
+    return res.status(400).json({ error: "Failed to delete member." });
     // next(error);
   }
 };

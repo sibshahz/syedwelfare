@@ -16,7 +16,6 @@ const JWT_SECRET = process.env.JWT_SECRET;
 
 export const httpRegisterUser = async (req: Request, res: Response) => {
   const { email, password } = req.body;
-  console.log("***SIGNUP REQUEST", req.body);
   const hashedPassword = await bcrypt.hash(password, 10);
   const userExists = await prisma.user.findUnique({
     where: { email },
@@ -34,10 +33,7 @@ export const httpRegisterUser = async (req: Request, res: Response) => {
   });
   const token = jwt.sign(
     { email: user.email, role: user.role },
-    JWT_SECRET as string,
-    {
-      expiresIn: "1h",
-    }
+    JWT_SECRET as string
   );
   // res.cookie("token", token, { httpOnly: true });
   res.cookie("token", token, { httpOnly: true, secure: true });
@@ -59,10 +55,7 @@ export const httpLoginUser = async (req: Request, res: Response) => {
   }
   const token = jwt.sign(
     { email: user.email, role: user.role },
-    JWT_SECRET as string,
-    {
-      expiresIn: "1h",
-    }
+    JWT_SECRET as string
   );
   res.cookie("token", token, { httpOnly: true, secure: true });
   res

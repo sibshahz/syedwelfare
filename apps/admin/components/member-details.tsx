@@ -138,7 +138,7 @@ const MemberDetails = ({ member }: { member: MemberType }) => {
     const toast = useToast();
     const deleteItem = async (id: string) => {
       const result = await deleteMember(id);
-      if ((result as { error?: boolean }).error) {
+      if (!result.success) {
         toast.toast({
           variant: "destructive",
           title: "Failed to delete",
@@ -151,8 +151,8 @@ const MemberDetails = ({ member }: { member: MemberType }) => {
           description: "Beneficiary has been successfully deleted.",
         });
       }
-      router.back();
-      router.refresh();
+      // router.refresh();
+      router.push(`/dashboard/members/list/1`);
     };
     return (
       <AlertDialog>
