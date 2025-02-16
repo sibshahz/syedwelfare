@@ -7,6 +7,7 @@ import {
   httpGetPaymentsPaginated,
   httpGetTotalMemberPayments,
   httpGetTotalPayments,
+  httpGetTotalPaymentsAmount,
   httpUpdatePayment,
   // httpGetDonorsPaginated,
   // httpGetDonor,
@@ -26,6 +27,7 @@ paymentsRouter.get(
   "/stats/total-member-payments/:memberid",
   httpGetTotalMemberPayments
 );
+paymentsRouter.get("/stats/total-amount", httpGetTotalPaymentsAmount);
 paymentsRouter.get("/paginated/:page/:limit", httpGetPaymentsPaginated);
 // `payments/paginated/member/${memberid}/${page - 1}/${limit}`;
 paymentsRouter.get(

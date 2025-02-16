@@ -29,6 +29,22 @@ export const getAllPaymentsPaginated = async (page: number, limit: number) => {
   }
 };
 
+export const getTotalPaymentsAmount = async () => {
+  try {
+    const response = await axios_default.get(`payments/stats/total-amount`);
+    return {
+      success: true,
+      data: response.data.message,
+    };
+  } catch (error) {
+    console.error("Failed to fetch resources:", error);
+    return {
+      success: false,
+      data: error,
+    };
+  }
+};
+
 export const getTotalPayments = async () => {
   try {
     const response = await axios_default.get(`payments/stats/total-payments`);

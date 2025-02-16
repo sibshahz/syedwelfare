@@ -10,6 +10,7 @@ import {
   httpGetTotalMembers,
   httpUpdateMemberStatus,
   httpAddMissingStatus,
+  httpGetMemberStats,
 } from "@/routes/members/members.controller";
 
 const membersRouter = express.Router();
@@ -24,5 +25,6 @@ membersRouter.put("/:memberid", httpUpdateMember);
 membersRouter.put("/status/:memberid", httpUpdateMemberStatus);
 membersRouter.get("/add/missing-status", httpAddMissingStatus);
 membersRouter.delete("/:memberid", httpDeleteMember);
+membersRouter.get("/stats/member-stats", httpGetMemberStats);
 
 export default membersRouter;

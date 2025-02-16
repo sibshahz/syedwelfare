@@ -37,6 +37,22 @@ export const updateMemberStatus = async (id: string, status: string) => {
     };
   }
 };
+
+export const getMembersStats = async () => {
+  try {
+    const response = await axios_default.get(`members/stats/member-stats`);
+    return {
+      success: true,
+      data: response.data,
+    };
+  } catch (error) {
+    console.error("Failed to fetch resources:", error);
+    return {
+      success: false,
+      data: error,
+    };
+  }
+};
 export const getMembersPaginated = async (
   page: number,
   limit: number,

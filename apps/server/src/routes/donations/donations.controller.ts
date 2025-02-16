@@ -16,11 +16,26 @@ export const httpGetDonationsList = async (req: Request, res: Response) => {
       orderBy: {
         createdAt: "desc",
       },
-
     });
     res.json({ message: donations });
   } catch (error) {
     res.json({ error: "Failed to fetch donations." });
+  }
+};
+
+export const httpGetTotalDonationsAmount = async (
+  req: Request,
+  res: Response
+) => {
+  try {
+    const donations = await prisma.donation.aggregate({
+      _sum: {
+        amount: true,
+      },
+    });
+    res.json({ message: donations._sum.amount });
+  } catch (error) {
+    res.json({ error: "Failed to fetch total donations amount." });
   }
 };
 

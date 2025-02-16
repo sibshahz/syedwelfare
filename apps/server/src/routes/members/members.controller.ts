@@ -306,3 +306,38 @@ export const httpAddMissingStatus = async (req: Request, res: Response) => {
     return res.status(400).json({ message: "Failed to add missing status." });
   }
 };
+
+export const httpGetMemberStats = async (req: Request, res: Response) => {
+  try {
+    const totalMembers = await prisma.member.count();
+    const totalPendingMembers = await prisma.memberStatus.count({
+      where: {
+        status: MemberStatusValues.PENDING,
+      },
+    });
+    const totalApprovedMembers = await prisma.memberStatus.count({
+      where: {
+        status: MemberStatusValues.APPROVED,
+      },
+    });
+    const totalRejectedMembers = await prisma.memberStatus.count({
+      where: {
+        status: MemberStatusValues.REJECTED,
+      },
+    });
+    // const totalPayments = await prisma.memberPayments.aggregate({
+    //   _sum: {
+    //     amount: true,
+    //   },
+    // });
+    // const totalPaymentsAmount = totalPayments._sum.amount || 0;
+    return res.status(200).json({
+      totalMembers,
+      totalPendingMembers,
+      totalApprovedMembers,
+      totalRejectedMembers,
+    });
+  } catch (error) {
+    return res.status(400).json({ message: "Failed to get member stats." });
+  }
+};

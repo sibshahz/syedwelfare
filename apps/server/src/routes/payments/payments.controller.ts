@@ -163,3 +163,19 @@ export const httpGetMemberPaymentsPaginated = async (
     res.json({ error: "Failed to fetch donations." });
   }
 };
+
+export const httpGetTotalPaymentsAmount = async (
+  req: Request,
+  res: Response
+) => {
+  try {
+    const totalPayments = await prisma.memberPayments.aggregate({
+      _sum: {
+        amount: true,
+      },
+    });
+    res.status(200).json({ message: totalPayments._sum.amount });
+  } catch (error) {
+    res.json({ error: "Failed to fetch total payments." });
+  }
+};
