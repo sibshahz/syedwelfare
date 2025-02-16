@@ -6,7 +6,7 @@ import {
   // Trash2
 } from "lucide-react";
 import { Button } from "./ui/button";
-import { Member } from "@repo/zod-utils";
+import { Member, MemberStatusValues } from "@repo/zod-utils";
 
 import Image from "next/image";
 import Link from "next/link";
@@ -59,12 +59,12 @@ import PaymentDialog from "./payment-dialog";
 //   );
 // };
 
-interface MembersTableItemProps {
+interface MembersTableItemProps extends Member {
   member: Member;
 }
 
 const MembersTableItem: React.FC<MembersTableItemProps> = ({ member }) => {
-  const { id, cnic, name, fatherName, phone, address, city, profilePic } =
+  const { id, cnic, name, fatherName, phone, memberStatus, profilePic } =
     member;
 
   return (
@@ -85,14 +85,28 @@ const MembersTableItem: React.FC<MembersTableItemProps> = ({ member }) => {
         <TableCell>{name}</TableCell>
         <TableCell>{fatherName}</TableCell>
         <TableCell>{phone}</TableCell>
-        <TableCell className="max-w-28 truncate">{address}</TableCell>
-        <TableCell>{city}</TableCell>
+        <TableCell
+          className={`font-medium ${
+            member?.memberStatus?.[0]?.status === MemberStatusValues.APPROVED ?
+              "text-green-500"
+            : (
+              member?.memberStatus?.[0]?.status === MemberStatusValues.REJECTED
+            ) ?
+              "text-red-500"
+            : "text-yellow-500"
+          }`}
+        >
+          {memberStatus?.[0]?.status || "Unknown"}
+        </TableCell>
+        {/* <TableCell className="max-w-28 truncate">{address}</TableCell> */}
+        {/* <TableCell>{city}</TableCell> */}
         <TableCell
           title="Pay to this beneficiary"
           className="flex space-x-2 items-center"
         >
           <PaymentDialog
             id={id as string}
+            disabled={memberStatus?.[0]?.status === MemberStatusValues.REJECTED}
             name={name as string}
             cnic={cnic as string}
           />

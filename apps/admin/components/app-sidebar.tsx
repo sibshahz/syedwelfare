@@ -6,6 +6,7 @@ import {
   ChevronRight,
   CirclePlus,
   HandCoins,
+  LayoutDashboard,
   Logs,
   ShieldPlus,
 } from "lucide-react";
@@ -102,6 +103,20 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
       </SidebarHeader>
       <SidebarContent className="gap-0">
         {/* We create a collapsible SidebarGroup for each parent. */}
+        <SidebarGroup className="group mt-4">
+          <SidebarGroupContent>
+            <SidebarMenu>
+              <SidebarMenuItem>
+                <SidebarMenuButton asChild>
+                  <a href={"/dashboard"}>
+                    <LayoutDashboard />
+                    Dashboard
+                  </a>
+                </SidebarMenuButton>
+              </SidebarMenuItem>
+            </SidebarMenu>
+          </SidebarGroupContent>
+        </SidebarGroup>
         {data.navMain.map((item) => (
           <Collapsible
             key={item.title}

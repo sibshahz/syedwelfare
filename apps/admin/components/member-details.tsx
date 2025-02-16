@@ -1,6 +1,6 @@
 "use client";
 import React from "react";
-import { Member } from "@repo/zod-utils";
+import { Member, MemberStatusValues } from "@repo/zod-utils";
 import { Card, CardContent, CardHeader, CardTitle } from "./ui/card";
 import { Separator } from "./ui/separator";
 import {
@@ -26,30 +26,113 @@ import {
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
 import { useToast } from "@/hooks/use-toast";
-import { deleteMember } from "@/app/actions/members";
+import { deleteMember, updateMemberStatus } from "@/app/actions/members";
 import { Pencil, Trash2 } from "lucide-react";
 import PaymentDialog from "./payment-dialog";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 
 type Media = {
   profilePic: string;
   cnicFront: string;
   cnicBack: string;
 };
-type MemberStatus = {
-  id?: string;
-  memberId?: string;
-  status?: string;
-  createdAt?: string;
-  updatedAt?: string;
-};
+// type MemberStatus = {
+//   id?: string;
+//   memberId?: string;
+//   status?: string;
+//   createdAt?: string;
+//   updatedAt?: string;
+// };
 
 interface MemberType extends Member {
   media: Media[];
   totalPaymentsAmount?: number;
-  memberStatus?: MemberStatus[];
+  // memberStatus?: MemberStatus[];
 }
 const MemberDetails = ({ member }: { member: MemberType }) => {
   // console.log(JSON.stringify(member.memberStatus));
+  const StatusDialog: React.FC<{ id: string; memberStatus: string }> = ({
+    id,
+    memberStatus,
+  }: {
+    id: string;
+    memberStatus: string;
+  }) => {
+    const router = useRouter();
+    const toast = useToast();
+    const [status, setStatus] = React.useState(memberStatus || "pending");
+    const updateStatus = async (id: string) => {
+      const result = await updateMemberStatus(id, status as string);
+      if (!result.success) {
+        toast.toast({
+          variant: "destructive",
+          title: "Failed to update",
+          description: "Member status cannot be updated at the moment.",
+        });
+      } else {
+        toast.toast({
+          title: "Updated",
+          description: "Member status has been successfully updated.",
+        });
+      }
+      router.refresh();
+    };
+    return (
+      <AlertDialog>
+        <AlertDialogTrigger className="bg-gray-800 text-white border shadow-sm py-2 px-4 rounded-sm text-xs font-light">
+          Change Status
+        </AlertDialogTrigger>
+        <AlertDialogContent>
+          <AlertDialogHeader>
+            <AlertDialogTitle>Change member status</AlertDialogTitle>
+            <AlertDialogDescription>
+              <Select onValueChange={(value) => setStatus(value)}>
+                <SelectTrigger className="w-full capitalize">
+                  <SelectValue placeholder={status} />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem
+                    value="pending"
+                    className="text-yellow-800 bg-yellow-300 my-1 hover:bg-yellow-400 hover:text-yellow-900 hover:cursor-pointer"
+                  >
+                    Pending
+                  </SelectItem>
+                  <SelectItem
+                    value="approved"
+                    className="text-green-800 bg-green-300 my-1 hover:bg-green-400 hover:text-green-900 hover:cursor-pointer"
+                  >
+                    Approved
+                  </SelectItem>
+                  <SelectItem
+                    value="rejected"
+                    className="text-red-800 bg-red-300 my-1 hover:bg-red-400 hover:text-red-900 hover:cursor-pointer"
+                  >
+                    Rejected
+                  </SelectItem>
+                </SelectContent>
+              </Select>
+            </AlertDialogDescription>
+          </AlertDialogHeader>
+          <AlertDialogFooter>
+            <AlertDialogCancel>Cancel</AlertDialogCancel>
+            <AlertDialogAction
+              onClick={async () => updateStatus(id)}
+              className="bg-green-500 text-white hover:bg-green-600"
+            >
+              Continue
+            </AlertDialogAction>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
+    );
+  };
+
   const DeleteDialog: React.FC<{ id: string }> = ({ id }: { id: string }) => {
     const router = useRouter();
     const toast = useToast();
@@ -104,28 +187,48 @@ const MemberDetails = ({ member }: { member: MemberType }) => {
       <Card>
         <CardHeader>
           <CardTitle>
-            <div className="flex flex-row justify-end items-center py-3 gap-2">
-              <PaymentDialog
-                id={member.id || ""}
-                cnic={member.cnic || ""}
-                name={member.name || ""}
-              />
-              <Button
-                onClick={() => {
-                  router.push(`/dashboard/members/edit/${member.id}`);
-                }}
-                variant={"outline"}
-              >
-                <Pencil size={16} />
-              </Button>
-
-              <DeleteDialog id={member.id || ""} />
+            <div>
+              <h1 className="text-2xl font-bold">Member Details</h1>
             </div>
+            <div className="flex flex-row items-center justify-between">
+              <div>
+                <h2 className="text-lg font-semibold">
+                  Member CNIC: {member.cnic}
+                </h2>
+              </div>
+              <div className="flex flex-row justify-end items-center py-3 gap-2">
+                <PaymentDialog
+                  id={member.id || ""}
+                  disabled={
+                    member.memberStatus?.[0]?.status ===
+                    MemberStatusValues.REJECTED
+                  }
+                  cnic={member.cnic || ""}
+                  name={member.name || ""}
+                />
+                <Button
+                  onClick={() => {
+                    router.push(`/dashboard/members/edit/${member.id}`);
+                  }}
+                  variant={"outline"}
+                >
+                  <Pencil size={16} />
+                </Button>
+
+                <DeleteDialog id={member.id || ""} />
+              </div>
+            </div>
+
             <div className="flex flex-row justify-between py-3 items-center">
               Member: {member.name}
               {member.husbandName && <div>Husband: {member.husbandName}</div>}
               {member.fatherName && <div>Father: {member.fatherName}</div>}
-              {member.cnic && <div>CNIC: {member.cnic}</div>}
+              <div>
+                <StatusDialog
+                  id={member.id || ""}
+                  memberStatus={member?.memberStatus?.[0]?.status || "pending"}
+                />
+              </div>
             </div>
             {(member?.media[0]?.profilePic ||
               member?.media[0]?.cnicFront ||
@@ -180,7 +283,21 @@ const MemberDetails = ({ member }: { member: MemberType }) => {
                   <TableCell>{member.phone}</TableCell>
                   <TableCell>{member.city}</TableCell>
                   <TableCell>{member.address}</TableCell>
-                  <TableCell>
+                  <TableCell
+                    className={`font-bold text-base ${
+                      (
+                        member?.memberStatus?.[0]?.status ===
+                        MemberStatusValues.APPROVED
+                      ) ?
+                        "text-green-500"
+                      : (
+                        member?.memberStatus?.[0]?.status ===
+                        MemberStatusValues.REJECTED
+                      ) ?
+                        "text-red-500"
+                      : "text-yellow-500"
+                    }`}
+                  >
                     {member?.memberStatus?.[0]?.status || "Pending"}
                   </TableCell>
                   <TableCell>Rs. {member.totalPaymentsAmount || 0}/-</TableCell>

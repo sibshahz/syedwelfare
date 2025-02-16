@@ -9,6 +9,14 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+
 import { Input } from "@/components/ui/input";
 import { useForm } from "react-hook-form";
 import { BadgeMinus, Search } from "lucide-react";
@@ -21,6 +29,7 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
+import { MemberStatusValues } from "@repo/zod-utils";
 
 const MemberSearchForm = () => {
   const router = useRouter();
@@ -30,6 +39,13 @@ const MemberSearchForm = () => {
     name: z.string().optional(),
     cnic: z.string().optional(),
     phone: z.string().optional(),
+    status: z
+      .enum([
+        MemberStatusValues.APPROVED,
+        MemberStatusValues.PENDING,
+        MemberStatusValues.REJECTED,
+      ])
+      .optional(),
   });
   const form = useForm({
     resolver: zodResolver(formSchema),
@@ -37,6 +53,7 @@ const MemberSearchForm = () => {
       name: allParams.name || "",
       cnic: allParams.cnic || "",
       phone: allParams.phone || "",
+      status: allParams.status || "",
     },
   });
 
@@ -103,6 +120,48 @@ const MemberSearchForm = () => {
                     </FormItem>
                   )}
                 />
+                <FormField
+                  control={form.control}
+                  name="status"
+                  render={({ field }) => (
+                    <FormItem className="mx-2">
+                      <FormLabel>Status</FormLabel>
+                      <FormControl>
+                        <Select
+                          {...field}
+                          onValueChange={(value) => {
+                            form.setValue("status", value);
+                          }}
+                        >
+                          <SelectTrigger className="w-full capitalize">
+                            <SelectValue placeholder={"Select member status"} />
+                          </SelectTrigger>
+                          <SelectContent>
+                            <SelectItem
+                              value={MemberStatusValues.PENDING}
+                              // className="text-yellow-800 bg-yellow-300 my-1 hover:bg-yellow-400 hover:text-yellow-900 hover:cursor-pointer"
+                            >
+                              Pending
+                            </SelectItem>
+                            <SelectItem
+                              value={MemberStatusValues.APPROVED}
+                              // className="text-green-800 bg-green-300 my-1 hover:bg-green-400 hover:text-green-900 hover:cursor-pointer"
+                            >
+                              Approved
+                            </SelectItem>
+                            <SelectItem
+                              value={MemberStatusValues.REJECTED}
+                              // className="text-red-800 bg-red-300 my-1 hover:bg-red-400 hover:text-red-900 hover:cursor-pointer"
+                            >
+                              Rejected
+                            </SelectItem>
+                          </SelectContent>
+                        </Select>
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
                 <div className="flex gap-4 mx-2">
                   <Button type="submit">
                     <Search />
@@ -115,6 +174,7 @@ const MemberSearchForm = () => {
                       form.resetField("name");
                       form.resetField("cnic");
                       form.resetField("phone");
+                      form.resetField("status");
                       const newUrl = window.location.pathname;
                       router.replace(newUrl);
                       setTimeout(() => {

@@ -18,12 +18,13 @@ import { Input } from "@/components/ui/input";
 // import { createMember } from "@/lib/api/member";
 import { createMember } from "@/app/actions/members";
 import { useState } from "react";
+import { useToast } from "@/hooks/use-toast";
 
 export function MemberForm() {
   const [profilePicItem, setProfilePicItem] = useState("");
   const [cnicFrontItem, setCnicFrontItem] = useState("");
   const [cnicBackItem, setCnicBackItem] = useState("");
-
+  const toast = useToast();
   const form = useForm<Member>({
     resolver: zodResolver(MemberSchema),
 
@@ -73,8 +74,19 @@ export function MemberForm() {
     console.log("Form values: ", values);
 
     const result = await createMember(values);
-    console.log("RESULT: ", result);
-    form.reset(); // Reset the form after successful submission
+    if (!result.success) {
+      toast.toast({
+        variant: "destructive",
+        title: "Failed to create",
+        description: `Member cannot be created at the moment. ${result.data}`,
+      });
+    } else {
+      toast.toast({
+        title: "Created",
+        description: "Member has been successfully created.",
+      });
+      form.reset(); // Reset the form after successful submission
+    }
 
     // const formData = new FormData();
 
@@ -352,8 +364,10 @@ export function MemberForm() {
           )}
         </div>
         <Button
-          onClick={() => form.handleSubmit(onSubmit)()}
-          // type="submit"
+          onClick={(e) => {
+            e.preventDefault(); // Prevents default form submission
+            form.handleSubmit(onSubmit)();
+          }}
         >
           Submit
         </Button>{" "}

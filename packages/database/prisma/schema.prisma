@@ -19,7 +19,7 @@ enum Role {
   MEMBER
 }
 
-enum Status{
+enum Status {
   APPROVED
   PENDING
   REJECTED
@@ -101,6 +101,7 @@ model MemberStatus{
   id        String  @id @default(cuid())
   memberId  String
   status    Status @default(PENDING)
+  cnic      String?
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
   member    Member  @relation(fields: [memberId], references: [id], onDelete: NoAction)

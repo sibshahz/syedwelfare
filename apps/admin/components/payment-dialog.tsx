@@ -19,14 +19,21 @@ import {
   payMember,
 } from "@/app/actions/members";
 
-const PaymentDialog: React.FC<{ id: string; name: string; cnic: string }> = ({
+const PaymentDialog: React.FC<{
+  id: string;
+  name: string;
+  cnic: string;
+  disabled: boolean;
+}> = ({
   id,
   name,
   cnic,
+  disabled = false,
 }: {
   id: string;
   name: string;
   cnic: string;
+  disabled: boolean;
 }) => {
   const router = useRouter();
   const toast = useToast();
@@ -50,7 +57,10 @@ const PaymentDialog: React.FC<{ id: string; name: string; cnic: string }> = ({
 
   return (
     <AlertDialog>
-      <AlertDialogTrigger className="bg-green-400 hover:bg-green-500 text-white py-2 px-4 rounded-sm text-xs font-light">
+      <AlertDialogTrigger
+        disabled={disabled}
+        className={` ${disabled ? "bg-gray-400 hover:bg-gray-400" : "bg-green-400 hover:bg-green-500"} text-white py-2 px-4 rounded-sm text-xs font-light`}
+      >
         <Banknote size={16} />
       </AlertDialogTrigger>
       <AlertDialogContent>

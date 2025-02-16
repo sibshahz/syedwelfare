@@ -8,6 +8,8 @@ import {
   httpDeleteMember,
   httpPayMember,
   httpGetTotalMembers,
+  httpUpdateMemberStatus,
+  httpAddMissingStatus,
 } from "@/routes/members/members.controller";
 
 const membersRouter = express.Router();
@@ -19,6 +21,8 @@ membersRouter.get("/:memberid", httpGetMember); // This should come after /total
 membersRouter.post("/", httpPostMember);
 membersRouter.post("/:memberid/pay", httpPayMember);
 membersRouter.put("/:memberid", httpUpdateMember);
+membersRouter.put("/status/:memberid", httpUpdateMemberStatus);
+membersRouter.get("/add/missing-status", httpAddMissingStatus);
 membersRouter.delete("/:memberid", httpDeleteMember);
 
 export default membersRouter;

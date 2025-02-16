@@ -23,13 +23,19 @@ const ListMemberPage = async ({
   searchParams,
 }: {
   params: Promise<{ page: string }>;
-  searchParams: Promise<{ name?: string; cnic?: string; phone?: string }>;
+  searchParams: Promise<{
+    name?: string;
+    cnic?: string;
+    phone?: string;
+    status?: string;
+  }>;
 }) => {
   const page = (await params).page;
   // const totalMembers = await getTotalMembers();
   const name = (await searchParams).name;
   const cnic = (await searchParams).cnic;
   const phone = (await searchParams).phone;
+  const status = (await searchParams).status;
   const limit = 10;
 
   const { data } = (await getMembersPaginated(
@@ -37,13 +43,12 @@ const ListMemberPage = async ({
     limit,
     name || "",
     cnic || "",
-    phone || ""
+    phone || "",
+    status || ""
   )) as MemberResponse;
   return (
     <div className="flex flex-col gap-4">
-      <MemberSearchForm
-      
-      />
+      <MemberSearchForm />
       <h1>Members</h1>
       <MembersTable members={data.members} cnic={""} />
       <PaginationSelector

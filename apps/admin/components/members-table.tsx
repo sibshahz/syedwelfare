@@ -4,9 +4,9 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from "@/components/ui/table"
-import { Member } from "@repo/zod-utils"
-import React from 'react'
+} from "@/components/ui/table";
+import { Member } from "@repo/zod-utils";
+import React from "react";
 import MembersTableItem from "./members-table-item";
 
 export interface MembersTableProps extends Member {
@@ -23,19 +23,19 @@ const MembersTable: React.FC<MembersTableProps> = ({ members = [] }) => {
           <TableHead>Name</TableHead>
           <TableHead>Father name</TableHead>
           <TableHead>Phone</TableHead>
-          <TableHead>Address</TableHead>
-          <TableHead>City</TableHead>
+          <TableHead>Status</TableHead>
+          {/* <TableHead>Address</TableHead> */}
+          {/* <TableHead>City</TableHead> */}
           <TableHead>Actions</TableHead>
         </TableRow>
       </TableHeader>
       <TableBody>
         {members?.map((member, index) => (
-          <MembersTableItem key={index} member={member} />
+          <MembersTableItem key={index} member={member} cnic={""} />
         ))}
       </TableBody>
     </Table>
   );
 };
 
-
-export default MembersTable
+export default MembersTable;

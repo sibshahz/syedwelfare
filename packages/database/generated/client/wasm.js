@@ -175,6 +175,7 @@ exports.Prisma.MemberStatusScalarFieldEnum = {
   id: 'id',
   memberId: 'memberId',
   status: 'status',
+  cnic: 'cnic',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 };

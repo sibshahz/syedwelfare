@@ -7310,6 +7310,7 @@ export namespace Prisma {
     id: string | null
     memberId: string | null
     status: $Enums.Status | null
+    cnic: string | null
     createdAt: Date | null
     updatedAt: Date | null
   }
@@ -7318,6 +7319,7 @@ export namespace Prisma {
     id: string | null
     memberId: string | null
     status: $Enums.Status | null
+    cnic: string | null
     createdAt: Date | null
     updatedAt: Date | null
   }
@@ -7326,6 +7328,7 @@ export namespace Prisma {
     id: number
     memberId: number
     status: number
+    cnic: number
     createdAt: number
     updatedAt: number
     _all: number
@@ -7336,6 +7339,7 @@ export namespace Prisma {
     id?: true
     memberId?: true
     status?: true
+    cnic?: true
     createdAt?: true
     updatedAt?: true
   }
@@ -7344,6 +7348,7 @@ export namespace Prisma {
     id?: true
     memberId?: true
     status?: true
+    cnic?: true
     createdAt?: true
     updatedAt?: true
   }
@@ -7352,6 +7357,7 @@ export namespace Prisma {
     id?: true
     memberId?: true
     status?: true
+    cnic?: true
     createdAt?: true
     updatedAt?: true
     _all?: true
@@ -7433,6 +7439,7 @@ export namespace Prisma {
     id: string
     memberId: string
     status: $Enums.Status
+    cnic: string | null
     createdAt: Date
     updatedAt: Date
     _count: MemberStatusCountAggregateOutputType | null
@@ -7458,6 +7465,7 @@ export namespace Prisma {
     id?: boolean
     memberId?: boolean
     status?: boolean
+    cnic?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     member?: boolean | MemberDefaultArgs<ExtArgs>
@@ -7467,6 +7475,7 @@ export namespace Prisma {
     id?: boolean
     memberId?: boolean
     status?: boolean
+    cnic?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     member?: boolean | MemberDefaultArgs<ExtArgs>
@@ -7476,6 +7485,7 @@ export namespace Prisma {
     id?: boolean
     memberId?: boolean
     status?: boolean
+    cnic?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     member?: boolean | MemberDefaultArgs<ExtArgs>
@@ -7485,11 +7495,12 @@ export namespace Prisma {
     id?: boolean
     memberId?: boolean
     status?: boolean
+    cnic?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }
 
-  export type MemberStatusOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "memberId" | "status" | "createdAt" | "updatedAt", ExtArgs["result"]["memberStatus"]>
+  export type MemberStatusOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "memberId" | "status" | "cnic" | "createdAt" | "updatedAt", ExtArgs["result"]["memberStatus"]>
   export type MemberStatusInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     member?: boolean | MemberDefaultArgs<ExtArgs>
   }
@@ -7509,6 +7520,7 @@ export namespace Prisma {
       id: string
       memberId: string
       status: $Enums.Status
+      cnic: string | null
       createdAt: Date
       updatedAt: Date
     }, ExtArgs["result"]["memberStatus"]>
@@ -7938,6 +7950,7 @@ export namespace Prisma {
     readonly id: FieldRef<"MemberStatus", 'String'>
     readonly memberId: FieldRef<"MemberStatus", 'String'>
     readonly status: FieldRef<"MemberStatus", 'Status'>
+    readonly cnic: FieldRef<"MemberStatus", 'String'>
     readonly createdAt: FieldRef<"MemberStatus", 'DateTime'>
     readonly updatedAt: FieldRef<"MemberStatus", 'DateTime'>
   }
@@ -12597,6 +12610,7 @@ export namespace Prisma {
     id: 'id',
     memberId: 'memberId',
     status: 'status',
+    cnic: 'cnic',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt'
   };
@@ -13131,6 +13145,7 @@ export namespace Prisma {
     id?: StringFilter<"MemberStatus"> | string
     memberId?: StringFilter<"MemberStatus"> | string
     status?: EnumStatusFilter<"MemberStatus"> | $Enums.Status
+    cnic?: StringNullableFilter<"MemberStatus"> | string | null
     createdAt?: DateTimeFilter<"MemberStatus"> | Date | string
     updatedAt?: DateTimeFilter<"MemberStatus"> | Date | string
     member?: XOR<MemberScalarRelationFilter, MemberWhereInput>
@@ -13140,6 +13155,7 @@ export namespace Prisma {
     id?: SortOrder
     memberId?: SortOrder
     status?: SortOrder
+    cnic?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     member?: MemberOrderByWithRelationInput
@@ -13152,6 +13168,7 @@ export namespace Prisma {
     NOT?: MemberStatusWhereInput | MemberStatusWhereInput[]
     memberId?: StringFilter<"MemberStatus"> | string
     status?: EnumStatusFilter<"MemberStatus"> | $Enums.Status
+    cnic?: StringNullableFilter<"MemberStatus"> | string | null
     createdAt?: DateTimeFilter<"MemberStatus"> | Date | string
     updatedAt?: DateTimeFilter<"MemberStatus"> | Date | string
     member?: XOR<MemberScalarRelationFilter, MemberWhereInput>
@@ -13161,6 +13178,7 @@ export namespace Prisma {
     id?: SortOrder
     memberId?: SortOrder
     status?: SortOrder
+    cnic?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     _count?: MemberStatusCountOrderByAggregateInput
@@ -13175,6 +13193,7 @@ export namespace Prisma {
     id?: StringWithAggregatesFilter<"MemberStatus"> | string
     memberId?: StringWithAggregatesFilter<"MemberStatus"> | string
     status?: EnumStatusWithAggregatesFilter<"MemberStatus"> | $Enums.Status
+    cnic?: StringNullableWithAggregatesFilter<"MemberStatus"> | string | null
     createdAt?: DateTimeWithAggregatesFilter<"MemberStatus"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"MemberStatus"> | Date | string
   }
@@ -13798,6 +13817,7 @@ export namespace Prisma {
   export type MemberStatusCreateInput = {
     id?: string
     status?: $Enums.Status
+    cnic?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     member: MemberCreateNestedOneWithoutMemberStatusInput
@@ -13807,6 +13827,7 @@ export namespace Prisma {
     id?: string
     memberId: string
     status?: $Enums.Status
+    cnic?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -13814,6 +13835,7 @@ export namespace Prisma {
   export type MemberStatusUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     status?: EnumStatusFieldUpdateOperationsInput | $Enums.Status
+    cnic?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     member?: MemberUpdateOneRequiredWithoutMemberStatusNestedInput
@@ -13823,6 +13845,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     memberId?: StringFieldUpdateOperationsInput | string
     status?: EnumStatusFieldUpdateOperationsInput | $Enums.Status
+    cnic?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -13831,6 +13854,7 @@ export namespace Prisma {
     id?: string
     memberId: string
     status?: $Enums.Status
+    cnic?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -13838,6 +13862,7 @@ export namespace Prisma {
   export type MemberStatusUpdateManyMutationInput = {
     id?: StringFieldUpdateOperationsInput | string
     status?: EnumStatusFieldUpdateOperationsInput | $Enums.Status
+    cnic?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -13846,6 +13871,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     memberId?: StringFieldUpdateOperationsInput | string
     status?: EnumStatusFieldUpdateOperationsInput | $Enums.Status
+    cnic?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -14491,6 +14517,7 @@ export namespace Prisma {
     id?: SortOrder
     memberId?: SortOrder
     status?: SortOrder
+    cnic?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -14499,6 +14526,7 @@ export namespace Prisma {
     id?: SortOrder
     memberId?: SortOrder
     status?: SortOrder
+    cnic?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -14507,6 +14535,7 @@ export namespace Prisma {
     id?: SortOrder
     memberId?: SortOrder
     status?: SortOrder
+    cnic?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -15533,6 +15562,7 @@ export namespace Prisma {
   export type MemberStatusCreateWithoutMemberInput = {
     id?: string
     status?: $Enums.Status
+    cnic?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -15540,6 +15570,7 @@ export namespace Prisma {
   export type MemberStatusUncheckedCreateWithoutMemberInput = {
     id?: string
     status?: $Enums.Status
+    cnic?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -15631,6 +15662,7 @@ export namespace Prisma {
     id?: StringFilter<"MemberStatus"> | string
     memberId?: StringFilter<"MemberStatus"> | string
     status?: EnumStatusFilter<"MemberStatus"> | $Enums.Status
+    cnic?: StringNullableFilter<"MemberStatus"> | string | null
     createdAt?: DateTimeFilter<"MemberStatus"> | Date | string
     updatedAt?: DateTimeFilter<"MemberStatus"> | Date | string
   }
@@ -15960,6 +15992,7 @@ export namespace Prisma {
   export type MemberStatusCreateManyMemberInput = {
     id?: string
     status?: $Enums.Status
+    cnic?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -16009,6 +16042,7 @@ export namespace Prisma {
   export type MemberStatusUpdateWithoutMemberInput = {
     id?: StringFieldUpdateOperationsInput | string
     status?: EnumStatusFieldUpdateOperationsInput | $Enums.Status
+    cnic?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -16016,6 +16050,7 @@ export namespace Prisma {
   export type MemberStatusUncheckedUpdateWithoutMemberInput = {
     id?: StringFieldUpdateOperationsInput | string
     status?: EnumStatusFieldUpdateOperationsInput | $Enums.Status
+    cnic?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -16023,6 +16058,7 @@ export namespace Prisma {
   export type MemberStatusUncheckedUpdateManyWithoutMemberInput = {
     id?: StringFieldUpdateOperationsInput | string
     status?: EnumStatusFieldUpdateOperationsInput | $Enums.Status
+    cnic?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }

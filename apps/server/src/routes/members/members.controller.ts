@@ -1,7 +1,6 @@
 import type { Request, Response, NextFunction, RequestHandler } from "express";
-import { prisma } from "@repo/database";
+import { prisma, Status } from "@repo/database";
 import { MemberSchema, z } from "@repo/zod-utils";
-import { uploadCloudImage } from "@/services/cloudinary";
 
 export const httpGetMembersList = async (req: Request, res: Response) => {
   try {
@@ -15,26 +14,44 @@ export const httpGetMembersList = async (req: Request, res: Response) => {
 
 export const httpGetMembersPaginated = async (req: Request, res: Response) => {
   try {
-    const page = req.params.page;
-    const limit = req.params.limit;
-    const { name, cnic, phone } = req.query;
+    const page = Number(req.params.page) || 0;
+    const limit = Number(req.params.limit) || 10;
+    const { name, cnic, phone, status } = req.query;
+
     const where: any = {};
     if (name) where.name = { contains: name as string, mode: "insensitive" };
     if (cnic) where.cnic = { contains: cnic as string };
     if (phone) where.phone = { contains: phone as string };
 
+    // Filter by status if provided
+    if (status) {
+      where.memberStatus = {
+        some: {
+          status: status as Status, // Ensure it matches the Status enum
+        },
+      };
+    }
+
     const members = await prisma.member.findMany({
-      skip: Number(page) * Number(limit),
-      take: Number(limit),
+      skip: page * limit,
+      take: limit,
+      include: {
+        memberStatus: {
+          select: {
+            status: true,
+          },
+        },
+      },
       orderBy: {
         createdAt: "desc",
       },
       where,
     });
+
     const count = await prisma.member.count({ where });
+
     res.status(200).json({ members, count });
   } catch (error) {
-    // next(error);
     res.status(400).json({ error: "Failed to fetch members paginated." });
   }
 };
@@ -138,6 +155,12 @@ export const httpPostMember = async (req: Request, res: Response) => {
         },
       });
     }
+    const memberStatus = await prisma.memberStatus.create({
+      data: {
+        memberId: result.id,
+        cnic: req.body.data?.cnic,
+      },
+    });
     res.json({ message: result }); // This returns a Response but does not conflict with void if the function returns after
   } catch (error) {
     return res.status(400).json({ error: "Failed to create member." });
@@ -158,6 +181,23 @@ export const httpPayMember = async (req: Request, res: Response) => {
     return res.status(201).json({ message: result });
   } catch (error) {
     return res.status(400).json({ message: "Failed to pay member." });
+  }
+};
+export const httpUpdateMemberStatus = async (req: Request, res: Response) => {
+  const { memberid } = req.params;
+  const { status } = req.body;
+  try {
+    const result = await prisma.memberStatus.updateMany({
+      where: {
+        memberId: (memberid as string) || "",
+      },
+      data: {
+        status: status.toUpperCase(),
+      },
+    });
+    return res.status(201).json({ message: result });
+  } catch (error) {
+    return res.status(400).json({ message: "Failed to update member status." });
   }
 };
 export const httpUpdateMember = async (req: Request, res: Response) => {
@@ -222,5 +262,31 @@ export const httpDeleteMember = async (req: Request, res: Response) => {
   } catch (error) {
     return res.status(400).json({ message: "Failed to delete member." });
     // next(error);
+  }
+};
+
+export const httpAddMissingStatus = async (req: Request, res: Response) => {
+  try {
+    const members = await prisma.member.findMany();
+    members.forEach(async (member) => {
+      let memberStatusExists = await prisma.memberStatus.findFirst({
+        where: {
+          memberId: member.id,
+        },
+      });
+      if (!memberStatusExists) {
+        await prisma.memberStatus.create({
+          data: {
+            memberId: member.id,
+            status: "PENDING",
+          },
+        });
+      }
+    });
+    return res
+      .status(201)
+      .json({ message: "Added missing status to members." });
+  } catch (error) {
+    return res.status(400).json({ message: "Failed to add missing status." });
   }
 };

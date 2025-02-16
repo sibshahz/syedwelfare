@@ -55,6 +55,7 @@ export const MemberSchema = z.object({
   address: z.string().optional(), //done
   city: z.string().optional(),
   role: z.enum(["MEMBER"]).optional(),
+  memberStatus: z.array(z.object({ status: z.string() })).optional(),
 });
 
 export type Member = z.infer<typeof MemberSchema>;
@@ -123,3 +124,9 @@ export const DonorMediaSchema = z.object({
 });
 
 export type DonorMedia = z.infer<typeof DonorMediaSchema>;
+
+export enum MemberStatusValues {
+  PENDING = "PENDING",
+  APPROVED = "APPROVED",
+  REJECTED = "REJECTED",
+}

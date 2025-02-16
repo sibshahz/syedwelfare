@@ -58,7 +58,7 @@ const PaginationSelector: React.FC<PaginationProps> = ({
 
   return (
     <>
-      <h1>Total members are: {total}</h1>
+      <h1>Total records: {total}</h1>
       {total - 1 >= limit && (
         <Pagination>
           <PaginationContent>
