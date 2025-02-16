@@ -1,6 +1,6 @@
 import type { Request, Response, NextFunction, RequestHandler } from "express";
 import { prisma, Status } from "@repo/database";
-import { MemberSchema, z } from "@repo/zod-utils";
+import { MemberSchema, MemberStatusValues, z } from "@repo/zod-utils";
 
 export const httpGetMembersList = async (req: Request, res: Response) => {
   try {
@@ -172,6 +172,22 @@ export const httpPayMember = async (req: Request, res: Response) => {
   const { memberid } = req.params;
   const { amount } = req.body;
   try {
+    const memberExists = await prisma.member.findFirst({
+      where: {
+        id: memberid as string,
+      },
+    });
+    if (!memberExists) {
+      return res.status(404).json({ message: "Member not found." });
+    }
+    const memberStatusExists = await prisma.memberStatus.findFirst({
+      where: {
+        memberId: memberid as string,
+      },
+    });
+    if (memberStatusExists?.status === MemberStatusValues.REJECTED) {
+      return res.status(400).json({ message: "Member is rejected." });
+    }
     const result = await prisma.memberPayments.create({
       data: {
         amount: amount,
