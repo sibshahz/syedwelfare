@@ -1,7 +1,7 @@
 "use client";
 import React from "react";
 import { TableCell, TableRow } from "./ui/table";
-import { Banknote, Pencil, Trash2 } from "lucide-react";
+import { Banknote, EyeIcon } from "lucide-react";
 import { Button } from "./ui/button";
 import { Donor } from "@repo/zod-utils";
 import {
@@ -15,7 +15,7 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
-import { deleteDonor, payDonor } from "@/app/actions/donors";
+import { payDonor } from "@/app/actions/donors";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
@@ -88,52 +88,52 @@ const DonationDialog: React.FC<{ id: string; name: string; cnic: string }> = ({
   );
 };
 
-const DeleteDialog: React.FC<{ id: string }> = ({ id }: { id: string }) => {
-  const router = useRouter();
-  const toast = useToast();
-  const deleteItem = async (id: string) => {
-    const result = await deleteDonor(id);
-    if ((result as { error?: boolean }).error) {
-      toast.toast({
-        variant: "destructive",
-        title: "Failed to delete",
-        description: "Donor cannot be deleted at the moment.",
-      });
-    } else {
-      toast.toast({
-        variant: "destructive",
-        title: "Deleted",
-        description: "Donor has been successfully deleted.",
-      });
-    }
-    router.refresh();
-  };
-  return (
-    <AlertDialog>
-      <AlertDialogTrigger className="bg-red-400 hover:bg-red-500 text-white py-2 px-4 rounded-sm text-xs font-light">
-        <Trash2 size={16} />
-      </AlertDialogTrigger>
-      <AlertDialogContent>
-        <AlertDialogHeader>
-          <AlertDialogTitle>Are you sure?</AlertDialogTitle>
-          <AlertDialogDescription>
-            This action cannot be undone. This will permanently delete donor
-            data.
-          </AlertDialogDescription>
-        </AlertDialogHeader>
-        <AlertDialogFooter>
-          <AlertDialogCancel>Cancel</AlertDialogCancel>
-          <AlertDialogAction
-            onClick={async () => deleteItem(id)}
-            className="bg-red-500 text-white hover:bg-red-600"
-          >
-            Continue
-          </AlertDialogAction>
-        </AlertDialogFooter>
-      </AlertDialogContent>
-    </AlertDialog>
-  );
-};
+// const DeleteDialog: React.FC<{ id: string }> = ({ id }: { id: string }) => {
+//   const router = useRouter();
+//   const toast = useToast();
+//   const deleteItem = async (id: string) => {
+//     const result = await deleteDonor(id);
+//     if ((result as { error?: boolean }).error) {
+//       toast.toast({
+//         variant: "destructive",
+//         title: "Failed to delete",
+//         description: "Donor cannot be deleted at the moment.",
+//       });
+//     } else {
+//       toast.toast({
+//         variant: "destructive",
+//         title: "Deleted",
+//         description: "Donor has been successfully deleted.",
+//       });
+//     }
+//     router.refresh();
+//   };
+//   return (
+//     <AlertDialog>
+//       <AlertDialogTrigger className="bg-red-400 hover:bg-red-500 text-white py-2 px-4 rounded-sm text-xs font-light">
+//         <Trash2 size={16} />
+//       </AlertDialogTrigger>
+//       <AlertDialogContent>
+//         <AlertDialogHeader>
+//           <AlertDialogTitle>Are you sure?</AlertDialogTitle>
+//           <AlertDialogDescription>
+//             This action cannot be undone. This will permanently delete donor
+//             data.
+//           </AlertDialogDescription>
+//         </AlertDialogHeader>
+//         <AlertDialogFooter>
+//           <AlertDialogCancel>Cancel</AlertDialogCancel>
+//           <AlertDialogAction
+//             onClick={async () => deleteItem(id)}
+//             className="bg-red-500 text-white hover:bg-red-600"
+//           >
+//             Continue
+//           </AlertDialogAction>
+//         </AlertDialogFooter>
+//       </AlertDialogContent>
+//     </AlertDialog>
+//   );
+// };
 
 interface DonorsTableItemProps {
   donor: Donor;
@@ -169,15 +169,15 @@ const DonorsTableItem: React.FC<DonorsTableItemProps> = ({ donor }) => {
             name={name as string}
             cnic={cnic as string}
           />
-          <Link href={`/dashboard/donors/edit/${id}`}>
-            <Button variant={"outline"}>
-              <Pencil size={16} />
+          <Link title="View details" href={`/dashboard/donors/details/${id}/1`}>
+            <Button variant={"secondary"}>
+              <EyeIcon size={16} />
             </Button>
           </Link>
           {/* <Button variant={"destructive"}
           onClick={() => setShow(true)}
           ><Trash2 /></Button> */}
-          <DeleteDialog id={id as string} />
+          {/* <DeleteDialog id={id as string} /> */}
         </TableCell>
       </TableRow>
     </>

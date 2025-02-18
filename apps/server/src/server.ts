@@ -31,7 +31,6 @@ export const createServer = (): Express => {
     )
     .use("/v1", api)
     .use((error: any, req: Request, res: Response, next: NextFunction) => {
-      console.error("***Error", error);
       res.status(500).send({ error: error.message });
     })
     .get("/message/:name", (req: Request, res: Response) => {

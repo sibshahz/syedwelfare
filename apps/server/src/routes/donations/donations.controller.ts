@@ -178,7 +178,6 @@ export const httpUpdateDonation = async (req: Request, res: Response) => {
 
 export const httpDeleteDonation = async (req: Request, res: Response) => {
   const { donationid } = req.params;
-  console.log("***", donationid);
   try {
     const result = await prisma.donation.delete({
       where: {

@@ -129,7 +129,7 @@ export const httpUpdateDonor = async (req: Request, res: Response) => {
   const id = req.params.donorid;
   const { cnic, fatherName, name, phone, address, city, email } = req.body;
   try {
-    const updatedData = await prisma.member.update({
+    const updatedData = await prisma.donor.update({
       where: {
         id: id,
       },
@@ -157,11 +157,18 @@ export const httpDeleteDonor = async (req: Request, res: Response) => {
         id: donorid,
       },
     });
-    const media = await prisma.memberMedia.delete({
+    const mediaExists = await prisma.donorMedia.findFirst({
       where: {
-        id: donorid,
+        donorId: donorid,
       },
     });
+    if (mediaExists) {
+      const media = await prisma.donorMedia.delete({
+        where: {
+          id: donorid,
+        },
+      });
+    }
     return res.status(201).json({ message: "Donor deleted." });
   } catch (error) {
     return res.status(400).json({ message: "Failed to delete donor." });
