@@ -127,7 +127,7 @@ export const httpPostMember = async (req: Request, res: Response) => {
   }
 
   const data = {
-    cnic: req.body.data?.cnic || "N/A",
+    cnic: userCnic || "N/A",
     name: req.body.data?.name || "Unknown",
     // profilePic: profilePicURL.url || "",
     // cnicFront: cnicFrontURL.url || "",

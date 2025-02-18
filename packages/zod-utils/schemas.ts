@@ -41,7 +41,8 @@ export const MemberSchema = z.object({
   id: z.string().optional(),
   cnic: z //done
     .string()
-    .min(13, { message: "CNIC should contain minimum 13 digits." }),
+    .min(13, { message: "CNIC should contain minimum 13 digits." })
+    .max(13, { message: "CNIC should contain maximum 13 digits." }),
   name: z.string().optional(), //done
   profilePic: z.string().optional(),
   cnicFront: z.string().optional(),

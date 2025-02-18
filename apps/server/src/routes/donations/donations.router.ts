@@ -2,25 +2,30 @@ import express from "express";
 import {
   httpGetDonationsList,
   httpGetTotalDonationsAmount,
-  // httpGetDonorsPaginated,
-  // httpGetDonor,
-  // httpPostDonor,
-  // httpUpdateDonor,
-  // httpDeleteDonor,
-  // httpPayDonor,
-  // httpGetTotalDonors,
+  httpGetTotalDonations,
+  httpGetDonationsById,
+  httpGetTotalDonorDonations,
+  httpGetDonationsPaginated,
+  httpGetDonorDonationsPaginated,
+  httpUpdateDonation,
+  httpDeleteDonation,
 } from "@/routes/donations/donations.controller";
 
 const donationsRouter = express.Router();
 
 donationsRouter.get("/", httpGetDonationsList);
+donationsRouter.get("/:donorid", httpGetDonationsById);
+donationsRouter.get("/stats/total-donations-count", httpGetTotalDonations);
+donationsRouter.get(
+  "/stats/total-donor-payments/:donorid",
+  httpGetTotalDonorDonations
+);
 donationsRouter.get("/stats/total-amount", httpGetTotalDonationsAmount);
-// donorsRouter.get("/:page/:limit", httpGetDonorsPaginated);
-// donorsRouter.get("/total-donors", httpGetTotalDonors); // Make sure this comes before the :memberid route
-// donorsRouter.get("/:donorid", httpGetDonor); // This should come after /total-donors route
-// donorsRouter.post("/", httpPostDonor);
-// donorsRouter.post("/:donorid/pay", httpPayDonor);
-// donorsRouter.put("/:donorid", httpUpdateDonor);
-// donorsRouter.delete("/:donorid", httpDeleteDonor);
-
+donationsRouter.get("/paginated/:page/:limit", httpGetDonationsPaginated);
+donationsRouter.get(
+  "/paginated/donor/:donorid/:page/:limit",
+  httpGetDonorDonationsPaginated
+);
+donationsRouter.put("/:donationid", httpUpdateDonation);
+donationsRouter.delete("/:donationid", httpDeleteDonation);
 export default donationsRouter;

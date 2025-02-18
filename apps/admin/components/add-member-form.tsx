@@ -14,6 +14,8 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
+import { Label } from "@/components/ui/label";
+import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Input } from "@/components/ui/input";
 // import { createMember } from "@/lib/api/member";
 import { createMember } from "@/app/actions/members";
@@ -24,6 +26,7 @@ export function MemberForm() {
   const [profilePicItem, setProfilePicItem] = useState("");
   const [cnicFrontItem, setCnicFrontItem] = useState("");
   const [cnicBackItem, setCnicBackItem] = useState("");
+  const [selectedOption, setSelectedOption] = useState("father");
   const toast = useToast();
   const form = useForm<Member>({
     resolver: zodResolver(MemberSchema),
@@ -37,7 +40,7 @@ export function MemberForm() {
       profilePic: "",
       fatherName: "",
       husbandName: "",
-      amount: 0,
+      // amount: 0,
       address: "",
       city: "",
       role: "MEMBER",
@@ -87,51 +90,11 @@ export function MemberForm() {
       });
       form.reset(); // Reset the form after successful submission
     }
-
-    // const formData = new FormData();
-
-    // // Loop through the keys in the `values` object
-    // for (const [key, value] of Object.entries(values)) {
-    //   if (value && typeof value === 'object' && 'length' in value && value.length > 0) {
-    //     // Append the first file from FileList
-    //     formData.append(key, value[0]);
-    //   } else if (value && typeof value === 'object' && value instanceof File) {
-    //     // Append the File instance
-    //     formData.append(key, value);
-    //   } else if (value) {
-    //     // Append plain fields
-    //     formData.append(key, value as string);
-    //   }
-    // }
-
-    // console.log("Form data:", formData.getAll("name")); // Debugging form data
-
-    // Submit the formData
-    // fetch("/api/members", {
-    //   method: "POST",
-    //   body: formData,
-    // })
-    //   .then((res) => {
-    //     if (!res.ok) {
-    //       throw new Error("Failed to submit form");
-    //     }
-    //     return res.json();
-    //   })
-    //   .then((data) => {
-    //     console.log("Success:", data);
-    //     form.reset(); // Reset the form after successful submission
-    //   })
-    //   .catch((error) => {
-    //     console.error("Error:", error);
-    //   });
   }
 
   return (
     <Form {...form}>
-      <form
-        // onSubmit={form.handleSubmit(onSubmit)} // Attach the handler here
-        className="space-y-8"
-      >
+      <form className="space-y-8">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
           <FormField
             control={form.control}
@@ -149,42 +112,66 @@ export function MemberForm() {
               </FormItem>
             )}
           />
-
-          <FormField
-            control={form.control}
-            name={"fatherName"}
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Father name</FormLabel>
-                <FormControl>
-                  <Input placeholder="Enter father name here" {...field} />
-                </FormControl>
-                {/* <FormDescription>
+          <div>
+            <RadioGroup
+              onValueChange={(value) => {
+                if (value === "father") {
+                  setSelectedOption("father");
+                } else {
+                  setSelectedOption("husband");
+                }
+              }}
+              defaultValue="father"
+              className="flex flex-row gap-2 items-start mb-4"
+            >
+              <div className="flex items-center space-x-2">
+                <RadioGroupItem value="father" id="father-option" />
+                <Label htmlFor="father-option">Father Name</Label>
+              </div>
+              <div className="flex items-center space-x-2">
+                <RadioGroupItem value="husband" id="husband-option" />
+                <Label htmlFor="husband-option">Husband Name</Label>
+              </div>
+            </RadioGroup>
+            {selectedOption === "father" ?
+              <FormField
+                control={form.control}
+                name={"fatherName"}
+                render={({ field }) => (
+                  <FormItem>
+                    {/* <FormLabel>Father name</FormLabel> */}
+                    <FormControl>
+                      <Input placeholder="Enter father name here" {...field} />
+                    </FormControl>
+                    {/* <FormDescription>
                 This is your public display name.
               </FormDescription> */}
-                <FormMessage />
-              </FormItem>
-            )}
-          />
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+            : null}
 
-          <FormField
-            control={form.control}
-            name={"husbandName"}
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Husband name (optional)</FormLabel>
-                <FormControl>
-                  <Input placeholder="Enter husband name here" {...field} />
-                </FormControl>
-                {/* <FormDescription>
+            {selectedOption === "husband" ?
+              <FormField
+                control={form.control}
+                name={"husbandName"}
+                render={({ field }) => (
+                  <FormItem>
+                    {/* <FormLabel>Husband name</FormLabel> */}
+                    <FormControl>
+                      <Input placeholder="Enter husband name here" {...field} />
+                    </FormControl>
+                    {/* <FormDescription>
                 This is your public display name.
               </FormDescription> */}
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-        </div>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+            : null}
+          </div>
+
           <FormField
             control={form.control}
             name="cnic"
@@ -202,7 +189,8 @@ export function MemberForm() {
               </FormItem>
             )}
           />
-
+        </div>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
           <FormField
             control={form.control}
             name="phone"
@@ -220,7 +208,7 @@ export function MemberForm() {
               </FormItem>
             )}
           />
-          <FormField
+          {/* <FormField
             control={form.control}
             name="amount"
             render={({ field }) => (
@@ -239,7 +227,7 @@ export function MemberForm() {
                 <FormMessage />
               </FormItem>
             )}
-          />
+          /> */}
 
           <FormField
             control={form.control}

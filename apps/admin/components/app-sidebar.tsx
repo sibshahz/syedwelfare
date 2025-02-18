@@ -71,7 +71,7 @@ const data = {
         },
         {
           title: "Donations",
-          url: "/dashboard/donors/donations",
+          url: "/dashboard/donors/donations/1",
           icon: <ArrowDownToDot />,
         },
       ],

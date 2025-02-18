@@ -18,7 +18,6 @@ const Page = async ({ params }: { params: Promise<{ page: string }> }) => {
     limit
   );
   const totalPayments = await getTotalPayments();
-  console.log(JSON.stringify(totalPayments.data));
   return (
     <div className="flex flex-col gap-4">
       <h1 className="text-pretty">Payments to beneficiaries</h1>

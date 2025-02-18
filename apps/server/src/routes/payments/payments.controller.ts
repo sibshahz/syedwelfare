@@ -59,7 +59,7 @@ export const httpDeletePayment = async (req: Request, res: Response) => {
     });
     res.status(201).json({ message: "Payment deleted." });
   } catch (error) {
-    res.status(400).json({ message: "Failed to delete member." });
+    res.status(400).json({ message: "Failed to delete payment." });
     // next(error);
   }
 };
