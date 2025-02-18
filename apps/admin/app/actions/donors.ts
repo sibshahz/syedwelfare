@@ -12,12 +12,19 @@ export const getAllDonor = async () => {
   }
 };
 
-export const getDonorsPaginated = async (page: number, limit: number) => {
+export const getDonorsPaginated = async (
+  page: number,
+  limit: number,
+  name: string,
+  cnic: string,
+  phone: string
+) => {
   try {
     const response = await axios_default.get(
-      `donors/paginated/${page - 1}/${limit}`
+      `donors/paginated/${page - 1}/${limit}/?name=${name}&cnic=${cnic}&phone=${phone}`
     );
-    return { success: true, data: response.data.message };
+    console.log("response", response);
+    return { success: true, data: response.data };
   } catch (error) {
     console.error("Failed to fetch resources:", error);
     return {

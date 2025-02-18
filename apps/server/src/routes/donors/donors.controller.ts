@@ -15,14 +15,23 @@ export const httpGetDonorsList = async (req: Request, res: Response) => {
 export const httpGetDonorsPaginated = async (req: Request, res: Response) => {
   try {
     const { page, limit } = req.params;
+    const { name, cnic, phone } = req.query;
+
+    const where: any = {};
+    if (name) where.name = { contains: name as string, mode: "insensitive" };
+    if (cnic) where.cnic = { contains: cnic as string };
+    if (phone) where.phone = { contains: phone as string };
     const donors = await prisma.donor.findMany({
       skip: Number(page) * Number(limit),
       take: Number(limit),
       orderBy: {
         createdAt: "desc",
       },
+      where,
     });
-    return res.json({ message: donors });
+    const count = await prisma.donor.count({ where });
+
+    res.status(200).json({ donors, count });
   } catch (error) {
     return res.json({ error: "Failed to fetch donors paginated." });
   }
