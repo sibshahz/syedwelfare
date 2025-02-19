@@ -2,6 +2,7 @@ import type { Request, Response, NextFunction, RequestHandler } from "express";
 import { prisma } from "@repo/database";
 import { DonorSchema, z } from "@repo/zod-utils";
 import { uploadCloudImage } from "@/services/cloudinary";
+import { escapeString } from "@/utils/utils";
 
 export const httpGetDonorsList = async (req: Request, res: Response) => {
   try {
@@ -41,6 +42,9 @@ export const httpGetDonor = async (req: Request, res: Response) => {
   try {
     const { donorid } = req.params;
     const donor = await prisma.donor.findUnique({
+      include: {
+        media: true,
+      },
       where: {
         id: donorid,
       },
@@ -48,7 +52,24 @@ export const httpGetDonor = async (req: Request, res: Response) => {
     if (!donor) {
       return res.status(404).json({ error: "Donor not found by id." });
     }
-    return res.status(200).json({ message: donor });
+
+    const totalDonationsAmount = await prisma.donation.aggregate({
+      _sum: {
+        amount: true,
+      },
+      where: {
+        donorId: donorid,
+      },
+    });
+
+    const formattedDonor = {
+      ...donor,
+      profilePic: donor.media[0]?.profilePic || "",
+      cnicFront: donor.media[0]?.cnicFront || "",
+      cnicBack: donor.media[0]?.cnicBack || "",
+      totalDonationsAmount: totalDonationsAmount._sum.amount || 0,
+    };
+    return res.status(200).json({ message: formattedDonor });
   } catch (error) {
     return res.status(400).json({ error: "Failed to fetch member." });
   }
@@ -66,14 +87,19 @@ export const httpGetTotalDonors = async (req: Request, res: Response) => {
 export const httpPostDonor = async (req: Request, res: Response) => {
   const resultSchema = DonorSchema.safeParse(req.body.data);
   if (!resultSchema.success) {
-    return res.status(400).json({
+    res.status(400).json({
       error: resultSchema.error.errors, // Adjusted for better error detail
     });
+
     // return; // Ensure the function returns void here
+    return res.status(400).json({ error: "Failed to create donor." });
   }
+  const donorCnic = escapeString(req.body.data?.cnic);
+  //donor already exists with this cnic
+
   const donorExists = await prisma.donor.findUnique({
     where: {
-      cnic: req.body.data?.cnic,
+      cnic: donorCnic,
     },
   });
   if (donorExists) {
@@ -82,7 +108,7 @@ export const httpPostDonor = async (req: Request, res: Response) => {
       .json({ error: "Donor with this cnic already exists." });
   }
   const data = {
-    cnic: req.body.data?.cnic || "N/A",
+    cnic: donorCnic || "N/A",
     name: req.body.data?.name || "Unknown",
     // profilePic: profilePicURL.url || "",
     // cnicFront: cnicFrontURL.url || "",
@@ -91,7 +117,7 @@ export const httpPostDonor = async (req: Request, res: Response) => {
     phone: req.body.data?.phone || "Unknown",
     address: req.body.data?.address || "",
     city: req.body.data?.city || "",
-    role: req.body.data?.role || "MEMBER",
+    role: req.body.data?.role || "DONOR",
   };
   try {
     const result = await prisma.donor.create({ data });
@@ -136,19 +162,53 @@ export const httpPayDonor = async (req: Request, res: Response) => {
 };
 export const httpUpdateDonor = async (req: Request, res: Response) => {
   const id = req.params.donorid;
-  const { cnic, fatherName, name, phone, address, city, email } = req.body;
+  const {
+    cnic,
+    fatherName,
+    name,
+    phone,
+    address,
+    city,
+    email,
+    cnicFront,
+    cnicBack,
+    profilePic,
+  } = req.body;
   try {
+    const checkCnicDonor = await prisma.donor.findFirst({
+      where: {
+        cnic: escapeString(cnic),
+        id: {
+          not: id,
+        },
+      },
+    });
+    if (checkCnicDonor) {
+      return res
+        .status(400)
+        .json({ error: "Donor already exists with this CNIC." });
+    }
     const updatedData = await prisma.donor.update({
       where: {
         id: id,
       },
       data: {
-        cnic: cnic || "",
+        cnic: escapeString(cnic) || "",
         fatherName: fatherName || "",
         name: name || "",
         phone: phone || "",
         address: address || "",
         city: city || "",
+      },
+    });
+    await prisma.donorMedia.update({
+      where: {
+        id: id,
+      },
+      data: {
+        cnicFront: cnicFront || "",
+        cnicBack: cnicBack || "",
+        profilePic: profilePic || "",
       },
     });
     return res.status(202).json({ message: updatedData });

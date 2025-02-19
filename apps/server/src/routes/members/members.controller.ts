@@ -6,9 +6,9 @@ import { escapeString } from "@/utils/utils";
 export const httpGetMembersList = async (req: Request, res: Response) => {
   try {
     const members = await prisma.member.findMany();
-    return res.json({ message: members });
+    res.status(200).json({ message: members });
   } catch (error) {
-    return res.status(400).json({ error: "Failed to fetch members." });
+    res.status(400).json({ error: "Failed to fetch members." });
     // next(error);
   }
 };
@@ -71,7 +71,8 @@ export const httpGetMember = async (req: Request, res: Response) => {
     });
 
     if (!member) {
-      return res.status(404).json({ error: "Member not found by id." });
+      res.status(404).json({ error: "Member not found by id." });
+      return;
     }
     const totalPaymentsAmount = await prisma.memberPayments.aggregate({
       _sum: {
@@ -88,29 +89,27 @@ export const httpGetMember = async (req: Request, res: Response) => {
       cnicBack: member.media[0]?.cnicBack,
       totalPaymentsAmount: totalPaymentsAmount._sum.amount || 0,
     };
-    return res.status(200).json({ message: formattedMember });
+    res.status(200).json({ message: formattedMember });
   } catch (error) {
-    return res.status(400).json({ error: "Failed to fetch member." });
+    res.status(400).json({ error: "Failed to fetch member." });
   }
 };
 
 export const httpGetTotalMembers = async (req: Request, res: Response) => {
   try {
     const members = await prisma.member.count();
-    return res.status(200).json({ message: members });
+    res.status(200).json({ message: members });
   } catch (error: any) {
-    return res.status(400).json({ error: error.message });
+    res.status(400).json({ error: error.message });
   }
 };
 
 export const httpPostMember = async (req: Request, res: Response) => {
   const resultSchema = MemberSchema.safeParse(req.body.data);
   if (!resultSchema.success) {
-    res.status(400).json({
-      error: resultSchema.error.errors, // Adjusted for better error detail
-    });
     // return; // Ensure the function returns void here
-    return res.status(400).json({ error: "Failed to create member." });
+    res.status(400).json({ error: "Failed to create member." });
+    return;
   }
   const userCnic = escapeString(req.body.data?.cnic);
 
@@ -121,9 +120,8 @@ export const httpPostMember = async (req: Request, res: Response) => {
     },
   });
   if (memberExists) {
-    return res
-      .status(400)
-      .json({ error: "Member already exists with this CNIC." });
+    res.status(400).json({ error: "Member already exists with this CNIC." });
+    return;
   }
 
   const data = {
@@ -166,7 +164,7 @@ export const httpPostMember = async (req: Request, res: Response) => {
     });
     res.json({ message: result }); // This returns a Response but does not conflict with void if the function returns after
   } catch (error) {
-    return res.status(400).json({ error: "Failed to create member." });
+    res.status(400).json({ error: "Failed to create member." });
     // next(error); // Properly pass the error to the next middleware
   }
 };
@@ -181,7 +179,8 @@ export const httpPayMember = async (req: Request, res: Response) => {
       },
     });
     if (!memberExists) {
-      return res.status(404).json({ message: "Member not found." });
+      res.status(404).json({ message: "Member not found." });
+      return;
     }
     const memberStatusExists = await prisma.memberStatus.findFirst({
       where: {
@@ -192,9 +191,8 @@ export const httpPayMember = async (req: Request, res: Response) => {
       memberStatusExists &&
       memberStatusExists.status !== MemberStatusValues.APPROVED
     ) {
-      return res
-        .status(400)
-        .json({ message: "Member payment is not allowed." });
+      res.status(400).json({ message: "Member payment is not allowed." });
+      return;
     }
     const result = await prisma.memberPayments.create({
       data: {
@@ -202,9 +200,9 @@ export const httpPayMember = async (req: Request, res: Response) => {
         memberId: memberid as string,
       },
     });
-    return res.status(201).json({ message: result });
+    res.status(201).json({ message: result });
   } catch (error) {
-    return res.status(400).json({ message: "Failed to pay member." });
+    res.status(400).json({ message: "Failed to pay member." });
   }
 };
 export const httpUpdateMemberStatus = async (req: Request, res: Response) => {
@@ -219,9 +217,9 @@ export const httpUpdateMemberStatus = async (req: Request, res: Response) => {
         status: status.toUpperCase(),
       },
     });
-    return res.status(201).json({ message: result });
+    res.status(201).json({ message: result });
   } catch (error) {
-    return res.status(400).json({ message: "Failed to update member status." });
+    res.status(400).json({ message: "Failed to update member status." });
   }
 };
 export const httpUpdateMember = async (req: Request, res: Response) => {
@@ -249,9 +247,8 @@ export const httpUpdateMember = async (req: Request, res: Response) => {
       },
     });
     if (checkCnicMember) {
-      return res
-        .status(400)
-        .json({ error: "Member already exists with this CNIC." });
+      res.status(400).json({ error: "Member already exists with this CNIC." });
+      return;
     }
     const updatedData = await prisma.member.update({
       where: {
@@ -277,9 +274,9 @@ export const httpUpdateMember = async (req: Request, res: Response) => {
         profilePic: profilePic || "",
       },
     });
-    return res.status(202).json({ message: updatedData });
+    res.status(202).json({ message: updatedData });
   } catch (error) {
-    return res.status(400).json({ error: "Failed to update member." });
+    res.status(400).json({ error: "Failed to update member." });
   }
 };
 
@@ -298,10 +295,10 @@ export const httpDeleteMember = async (req: Request, res: Response) => {
     //   },
     // });
     if (result) {
-      return res.status(201).json({ message: "Member deleted." });
+      res.status(201).json({ message: "Member deleted." });
     }
   } catch (error: any) {
-    return res.status(400).json({ error: "Failed to delete member." });
+    res.status(400).json({ error: "Failed to delete member." });
     // next(error);
   }
 };
@@ -324,11 +321,9 @@ export const httpAddMissingStatus = async (req: Request, res: Response) => {
         });
       }
     });
-    return res
-      .status(201)
-      .json({ message: "Added missing status to members." });
+    res.status(201).json({ message: "Added missing status to members." });
   } catch (error) {
-    return res.status(400).json({ message: "Failed to add missing status." });
+    res.status(400).json({ message: "Failed to add missing status." });
   }
 };
 
@@ -356,13 +351,13 @@ export const httpGetMemberStats = async (req: Request, res: Response) => {
     //   },
     // });
     // const totalPaymentsAmount = totalPayments._sum.amount || 0;
-    return res.status(200).json({
+    res.status(200).json({
       totalMembers,
       totalPendingMembers,
       totalApprovedMembers,
       totalRejectedMembers,
     });
   } catch (error) {
-    return res.status(400).json({ message: "Failed to get member stats." });
+    res.status(400).json({ message: "Failed to get member stats." });
   }
 };

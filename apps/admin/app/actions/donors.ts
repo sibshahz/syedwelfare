@@ -73,10 +73,16 @@ export const createDonor = async (data: Donor) => {
 export const updateDonor = async (id: string, data: Donor) => {
   try {
     const response = await axios_default.put(`donors/${id}`, data);
-    return response.data;
-  } catch (error) {
+    return {
+      success: true,
+      data: response.data.message,
+    };
+  } catch (error: any) {
     console.error("Failed to fetch resources:", error);
-    return error;
+    return {
+      success: false,
+      data: error.response.data.error,
+    };
   }
 };
 

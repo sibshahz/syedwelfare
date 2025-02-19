@@ -26,19 +26,19 @@ import {
 } from "@/components/ui/alert-dialog";
 import { useToast } from "@/hooks/use-toast";
 import { Pencil, Trash2 } from "lucide-react";
-
+import Image from "next/image";
 import DonationDialog from "./donation-dialog";
 import { deleteDonor } from "@/app/actions/donors";
 
-// type Media = {
-//   profilePic: string;
-//   cnicFront: string;
-//   cnicBack: string;
-// };
+type Media = {
+  profilePic: string;
+  cnicFront: string;
+  cnicBack: string;
+};
 
 interface DonorType extends Donor {
-  // media: Media[];
-  totalDonationAmount?: number;
+  media: Media[];
+  totalDonationsAmount?: number;
   // memberStatus?: MemberStatus[];
 }
 const DonorDetails = ({ donor }: { donor: DonorType }) => {
@@ -213,7 +213,7 @@ const DonorDetails = ({ donor }: { donor: DonorType }) => {
                 /> */}
               </div>
             </div>
-            {/* {(donor?.media[0]?.profilePic ||
+            {(donor?.media[0]?.profilePic ||
               donor?.media[0]?.cnicFront ||
               donor?.media[0]?.cnicBack) && (
               <Card className="py-3 mb-4">
@@ -247,7 +247,7 @@ const DonorDetails = ({ donor }: { donor: DonorType }) => {
                   )}
                 </CardContent>
               </Card>
-            )} */}
+            )}
           </CardTitle>
           <Separator />
           <CardContent className="py-3">
@@ -257,7 +257,6 @@ const DonorDetails = ({ donor }: { donor: DonorType }) => {
                   <TableHead>Phone</TableHead>
                   <TableHead>City</TableHead>
                   <TableHead>Address</TableHead>
-                  <TableHead>Status</TableHead>
                   <TableHead>Total Payments</TableHead>
                 </TableRow>
               </TableHeader>
@@ -283,7 +282,7 @@ const DonorDetails = ({ donor }: { donor: DonorType }) => {
                   >
                     {donor?.memberStatus?.[0]?.status || "Pending"}
                   </TableCell> */}
-                  <TableCell>Rs. {donor.totalDonationAmount || 0}/-</TableCell>
+                  <TableCell>Rs. {donor.totalDonationsAmount || 0}/-</TableCell>
                 </TableRow>
               </TableBody>
             </Table>

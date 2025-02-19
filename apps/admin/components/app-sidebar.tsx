@@ -81,8 +81,8 @@ const data = {
       url: "#",
       items: [
         {
-          title: "User Settings",
-          url: "/user-settings",
+          title: "Settings",
+          url: "/dashboard/settings",
           icon: <Bolt />,
         },
       ],

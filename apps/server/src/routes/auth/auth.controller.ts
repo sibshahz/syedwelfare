@@ -21,9 +21,8 @@ export const httpRegisterUser = async (req: Request, res: Response) => {
     where: { email },
   });
   if (userExists) {
-    return res
-      .status(400)
-      .send({ error: "User with this email already exists!" });
+    res.status(400).send({ error: "User with this email already exists!" });
+    return;
   }
   const user = await prisma.user.create({
     data: {
@@ -37,7 +36,7 @@ export const httpRegisterUser = async (req: Request, res: Response) => {
   );
   // res.cookie("token", token, { httpOnly: true });
   res.cookie("token", token, { httpOnly: true, secure: true });
-  return res.status(201).send({
+  res.status(201).send({
     id: user.id,
     name: user.name,
     email: user.email,
@@ -51,7 +50,8 @@ export const httpLoginUser = async (req: Request, res: Response) => {
     where: { email },
   });
   if (!user || !(await bcrypt.compare(password, user.password))) {
-    return res.status(401).send({ error: "Invalid credentials!" });
+    res.status(401).send({ error: "Invalid credentials!" });
+    return;
   }
   const token = jwt.sign(
     { email: user.email, role: user.role },
@@ -73,7 +73,10 @@ export const authenticate = (
   next: NextFunction
 ) => {
   const token = req.cookies.token;
-  if (!token) return res.status(401).send({ error: "Unauthorized" });
+  if (!token) {
+    res.status(401).send({ error: "Unauthorized" });
+    return;
+  }
   try {
     const user = jwt.verify(token, JWT_SECRET as string);
     // req.user = user;
