@@ -21,6 +21,38 @@ export const postRegister = async (data: SignupValues) => {
   }
 };
 
+export const putUpdateUser = async (data: any) => {
+  try {
+    const response = await axios_default.put(`auth/me`, data);
+    return {
+      success: true,
+      data: response.data,
+    };
+  } catch (error: any) {
+    console.error("Failed to fetch resources:", error);
+    return {
+      success: false,
+      error: error.response.data.error,
+    };
+  }
+};
+
+export const getUser = async () => {
+  try {
+    const response = await axios_default.get(`auth/me`);
+    return {
+      success: true,
+      data: response.data,
+    };
+  } catch (error) {
+    console.error("Failed to fetch resources:", error);
+    return {
+      success: false,
+      error,
+    };
+  }
+};
+
 export const postLogout = async () => {
   try {
     const response = await axios_default.post(`auth/logout`);

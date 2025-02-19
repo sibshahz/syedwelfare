@@ -1,12 +1,13 @@
-import BackupRestore from "@/components/backup-restore";
+import UserProfile from "@/components/user-profile";
 import React from "react";
 
 export const dynamic = "force-dynamic";
 
 const Page = () => {
   return (
-    <div className="flex flex-col gap-4">
-      <BackupRestore />
+    <div>
+      <h1>Profile</h1>
+      <UserProfile />
     </div>
   );
 };

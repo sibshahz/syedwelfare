@@ -10,8 +10,6 @@ import cookieParser from "cookie-parser";
 import "dotenv/config";
 import { prisma } from "@repo/database";
 
-const users = [];
-
 const JWT_SECRET = process.env.JWT_SECRET;
 
 export const httpRegisterUser = async (req: Request, res: Response) => {
@@ -67,6 +65,89 @@ export const httpLogoutUser = async (req: Request, res: Response) => {
   res.clearCookie("token");
   res.status(200).send("Logged out!");
 };
+
+export const httpGetUser = async (req: Request, res: Response) => {
+  const token = req.cookies.token;
+  if (!token) {
+    res.status(401).send({ error: "Unauthorized" });
+    return;
+  }
+
+  try {
+    const user = jwt.verify(token, JWT_SECRET as string) as jwt.JwtPayload;
+
+    if (!user) {
+      res.clearCookie("token");
+      res.status(403).send({ error: "Unauthorized" });
+      return;
+    }
+
+    res.status(200).send({
+      id: user.id || "",
+      name: user.name,
+      email: user.email,
+      role: user.role,
+    });
+  } catch (err) {
+    res.clearCookie("token");
+    res.status(403).send({ error: "Invalid token: " + err });
+    return;
+  }
+};
+
+export const httpUpdateUser = async (req: Request, res: Response) => {
+  const token = req.cookies.token;
+  if (!token) {
+    res.status(401).send({ error: "Unauthorized" + token });
+    return;
+  }
+
+  const user = jwt.verify(token, JWT_SECRET as string) as jwt.JwtPayload;
+
+  if (!user) {
+    res.clearCookie("token");
+    res.status(403).send({ error: "Unauthorized" });
+    return;
+  }
+  const { email, oldPassword, newPassword, confirmPassword } = req.body;
+
+  if (newPassword !== confirmPassword) {
+    res.status(401).send({ error: "Passwords do not match!" });
+    return;
+  }
+
+  const userProfile = await prisma.user.findUnique({
+    where: { email },
+  });
+
+  if (
+    !userProfile ||
+    !(await bcrypt.compare(oldPassword, userProfile.password))
+  ) {
+    res.status(401).send({ error: "Invalid credentials!" });
+    return;
+  }
+
+  try {
+    const hashedPassword = await bcrypt.hash(newPassword, 10);
+
+    const updatedUser = await prisma.user.update({
+      where: { email: userProfile.email },
+      data: {
+        password: hashedPassword,
+      },
+    });
+
+    res.status(200).send({
+      message: "Password updated successfully!",
+    });
+  } catch (err) {
+    res.clearCookie("token");
+    res.status(403).send({ error: "Error updating user password" });
+    return;
+  }
+};
+
 export const authenticate = (
   req: Request,
   res: Response,
