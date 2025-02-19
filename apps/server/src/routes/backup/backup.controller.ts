@@ -81,7 +81,7 @@ export const httpGetBackup = (req: Request, res: Response) => {
     });
   } catch (error) {
     console.error("Unexpected error:", error);
-    res.status(500).json({ message: "Internal server error" });
+    res.status(500).json({ error: "Internal server error" });
   }
 };
 
@@ -121,19 +121,19 @@ export const httpRestoreBackup = (req: Request, res: Response) => {
       if (code === 0) {
         res.json({ message: "Database restored successfully" });
       } else {
-        res
-          .status(500)
-          .json({ message: "Restore failed", error: `Exit code: ${code}` });
+        res.status(500).json({ error: `Restore failed, Exit code: ${code}` });
       }
     });
 
     restoreProcess.on("error", (error) => {
       console.error("Restore process error:", error);
-      res.status(500).json({ message: "Restore failed", error: error.message });
+      res
+        .status(500)
+        .json({ error: `Restore process failed, ${error.message}` });
     });
   } catch (error) {
     console.error("Unexpected error:", error);
-    res.status(500).json({ message: "Internal server error" });
+    res.status(500).json({ error: "Internal server error" });
   }
 };
 

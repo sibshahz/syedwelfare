@@ -28,3 +28,32 @@ export const getBackupFile = async () => {
     console.error("Failed to fetch resources:", error);
   }
 };
+
+export const getRestoreBackup = async (file: File) => {
+  try {
+    const formData = new FormData();
+    formData.append("backupFile", file as Blob);
+
+    const response = await axios_default.post("backup/restore", formData, {
+      headers: { "Content-Type": "multipart/form-data" },
+    });
+
+    if (!response) {
+      return {
+        success: false,
+        message: "Failed to restore backup",
+      };
+    }
+
+    return {
+      success: true,
+      message: response.data.message,
+    };
+  } catch (error) {
+    console.error("Failed to restore backup:", error);
+    return {
+      success: false,
+      message: "Failed to restore backup",
+    };
+  }
+};
