@@ -133,6 +133,7 @@ export const httpPostMember = async (req: Request, res: Response) => {
     // cnicFront: cnicFrontURL.url || "",
     // cnicBack: cnicBackURL.url || "",
     fatherName: req.body.data?.fatherName || null,
+    husbandName: req.body.data.husbandName || null,
     phone: req.body.data?.phone || "Unknown",
     address: req.body.data?.address || "",
     city: req.body.data?.city || "",
@@ -228,6 +229,7 @@ export const httpUpdateMember = async (req: Request, res: Response) => {
   const {
     cnic,
     fatherName,
+    husbandName,
     name,
     phone,
     address,
@@ -261,6 +263,7 @@ export const httpUpdateMember = async (req: Request, res: Response) => {
         name: name || "",
         phone: phone || "",
         address: address || "",
+        husbandName: husbandName || "",
         city: city || "",
       },
     });

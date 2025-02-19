@@ -64,8 +64,16 @@ interface MembersTableItemProps extends Member {
 }
 
 const MembersTableItem: React.FC<MembersTableItemProps> = ({ member }) => {
-  const { id, cnic, name, fatherName, phone, memberStatus, profilePic } =
-    member;
+  const {
+    id,
+    cnic,
+    name,
+    fatherName,
+    phone,
+    memberStatus,
+    profilePic,
+    husbandName,
+  } = member;
 
   return (
     <>
@@ -83,7 +91,16 @@ const MembersTableItem: React.FC<MembersTableItemProps> = ({ member }) => {
         </TableCell>
         <TableCell>{cnic || ""}</TableCell>
         <TableCell>{name}</TableCell>
-        <TableCell>{fatherName}</TableCell>
+        <TableCell>
+          {husbandName ?
+            <div>
+              <span className="text-xs p-1 border bg-slate-300 rounded-md mr-1">
+                Husband:
+              </span>
+              {husbandName}
+            </div>
+          : <div>{fatherName}</div>}
+        </TableCell>
         <TableCell>{phone}</TableCell>
         <TableCell
           className={`font-medium ${

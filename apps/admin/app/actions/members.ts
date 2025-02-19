@@ -106,10 +106,16 @@ export const createMember = async (data: Member) => {
 export const updateMember = async (id: string, data: Member) => {
   try {
     const response = await axios_default.put(`members/${id}`, data);
-    return response.data;
-  } catch (error) {
+    return {
+      success: true,
+      data: response.data.message,
+    };
+  } catch (error: any) {
     console.error("Failed to fetch resources:", error);
-    return error;
+    return {
+      success: false,
+      data: error.response.data.error,
+    };
   }
 };
 

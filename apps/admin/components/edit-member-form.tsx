@@ -19,6 +19,7 @@ import { updateMember } from "@/app/actions/members";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { CircleX } from "lucide-react";
+import { useToast } from "@/hooks/use-toast";
 
 export const EditMemberForm: React.FC<{ memberData: Member }> = ({
   memberData,
@@ -27,11 +28,13 @@ export const EditMemberForm: React.FC<{ memberData: Member }> = ({
   const [cnicFrontItem, setCnicFrontItem] = useState("");
   const [cnicBackItem, setCnicBackItem] = useState("");
   const router = useRouter();
+  const toast = useToast();
   const form = useForm<Member>({
     resolver: zodResolver(MemberSchema),
     defaultValues: {
       name: memberData.name,
       fatherName: memberData.fatherName || "",
+      husbandName: memberData.husbandName || "",
       cnic: memberData.cnic,
       phone: memberData.phone,
       cnicBack: memberData.cnicBack || "",
@@ -51,6 +54,7 @@ export const EditMemberForm: React.FC<{ memberData: Member }> = ({
     form.setValue("cnicBack", memberData.cnicBack);
     form.setValue("cnicFront", memberData.cnicFront);
     form.setValue("profilePic", memberData.profilePic);
+    form.setValue("husbandName", memberData.husbandName || "");
     setProfilePicItem(memberData.profilePic || "");
     setCnicBackItem(memberData.cnicBack || "");
     setCnicFrontItem(memberData.cnicFront || "");
@@ -86,12 +90,22 @@ export const EditMemberForm: React.FC<{ memberData: Member }> = ({
   }
 
   async function onSubmit(values: Member) {
-    console.log("Form values: ", values);
-
     const result = await updateMember(memberData.id || "", values);
-    console.log("RESULT: ", result);
+    if (!result.success) {
+      toast.toast({
+        variant: "destructive",
+        title: "Failed to create",
+        description: `Member cannot be updated at the moment. ${result.data}`,
+      });
+    } else {
+      toast.toast({
+        title: "Updated",
+        description: "Member has been updated successfully.",
+      });
+      form.reset(); // Reset the form after successful submission
+    }
 
-    form.reset(); // Reset the form after successful submission
+    // form.reset(); // Reset the form after successful submission
     router.refresh();
 
     // const formData = new FormData();
@@ -139,7 +153,7 @@ export const EditMemberForm: React.FC<{ memberData: Member }> = ({
           onSubmit={form.handleSubmit(onSubmit)} // Attach the handler here
           className="space-y-8"
         >
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
             <FormField
               control={form.control}
               name={"name"}
@@ -157,6 +171,24 @@ export const EditMemberForm: React.FC<{ memberData: Member }> = ({
               )}
             />
 
+            {(form.getValues("husbandName") ?? "").length > 0 && (
+              <FormField
+                control={form.control}
+                name={"husbandName"}
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Husband name</FormLabel>
+                    <FormControl>
+                      <Input placeholder="Enter husband name here" {...field} />
+                    </FormControl>
+                    {/* <FormDescription>
+                This is your public display name.
+              </FormDescription> */}
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+            )}
             <FormField
               control={form.control}
               name={"fatherName"}
