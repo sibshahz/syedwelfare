@@ -148,24 +148,30 @@ export const httpUpdateUser = async (req: Request, res: Response) => {
   }
 };
 
-export const authenticate = (
+export const authenticate = async (
   req: Request,
   res: Response,
   next: NextFunction
 ) => {
-  const token = req.cookies.token;
+  // const token= req.cookies.token
+  const token = req.cookies?.token;
+  const out = await JSON.stringify(req.cookies?.token);
+  console.log("***Token: ", out);
   if (!token) {
     res.status(401).send({ error: "Unauthorized" });
     return;
   }
+
   try {
-    const user = jwt.verify(token, JWT_SECRET as string);
-    // req.user = user;
-    if (user) {
-      next();
-    } else {
+    const user = jwt.verify(token, JWT_SECRET as string) as jwt.JwtPayload;
+
+    if (!user) {
       res.clearCookie("token");
       res.status(403).send({ error: "Unauthorized" });
+      return;
+    } else {
+      // req.user = user; // Attach the user to the request object
+      next();
     }
     // next();
   } catch (err) {

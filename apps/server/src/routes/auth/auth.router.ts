@@ -5,14 +5,15 @@ import {
   httpLogoutUser,
   httpGetUser,
   httpUpdateUser,
+  authenticate,
 } from "@/routes/auth/auth.controller";
 
 const authRouter = express.Router();
 
 authRouter.post("/signup", httpRegisterUser);
 authRouter.post("/signin", httpLoginUser);
-authRouter.get("/me", httpGetUser);
-authRouter.put("/me", httpUpdateUser);
-authRouter.post("/logout", httpLogoutUser);
+authRouter.get("/me", authenticate, httpGetUser);
+authRouter.put("/me", authenticate, httpUpdateUser);
+authRouter.post("/logout", authenticate, httpLogoutUser);
 
 export default authRouter;

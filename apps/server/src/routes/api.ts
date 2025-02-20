@@ -25,12 +25,12 @@ const api = express.Router();
 // });
 
 // Route handling
-api.use("/members", membersRouter);
-api.use("/payments", paymentsRouter);
-api.use("/donors", donorsRouter);
-api.use("/donations", donationsRouter);
+api.use("/members", authenticate, membersRouter);
+api.use("/payments", authenticate, paymentsRouter);
+api.use("/donors", authenticate, donorsRouter);
+api.use("/donations", authenticate, donationsRouter);
 api.use("/auth", authRouter);
-api.use("/backup", backupRouter);
+api.use("/backup", authenticate, backupRouter);
 api.get("/params", (req, res) => {
   res.json({
     message: req.query,

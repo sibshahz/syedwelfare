@@ -28,6 +28,7 @@ export function DonorForm() {
       cnic: "",
       phone: "",
       cnicBack: "",
+      fatherName: "",
       cnicFront: "",
       profilePic: "",
       amount: 0,
@@ -51,8 +52,6 @@ export function DonorForm() {
   }
 
   async function onSubmit(values: Donor) {
-    console.log("Form values: ", values);
-
     const result = await createDonor(values);
 
     if (!result.success) {
