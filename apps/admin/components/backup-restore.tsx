@@ -124,6 +124,12 @@ const BackupRestore = () => {
           <RestoreDialog />
         </CardContent>
       </Card>
+      <h2 className="text-sm text-gray-500">
+        Please note that database being used as default is a docker container,
+        and backup restore operations are being performed on the same by docker
+        commands at the backend. If you change the database resource you would
+        have to change the backup and restore code.
+      </h2>
     </div>
   );
 };
