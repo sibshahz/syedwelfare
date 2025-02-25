@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { cn } from "@/lib/utils";
@@ -23,7 +23,10 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { postLogin } from "@/app/actions/auth";
-import { redirect } from "next/navigation";
+import {
+  // redirect,
+  useRouter,
+} from "next/navigation";
 import { useAuth, User } from "./auth-provider";
 
 export function LoginForm({
@@ -31,9 +34,9 @@ export function LoginForm({
   ...props
 }: React.ComponentPropsWithoutRef<"div">) {
   const [isLoading, setIsLoading] = useState(false);
-  const { setUser } = useAuth();
+  const { user, setUser } = useAuth();
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
-
+  const router = useRouter();
   const form = useForm<LoginValues>({
     resolver: zodResolver(loginSchema),
     defaultValues: {
@@ -42,27 +45,32 @@ export function LoginForm({
     },
   });
 
+  useEffect(() => {
+    if (user !== null) {
+      router.refresh(); // Refresh state
+      router.push("/dashboard");
+    }
+  }, [user]);
   async function onSubmit(data: LoginValues) {
     setIsLoading(true);
-    // Here you would typically send the data to your backend
     const result = await postLogin(data);
-    if (result instanceof Error) {
-      console.error("Failed to signin:", result);
+
+    if (!result.success) {
       setUser(null);
       setIsLoading(false);
-      const errorResponse: any = result;
-      setErrorMessage(
-        errorResponse?.response?.data?.error || "An error occurred"
-      );
+      setErrorMessage(result.error || "An error occurred");
       return;
-    } else if (result && typeof result === "object" && "data" in result) {
-      setUser((result as { data: User }).data);
-      // console.log("result", result)
-      redirect("/dashboard");
     } else {
-      console.error("Unexpected result format:", result);
-      setUser(null);
+      setUser((result.data as User) || null);
       setIsLoading(false);
+      // Force a UI re-render before redirecting
+      await new Promise((resolve) => setTimeout(resolve, 100));
+
+      router.refresh(); // Refresh state
+      console.log("Redirecting to /dashboard...");
+      router.push("/dashboard");
+      // router.refresh(); // Refresh state
+      // router.push("/dashboard");
     }
   }
 

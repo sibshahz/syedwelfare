@@ -15,50 +15,65 @@ const JWT_SECRET = process.env.JWT_SECRET;
 export const httpRegisterUser = async (req: Request, res: Response) => {
   const { email, password } = req.body;
   const hashedPassword = await bcrypt.hash(password, 10);
-  const userExists = await prisma.user.findUnique({
-    where: { email },
-  });
-  if (userExists) {
-    res.status(400).send({ error: "User with this email already exists!" });
+  try {
+    const userExists = await prisma.user.findUnique({
+      where: { email },
+    });
+    if (userExists) {
+      res.status(400).send({ error: "User with this email already exists!" });
+      return;
+    }
+    const user = await prisma.user.create({
+      data: {
+        email,
+        password: hashedPassword,
+      },
+    });
+    const token = jwt.sign(
+      { email: user.email, role: user.role },
+      JWT_SECRET as string
+    );
+    // res.cookie("token", token, { httpOnly: true });
+    res.cookie("token", token, { httpOnly: true, secure: true });
+    res.status(201).send({
+      id: user.id,
+      name: user.name,
+      email: user.email,
+      role: user.role,
+    });
+  } catch (error) {
+    res.status(400).send({ error: "Error creating user!" });
     return;
   }
-  const user = await prisma.user.create({
-    data: {
-      email,
-      password: hashedPassword,
-    },
-  });
-  const token = jwt.sign(
-    { email: user.email, role: user.role },
-    JWT_SECRET as string
-  );
-  // res.cookie("token", token, { httpOnly: true });
-  res.cookie("token", token, { httpOnly: true, secure: true });
-  res.status(201).send({
-    id: user.id,
-    name: user.name,
-    email: user.email,
-    role: user.role,
-  });
 };
 
 export const httpLoginUser = async (req: Request, res: Response) => {
-  const { email, password } = req.body;
-  const user = await prisma.user.findUnique({
-    where: { email },
-  });
-  if (!user || !(await bcrypt.compare(password, user.password))) {
+  try {
+    const { email, password } = req.body;
+    const user = await prisma.user.findUnique({
+      where: { email },
+    });
+    if (!user || !(await bcrypt.compare(password, user.password))) {
+      res.clearCookie("token");
+      res.status(401).send({ error: "Invalid credentials!" });
+      return;
+    }
+    const token = jwt.sign(
+      { email: user.email, role: user.role },
+      JWT_SECRET as string
+    );
+    res.cookie("token", token, { httpOnly: true, secure: true });
+    res.status(200).send({
+      id: user.id,
+      name: user.name,
+      email: user.email,
+      role: user.role,
+    });
+  } catch (err) {
+    res.clearCookie("token");
     res.status(401).send({ error: "Invalid credentials!" });
     return;
   }
-  const token = jwt.sign(
-    { email: user.email, role: user.role },
-    JWT_SECRET as string
-  );
-  res.cookie("token", token, { httpOnly: true, secure: true });
-  res
-    .status(200)
-    .send({ id: user.id, name: user.name, email: user.email, role: user.role });
 };
 
 export const httpLogoutUser = async (req: Request, res: Response) => {
@@ -155,8 +170,6 @@ export const authenticate = async (
 ) => {
   // const token= req.cookies.token
   const token = req.cookies?.token;
-  const out = await JSON.stringify(req.cookies?.token);
-  console.log("***Token: ", out);
   if (!token) {
     res.status(401).send({ error: "Unauthorized" });
     return;

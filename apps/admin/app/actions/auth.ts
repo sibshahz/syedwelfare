@@ -4,20 +4,32 @@ import axios_default from "@/lib/api/axios-core";
 export const postLogin = async (data: LoginValues) => {
   try {
     const response = await axios_default.post(`auth/signin`, data);
-    return response;
-  } catch (error) {
+    return {
+      success: true,
+      data: response.data,
+    };
+  } catch (error: any) {
     console.error("Failed to fetch resources:", error);
-    return error;
+    return {
+      success: false,
+      error: error.response.data.error,
+    };
   }
 };
 
 export const postRegister = async (data: SignupValues) => {
   try {
     const response = await axios_default.post(`auth/signup`, data);
-    return response;
-  } catch (error) {
+    return {
+      success: true,
+      data: response.data,
+    };
+  } catch (error: any) {
     console.error("Failed to fetch resources:", error);
-    return error;
+    return {
+      success: false,
+      error: error.response.data.error,
+    };
   }
 };
 

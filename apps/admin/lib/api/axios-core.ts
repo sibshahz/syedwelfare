@@ -10,21 +10,24 @@ export const axios_default = axios.create({
   },
 });
 
-// Interceptor to modify the request
 axios_default.interceptors.request.use(async (config) => {
   if (isServer) {
-    // Manually attach cookies from the incoming request
+    // Server-side: Attach cookies from request headers
     // eslint-disable-next-line @typescript-eslint/no-require-imports
-    const cookies = require("next/headers").cookies;
-    const cookieString = cookies().toString();
+    const { cookies } = require("next/headers");
+    const cookieStore = cookies();
 
-    if (cookieString) {
-      config.headers.Cookie = cookieString;
+    if (cookieStore) {
+      config.headers.Cookie = await cookieStore
+        .getAll()
+        .map(({ name, value }) => `${name}=${value}`)
+        .join("; ");
     }
-
-    config.baseURL = process.env.NEXT_PUBLIC_BASE_URL;
   } else {
-    config.baseURL = "http://localhost:8080/v1/"; // Adjust for client-side requests
+    // Client-side: Attach cookies from document.cookie
+    if (document.cookie) {
+      config.headers.Cookie = document.cookie;
+    }
   }
 
   return config;
