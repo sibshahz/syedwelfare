@@ -46,23 +46,15 @@ export function SignupForm({
     setIsLoading(true);
     // Here you would typically send the data to your backend
     const result = await postRegister(data);
-    if (result instanceof Error) {
-      console.error("Failed to signup:", result);
+    if (!result.success) {
+      console.error("Failed to signup:", result.error);
       setUser(null);
       setIsLoading(false);
-      const errorResponse: any = result;
-      setErrorMessage(
-        errorResponse?.response?.data?.error || "An error occurred"
-      );
+      setErrorMessage(result.error || "An error occurred");
       return;
     } else {
-      if (typeof result === "object" && result !== null && "data" in result) {
-        setUser(result.data as User);
-        redirect("/dashboard");
-      } else {
-        console.error("Unexpected result format:", result);
-        setUser(null);
-      }
+      setUser(result.data as User);
+      redirect("/dashboard");
     }
   }
 

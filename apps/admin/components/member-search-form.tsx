@@ -31,6 +31,110 @@ import {
 } from "@/components/ui/accordion";
 import { MemberStatusValues } from "@repo/zod-utils";
 
+const FilterForm = () => {
+  return (
+    <div className="mt-4 flex flex-row justify-between">
+      <div className="form-item">
+        <Select
+        // {...field}
+        // onValueChange={(value) => {
+        //   form.setValue("status", value);
+        // }}
+        >
+          <SelectTrigger className="w-full capitalize">
+            <SelectValue placeholder={"Select display order"} />
+          </SelectTrigger>
+          <SelectContent>
+            <SelectItem
+              value={MemberStatusValues.PENDING}
+              // className="text-yellow-800 bg-yellow-300 my-1 hover:bg-yellow-400 hover:text-yellow-900 hover:cursor-pointer"
+            >
+              Newest first
+            </SelectItem>
+            <SelectItem
+              value={MemberStatusValues.APPROVED}
+              // className="text-green-800 bg-green-300 my-1 hover:bg-green-400 hover:text-green-900 hover:cursor-pointer"
+            >
+              Older first
+            </SelectItem>
+          </SelectContent>
+        </Select>
+      </div>
+
+      <div className="form-item">
+        <Select
+        // {...field}
+        // onValueChange={(value) => {
+        //   form.setValue("status", value);
+        // }}
+        >
+          <SelectTrigger className="w-full capitalize">
+            <SelectValue placeholder={"Select records per page"} />
+          </SelectTrigger>
+          <SelectContent>
+            <SelectItem
+              value={"10"}
+              // className="text-yellow-800 bg-yellow-300 my-1 hover:bg-yellow-400 hover:text-yellow-900 hover:cursor-pointer"
+            >
+              10 per page
+            </SelectItem>
+            <SelectItem
+              value={"20"}
+              // className="text-green-800 bg-green-300 my-1 hover:bg-green-400 hover:text-green-900 hover:cursor-pointer"
+            >
+              20 per page
+            </SelectItem>
+            <SelectItem
+              value={"30"}
+              // className="text-green-800 bg-green-300 my-1 hover:bg-green-400 hover:text-green-900 hover:cursor-pointer"
+            >
+              30 per page
+            </SelectItem>
+            <SelectItem
+              value={"40"}
+              // className="text-green-800 bg-green-300 my-1 hover:bg-green-400 hover:text-green-900 hover:cursor-pointer"
+            >
+              40 per page
+            </SelectItem>
+          </SelectContent>
+        </Select>
+      </div>
+      <div className="form-item">
+        <Select
+        // {...field}
+        // onValueChange={(value) => {
+        //   form.setValue("status", value);
+        // }}
+        >
+          <SelectTrigger className="w-full capitalize">
+            <SelectValue placeholder={"Select member status"} />
+          </SelectTrigger>
+          <SelectContent>
+            <SelectItem
+              value={MemberStatusValues.PENDING}
+              // className="text-yellow-800 bg-yellow-300 my-1 hover:bg-yellow-400 hover:text-yellow-900 hover:cursor-pointer"
+            >
+              Pending
+            </SelectItem>
+            <SelectItem
+              value={MemberStatusValues.APPROVED}
+              // className="text-green-800 bg-green-300 my-1 hover:bg-green-400 hover:text-green-900 hover:cursor-pointer"
+            >
+              Approved
+            </SelectItem>
+            <SelectItem
+              value={MemberStatusValues.REJECTED}
+              // className="text-red-800 bg-red-300 my-1 hover:bg-red-400 hover:text-red-900 hover:cursor-pointer"
+            >
+              Rejected
+            </SelectItem>
+          </SelectContent>
+        </Select>
+      </div>
+    </div>
+  );
+};
+
 const MemberSearchForm = () => {
   const router = useRouter();
   const searchParams = useSearchParams();
@@ -193,6 +297,7 @@ const MemberSearchForm = () => {
           </AccordionContent>
         </AccordionItem>
       </Accordion>
+      <FilterForm />
     </div>
   );
 };
